@@ -1,0 +1,201 @@
+{
+  "schemaVersion": 1,
+  "theme": {
+    "accent": "#D7B99A",
+    "accentHover": "#C7A17D",
+    "background": "#FFFFFF",
+    "surface": "#F5F0E9",
+    "text": "#26241F",
+    "muted": "#716B63",
+    "brand": "#8B2523"
+  },
+  "brand": {
+    "name": "Papa's Choice",
+    "tagline": "African flavours. London roots.",
+    "logo": "/assets/logo.png"
+  },
+  "navigation": {
+    "home": "Home",
+    "about": "About us",
+    "products": "Products",
+    "partners": "Partners",
+    "careers": "Careers",
+    "register": "Register",
+    "search": "Search products…"
+  },
+  "home": {
+    "eyebrow": "PAPA’S CHOICE WHOLESALE",
+    "title": "Big flavour.\nSimply wholesale.",
+    "description": "Stock your shelves with authentic favourites.",
+    "primaryButton": "Explore our products",
+    "primaryTarget": "/products",
+    "secondaryButton": "Register with us",
+    "secondaryTarget": "/register",
+    "collectionEyebrow": "THE EVERYDAY FAVOURITES",
+    "collectionTitle": "Best sellers",
+    "collectionDescription": "Flavours you know. Brands you love.",
+    "allProductsButton": "View all products",
+    "storyEyebrow": "FOOD THAT FEELS LIKE HOME",
+    "storyTitle": "More than wholesale.\nPart of the community.",
+    "storyText": "For 12 years, we have brought authentic African and international foods to families, restaurants and retailers across London.",
+    "storyButton": "Our story",
+    "visitTitle": "Come in. Feel at home.",
+    "visitText": "Explore our range in person or speak to our team about your wholesale needs.",
+    "visitButton": "Plan your visit"
+  },
+  "catalogue": {
+    "eyebrow": "OUR WHOLESALE RANGE",
+    "title": "A taste of home.\nA world of choice.",
+    "description": "Discover authentic essentials for your kitchen, restaurant or shop.",
+    "priceNotice": "Illustrative prices for this preview. Please confirm current prices and availability with our team.",
+    "detailButton": "View product",
+    "enquiryButton": "Enquire on WhatsApp",
+    "callButton": "Call our team",
+    "priceLabel": "Sample price",
+    "searchPlaceholder": "Search products, brands or SKU",
+    "allLabel": "All products"
+  },
+  "about": {
+    "eyebrow": "ROOTED IN COMMUNITY",
+    "title": "Welcome to Papa’s Choice",
+    "intro": "Welcome to Papa’s Choice, your trusted African wholesale cash and carry in London. For the past 12 years, we have proudly dedicated ourselves to serving our community with authentic African and international foods, offering a wide range of quality products at competitive wholesale prices.",
+    "journeyTitle": "Our journey",
+    "journeyText": "Our story began with a simple mission: to make African food and culture more accessible to everyone. We noticed how challenging it could be for families, restaurants, and shop owners to find authentic African ingredients in bulk, and we set out to fill that gap.\n\nWhat started as a local idea has now grown into a thriving wholesale destination, trusted by individuals and businesses across London and beyond.",
+    "communityTitle": "More than just wholesale",
+    "communityText": "We are more than just a wholesale store. We are part of the community. Over the years, we have built strong relationships with our customers, many of whom see us not only as a supplier but as a partner who understands their needs.\n\nWhether you’re a family looking to bring the taste of home to your table, a restaurant sourcing authentic African ingredients, or a retailer stocking your shelves, we are here to make the process smooth, reliable, and affordable.",
+    "sections": [
+      {
+        "id": "mission",
+        "eyebrow": "01 / OUR MISSION",
+        "title": "Bring a little\nhome to every table.",
+        "text": "To make authentic African food and culture more accessible, connecting our community with the ingredients they know and love.",
+        "image": "/assets/mission.png",
+        "alt": "Hands sharing a bowl of jollof rice and plantain around a table"
+      },
+      {
+        "id": "quality",
+        "eyebrow": "02 / QUALITY",
+        "title": "Good ingredients.\nNo small detail.",
+        "text": "We care about the products we choose and the people who use them. Our focus is a thoughtful range, trusted brands and straightforward wholesale value.",
+        "image": "/assets/quality.png",
+        "alt": "An assortment of peppers, ginger, beans and spices on a stone surface"
+      },
+      {
+        "id": "values",
+        "eyebrow": "03 / OUR VALUES",
+        "title": "People first.\nAlways.",
+        "text": "Community, respect and reliability are at the heart of how we work. We listen, build lasting relationships and take pride in helping our customers thrive.",
+        "image": "/assets/values.png",
+        "alt": "Two people exchanging a carton over a neighbourhood shop counter"
+      }
+    ],
+    "button": "Discover our products"
+  },
+  "partnersPage": {
+    "eyebrow": "BETTER TOGETHER",
+    "title": "Familiar names.\nShared standards.",
+    "description": "Meet the brands featured across our wholesale network.",
+    "sliderTitle": "Good company.",
+    "sliderDescription": "A few familiar faces from our shelves.",
+    "allButton": "Meet our partners",
+    "contactTitle": "Let’s build something together.",
+    "contactText": "Interested in working with Papa’s Choice? We would love to hear from you.",
+    "contactButton": "Talk to our team"
+  },
+  "careersCopy": {
+    "eyebrow": "PEOPLE MAKE THE DIFFERENCE",
+    "title": "Good people.\nGreat things ahead.",
+    "description": "We’re building something thoughtful. Bring your skills, your ideas and a little everyday care.",
+    "button": "Explore open roles",
+    "rolesTitle": "Open roles",
+    "applyButton": "Apply for this role"
+  },
+  "registerCopy": {
+    "eyebrow": "A GOOD PARTNERSHIP STARTS HERE",
+    "title": "Let’s talk trade.",
+    "description": "Tell us a little about your business to get started."
+  },
+  "contact": {
+    "phone": "+44 20 4618 8640",
+    "whatsapp": "+44 7398 477274",
+    "address": "310-326 St James Road, London, SE1 5JX",
+    "hours": "Monday to Saturday: 8:30am to 6:30pm",
+    "sunday": "Sunday: Closed",
+    "email": "",
+    "legalName": "",
+    "companyNumber": "",
+    "vatNumber": ""
+  },
+  "footer": {
+    "description": "Authentic African and international foods, with a personal touch.",
+    "contactHeading": "Come say hello",
+    "linksHeading": "Explore",
+    "hoursHeading": "Opening hours",
+    "copyright": "Papa's Choice",
+    "note": "Browse online. Speak to us to order."
+  },
+  "categories": ["Oils & staples", "Flour & mixes", "Seasonings"],
+  "products": [
+    {
+      "id": "palm-oil",
+      "name": "Nigerian Palm Oil",
+      "brand": "Papa's Choice",
+      "category": "Oils & staples",
+      "size": "2L",
+      "sku": "PC-001",
+      "price": 9.99,
+      "priceBasis": "per bottle",
+      "bestSeller": true,
+      "description": "A traditional pantry staple for African cooking, in a 2 litre bottle. Speak to our team about wholesale supply.",
+      "image": "/assets/food-concept.png",
+      "crop": [66, 668, 456, 252]
+    },
+    {
+      "id": "fufu-flour",
+      "name": "Cocoyam Fufu Flour",
+      "brand": "Papa's Choice",
+      "category": "Flour & mixes",
+      "size": "681g",
+      "sku": "PC-002",
+      "price": 3.49,
+      "priceBasis": "per box",
+      "bestSeller": true,
+      "description": "Cocoyam fufu flour for familiar favourites and comforting meals. Supplied in a 681g box.",
+      "image": "/assets/food-concept.png",
+      "crop": [545, 668, 448, 252]
+    },
+    {
+      "id": "pepper-soup",
+      "name": "Pepper Soup Mix",
+      "brand": "Papa's Choice",
+      "category": "Seasonings",
+      "size": "200g",
+      "sku": "PC-003",
+      "price": 2.99,
+      "priceBasis": "per jar",
+      "bestSeller": true,
+      "description": "An aromatic pepper soup seasoning blend in a convenient 200g jar. Always check the packaging for ingredients and preparation instructions.",
+      "image": "/assets/food-concept.png",
+      "crop": [1014, 668, 456, 252]
+    }
+  ],
+  "partners": [
+    { "id": "rajah", "name": "Rajah", "logo": "/assets/partners/rajah.png", "website": "" },
+    {
+      "id": "dunns-river",
+      "name": "Dunn’s River",
+      "logo": "/assets/partners/dunns-river.png",
+      "website": ""
+    },
+    { "id": "osupa", "name": "Osupa", "logo": "/assets/partners/osupa.png", "website": "" },
+    {
+      "id": "flying-eagle",
+      "name": "Flying Eagle",
+      "logo": "/assets/partners/flying-eagle.png",
+      "website": ""
+    },
+    { "id": "lion", "name": "Lion", "logo": "/assets/partners/lion.png", "website": "" },
+    { "id": "saxa", "name": "Saxa", "logo": "/assets/partners/saxa.png", "website": "" },
+    { "id": "maggi", "name": "Maggi", "logo": "/assets/partners/maggi.png", "website": "" }
+  ]
+}
