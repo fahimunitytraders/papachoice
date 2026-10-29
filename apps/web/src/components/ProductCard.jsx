@@ -24,10 +24,12 @@ export default function ProductCard({ product, onDetails }) {
         {product.size} · {product.category}
       </p>
       <div className="product-card-bottom">
-        <div className="price">
+        <div className={`price${product.price === null ? ' price-enquiry' : ''}`}>
           {money(product.price)}
           <span>
-            {content.catalogue.priceLabel} · {product.priceBasis}
+            {product.price === null
+              ? 'Contact us for wholesale pricing'
+              : `${content.catalogue.priceLabel} · ${product.priceBasis}`}
           </span>
         </div>
         <button className="text-link" onClick={() => onDetails(product)}>

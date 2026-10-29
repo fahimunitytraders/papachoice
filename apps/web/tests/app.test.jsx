@@ -5,6 +5,8 @@ import { MemoryRouter } from 'react-router-dom';
 import { ContentProvider, STORAGE_KEY } from '../src/context/ContentContext.jsx';
 import App from '../src/App.jsx';
 import RegistrationForm from '../src/components/RegistrationForm.jsx';
+import { submitRegistration } from '../src/api/registration.js';
+vi.mock('../src/api/registration.js', () => ({ submitRegistration: vi.fn() }));
 function mount(path = '/') {
   return render(
     <MemoryRouter initialEntries={[path]}>
@@ -27,8 +29,8 @@ describe('Papa’s Choice catalogue', () => {
     const user = userEvent.setup();
     mount('/products');
     await user.click(screen.getByRole('button', { name: 'Seasonings' }));
-    expect(screen.getAllByRole('button', { name: 'View product' })).toHaveLength(1);
-    await user.click(screen.getByRole('button', { name: 'View product' }));
+    expect(screen.getAllByRole('button', { name: 'View product' })).toHaveLength(2);
+    await user.click(screen.getByRole('button', { name: 'View Pepper Soup Mix' }));
     const dialog = screen.getByRole('dialog');
     expect(
       within(dialog).getByRole('link', { name: 'Enquire on WhatsApp' }).getAttribute('href'),
@@ -38,7 +40,24 @@ describe('Papa’s Choice catalogue', () => {
     await user.type(screen.getByRole('textbox', { name: 'Search catalogue' }), 'missing');
     expect(screen.getByText('No products found')).toBeTruthy();
     await user.click(screen.getByRole('button', { name: 'Clear filters' }));
-    expect(screen.getAllByRole('button', { name: 'View product' })).toHaveLength(3);
+    expect(screen.getAllByRole('button', { name: 'View product' })).toHaveLength(73);
+  });
+  it('shows imported products with local pictures, descriptions and enquiry pricing', async () => {
+    const user = userEvent.setup();
+    mount('/products?category=Beans+%26+peas&q=honey');
+    expect(screen.getByText('1 product')).toBeTruthy();
+    expect(screen.getByRole('img', { name: 'Honey Beans' }).getAttribute('src')).toContain(
+      '/assets/products/honey-beans.jpg',
+    );
+    expect(screen.getByText('Price on enquiry')).toBeTruthy();
+    expect(screen.queryByText('£0.00')).toBeNull();
+    await user.click(screen.getByRole('button', { name: 'View Honey Beans' }));
+    const dialog = screen.getByRole('dialog');
+    expect(within(dialog).getByText(/Dried honey beans/)).toBeTruthy();
+    expect(within(dialog).getByText('Price on enquiry')).toBeTruthy();
+    expect(
+      within(dialog).getByRole('link', { name: 'Enquire on WhatsApp' }).getAttribute('href'),
+    ).toContain('Honey%20Beans');
   });
   it('pauses partner motion and searches the partner directory', async () => {
     const user = userEvent.setup();
@@ -81,6 +100,20 @@ describe('Papa’s Choice catalogue', () => {
   });
 });
 describe('local content editor', () => {
+  it('can enter and clear a price on an imported product', async () => {
+    const user = userEvent.setup();
+    mount('/admin');
+    await user.click(await screen.findByRole('button', { name: 'Products', exact: true }));
+    await user.click(screen.getByText('Honey Beans', { selector: 'summary' }));
+    const field = screen.getByRole('spinbutton', { name: 'Product 4: Price', exact: true });
+    expect(field.value).toBe('');
+    await user.type(field, '4.99');
+    await user.click(screen.getByRole('button', { name: 'Save changes' }));
+    expect(JSON.parse(localStorage.getItem(STORAGE_KEY)).products[3].price).toBe(4.99);
+    await user.clear(field);
+    await user.click(screen.getByRole('button', { name: 'Save changes' }));
+    expect(JSON.parse(localStorage.getItem(STORAGE_KEY)).products[3].price).toBeNull();
+  });
   it('saves a hex colour, persists it, and blocks invalid values', async () => {
     const user = userEvent.setup();
     mount('/admin');
@@ -119,6 +152,7 @@ describe('registration', () => {
   it('completes all steps without storing personal information', async () => {
     const user = userEvent.setup();
     const done = vi.fn();
+    vi.mocked(submitRegistration).mockResolvedValue({ success: true });
     render(<RegistrationForm onDone={done} />);
     const fill = async (label, value) => user.type(screen.getByLabelText(label), value);
     await fill(/Contact full name/, 'Sample Person');
@@ -150,10 +184,15 @@ describe('registration', () => {
     await fill(/Signing date/, '2026-10-28');
     await fill(/Typed signature/, 'Sample Person');
     await user.click(
-      screen.getByRole('checkbox', { name: /I understand this is a demonstration/ }),
+      screen.getByRole('checkbox', { name: /I confirm that I am authorised/ }),
     );
-    await user.click(screen.getByRole('button', { name: 'Complete demo' }));
-    expect(done).toHaveBeenCalledOnce();
+    await user.click(screen.getByRole('button', { name: 'Submit registration' }));
+    await waitFor(() => expect(done).toHaveBeenCalledOnce());
+    expect(submitRegistration).toHaveBeenCalledWith(
+      expect.objectContaining({ businessName: 'Sample Business', declarationAccepted: true }),
+      expect.any(File),
+      null,
+    );
     expect(localStorage.length).toBe(0);
   });
 });
