@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react';
 import Icon from './Icon.jsx';
+import { submitRegistration } from '../api/registration.js';
 
 function Field({ label, name, type = 'text', required = false, value, onChange, ...props }) {
   return (
@@ -19,7 +20,7 @@ function Field({ label, name, type = 'text', required = false, value, onChange, 
     </label>
   );
 }
-function Signature({ onChange }) {
+function Signature({ onChange, onImageChange }) {
   const canvas = useRef(null);
   const drawing = useRef(false);
   function position(e) {
@@ -42,6 +43,7 @@ function Signature({ onChange }) {
     context.lineTo(...position(e));
     context.stroke();
     onChange(true);
+    onImageChange?.(canvas.current.toDataURL('image/png'));
   }
   return (
     <div className="signature">
@@ -66,6 +68,7 @@ function Signature({ onChange }) {
         onClick={() => {
           canvas.current.getContext('2d').clearRect(0, 0, 800, 180);
           onChange(false);
+          onImageChange?.(null);
         }}
       >
         Clear signature
@@ -87,8 +90,10 @@ export default function RegistrationForm({ onDone }) {
   const [credit, setCredit] = useState(false);
   const [proof, setProof] = useState(null);
   const [signed, setSigned] = useState(false);
+  const [signatureImage, setSignatureImage] = useState(null);
   const [accepted, setAccepted] = useState(false);
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
   const form = useRef(null);
   const update = (name, value) => setValues((v) => ({ ...v, [name]: value }));
   const field = (label, name, type = 'text', required = false, extra = {}) => (
@@ -135,8 +140,9 @@ export default function RegistrationForm({ onDone }) {
     setError('');
     form.current?.scrollIntoView({ block: 'start', behavior: 'instant' });
   }
-  function submit(e) {
+  async function submit(e) {
     e.preventDefault();
+    if (loading) return;
     if (step === 2 && !proof) {
       setError('Please choose proof of your business address.');
       return;
@@ -154,16 +160,32 @@ export default function RegistrationForm({ onDone }) {
       return;
     }
     if (!accepted) {
-      setError('Please confirm the demo declaration.');
+      setError('Please accept the declaration.');
       return;
     }
-    onDone();
+
+    const registrationData = {
+      ...values,
+      differentDeliveryAddress: different,
+      creditAccountRequested: credit,
+      declarationAccepted: accepted,
+    };
+
+    setLoading(true);
+    setError('');
+    try {
+      await submitRegistration(registrationData, proof, signed ? signatureImage : null);
+      onDone();
+    } catch (err) {
+      setError(err.message || 'Unable to submit registration. Please try again.');
+    } finally {
+      setLoading(false);
+    }
   }
   return (
     <form ref={form} onSubmit={submit}>
       <p className="demo-note">
-        <Icon name="box" size={17} /> Preview form only. Use sample details. Nothing is sent or
-        saved.
+        <Icon name="box" size={17} /> Your information and uploaded document will be emailed to our registration team. Please submit only information you are authorised to share.
       </p>
       <ol className="form-steps">
         {steps.map((name, index) => (
@@ -186,7 +208,7 @@ export default function RegistrationForm({ onDone }) {
               'Tell us about your business and the person we should contact.',
               'Help us understand where and how to deliver your order.',
               'Add two suppliers who know your business.',
-              'Check the details below to complete this demonstration.',
+              'Confirm your details and submit your registration for review.',
             ][step]
           }
         </p>
@@ -276,7 +298,7 @@ export default function RegistrationForm({ onDone }) {
             <label className="field upload-field">
               <span>Proof of business address *</span>
               <span className="muted small">
-                Choose a sample PDF, JPG or PNG, up to 5 MB. The file stays in memory only.
+                Choose a PDF, JPG or PNG, up to 3 MB. This document will be attached to the registration email.
               </span>
               <input
                 type="file"
@@ -285,9 +307,9 @@ export default function RegistrationForm({ onDone }) {
                   const file = e.target.files?.[0];
                   if (
                     file &&
-                    (file.size > 5 * 1024 * 1024 || !/\.(pdf|png|jpe?g)$/i.test(file.name))
+                    (file.size > 3 * 1024 * 1024 || !/\.(pdf|png|jpe?g)$/i.test(file.name))
                   ) {
-                    setError('Choose a PDF, JPG or PNG smaller than 5 MB.');
+                    setError('Choose a PDF, JPG or PNG smaller than 3 MB.');
                     e.target.value = '';
                     setProof(null);
                   } else {
@@ -311,7 +333,7 @@ export default function RegistrationForm({ onDone }) {
               Include a credit account guarantor
             </label>
             <p className="muted small">
-              The reference form includes a personal guarantee. This prototype does not create a
+              The reference form includes a personal guarantee. Submitting this information does not itself create a
               guarantee or credit agreement.
             </p>
             {credit && (
@@ -336,7 +358,7 @@ export default function RegistrationForm({ onDone }) {
               {field('Job title / position', 'signatoryPosition', 'text', true)}
               {field('Signing date', 'signatoryDate', 'date', true)}
             </div>
-            <Signature onChange={setSigned} />
+            <Signature onChange={setSigned} onImageChange={setSignatureImage} />
             {field('Typed signature', 'typedSignature', 'text', false, {
               placeholder: 'Type your full name as an alternative to drawing',
             })}
@@ -347,8 +369,7 @@ export default function RegistrationForm({ onDone }) {
                 onChange={(e) => setAccepted(e.target.checked)}
                 required
               />
-              I understand this is a demonstration and no account, application or legal agreement
-              will be created.
+              I confirm that I am authorised to submit these registration details and the attached document for review. No account is automatically created.
             </label>
             <a
               className="small text-link"
@@ -378,8 +399,8 @@ export default function RegistrationForm({ onDone }) {
         ) : (
           <span className="small muted">* Required fields</span>
         )}
-        <button className="button" type="submit">
-          {step === 3 ? 'Complete demo' : 'Continue'}
+        <button className="button" type="submit" disabled={loading}>
+          {loading ? 'Submitting...' : step === 3 ? 'Submit registration' : 'Continue'}
           <Icon name="arrow" size={17} />
         </button>
       </div>
