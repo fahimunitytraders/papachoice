@@ -313,8 +313,10 @@ export async function prepareRegistrationPayload(
  * Send registration to AWS Lambda.
  */
 export async function submitRegistration(
-  registrationData
-) {
+  registrationData,
+  proof = null,
+  signatureImage = null
+) { {
   if (!LAMBDA_URL) {
     throw new Error(
       "Registration service URL is not configured."
