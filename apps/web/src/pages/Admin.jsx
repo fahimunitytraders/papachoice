@@ -120,7 +120,7 @@ export default function Admin() {
         throw new Error('Choose a content JSON file smaller than 512 KB.');
       const value = validateContent(JSON.parse(await file.text()));
       setDraft(value);
-      setMessage('Imported into the editor. Choose Save changes to apply.');
+      setMessage('Imported into the editor. Save changes to apply.');
       setError('');
     } catch (e) {
       setError(e instanceof SyntaxError ? 'This file is not valid JSON.' : e.message);
