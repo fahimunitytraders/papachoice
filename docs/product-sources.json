@@ -1,0 +1,562 @@
+[
+  {
+    "id": "honey-beans",
+    "name": "Honey Beans",
+    "sourceName": "HONEY BEANS",
+    "productUrl": "https://papachoice.co.uk/product/honey-beans/",
+    "imageUrl": "https://papachoice.co.uk/wp-content/uploads/2025/09/oloyin-beans1.5kgx10pm-300x300.jpg",
+    "localImage": "/assets/products/honey-beans.jpg"
+  },
+  {
+    "id": "black-eye-beans",
+    "name": "Black Eye Beans",
+    "sourceName": "BLACK EYE BEANS",
+    "productUrl": "https://papachoice.co.uk/product/black-eye-beans/",
+    "imageUrl": "https://papachoice.co.uk/wp-content/uploads/2025/09/Black-eye-beans1.5kg-300x300.jpg",
+    "localImage": "/assets/products/black-eye-beans.jpg"
+  },
+  {
+    "id": "pounded-iyam",
+    "name": "Pounded Iyam",
+    "sourceName": "POUNDED IYAM",
+    "productUrl": "https://papachoice.co.uk/product/pounded-iyam/",
+    "imageUrl": "https://papachoice.co.uk/wp-content/uploads/2025/09/Pounded-iyam1.5kg-300x300.jpg",
+    "localImage": "/assets/products/pounded-iyam.jpg"
+  },
+  {
+    "id": "ijebu-gari",
+    "name": "Ijebu Gari",
+    "sourceName": "IJEBU GARI",
+    "productUrl": "https://papachoice.co.uk/product/ijebu-gari/",
+    "imageUrl": "https://papachoice.co.uk/wp-content/uploads/2025/09/Ijebu-gari1.5kg-300x300.jpg",
+    "localImage": "/assets/products/ijebu-gari.jpg"
+  },
+  {
+    "id": "ghana-gari",
+    "name": "Ghana Gari",
+    "sourceName": "GHANA GARI",
+    "productUrl": "https://papachoice.co.uk/product/ghana-gari/",
+    "imageUrl": "https://papachoice.co.uk/wp-content/uploads/2025/09/Ghana-gari1.5kg-300x300.jpg",
+    "localImage": "/assets/products/ghana-gari.jpg"
+  },
+  {
+    "id": "yellow-gari",
+    "name": "Yellow Gari",
+    "sourceName": "YELLOW GARI",
+    "productUrl": "https://papachoice.co.uk/product/yellow-gari/",
+    "imageUrl": "https://papachoice.co.uk/wp-content/uploads/2025/09/Yellow-gari1.5kg-300x300.jpg",
+    "localImage": "/assets/products/yellow-gari.jpg"
+  },
+  {
+    "id": "peeled-beans",
+    "name": "Peeled Beans",
+    "sourceName": "PEELED BEANS",
+    "productUrl": "https://papachoice.co.uk/product/peeled-beans/",
+    "imageUrl": "https://papachoice.co.uk/wp-content/uploads/2025/09/Peeled-beans1.5kg-300x300.jpg",
+    "localImage": "/assets/products/peeled-beans.jpg"
+  },
+  {
+    "id": "brown-beans",
+    "name": "Brown Beans",
+    "sourceName": "BROWN BEANS",
+    "productUrl": "https://papachoice.co.uk/product/brown-beans/",
+    "imageUrl": "https://papachoice.co.uk/wp-content/uploads/2025/09/Brown-beans1.5kg-300x300.jpg",
+    "localImage": "/assets/products/brown-beans.jpg"
+  },
+  {
+    "id": "cornmeal-coarse",
+    "name": "Cornmeal Coarse",
+    "sourceName": "CORNMEAL COARSE",
+    "productUrl": "https://papachoice.co.uk/product/cornmeal-coarse/",
+    "imageUrl": "https://papachoice.co.uk/wp-content/uploads/2025/09/CORNMEAL-COARSE1.5kg-300x300.jpg",
+    "localImage": "/assets/products/cornmeal-coarse.jpg"
+  },
+  {
+    "id": "ground-rice",
+    "name": "Ground Rice",
+    "sourceName": "GROUND RICE",
+    "productUrl": "https://papachoice.co.uk/product/ground-rice/",
+    "imageUrl": "https://papachoice.co.uk/wp-content/uploads/2025/09/Ground-rice1.5kg-300x300.jpg",
+    "localImage": "/assets/products/ground-rice.jpg"
+  },
+  {
+    "id": "lafun",
+    "name": "Lafun",
+    "sourceName": "LAFUN",
+    "productUrl": "https://papachoice.co.uk/product/lafun/",
+    "imageUrl": "https://papachoice.co.uk/wp-content/uploads/2025/09/Lafun1kg-300x300.jpg",
+    "localImage": "/assets/products/lafun.jpg"
+  },
+  {
+    "id": "farina",
+    "name": "Farina",
+    "sourceName": "FARINA",
+    "productUrl": "https://papachoice.co.uk/product/farina/",
+    "imageUrl": "https://papachoice.co.uk/wp-content/uploads/2025/09/Farina1.5kg-300x300.jpg",
+    "localImage": "/assets/products/farina.jpg"
+  },
+  {
+    "id": "cornmeal-fine",
+    "name": "Cornmeal Fine",
+    "sourceName": "CORNMEAL FINE",
+    "productUrl": "https://papachoice.co.uk/product/cornmeal-fine/",
+    "imageUrl": "https://papachoice.co.uk/wp-content/uploads/2025/09/Cornmeal-fine1.5kg-300x300.jpg",
+    "localImage": "/assets/products/cornmeal-fine.jpg"
+  },
+  {
+    "id": "cassava-flour",
+    "name": "Cassava Flour",
+    "sourceName": "CASSAVA FLOUR",
+    "productUrl": "https://papachoice.co.uk/product/cassava-flour/",
+    "imageUrl": "https://papachoice.co.uk/wp-content/uploads/2025/09/Cassava-flour1kg-300x300.jpg",
+    "localImage": "/assets/products/cassava-flour.jpg"
+  },
+  {
+    "id": "beans-flour",
+    "name": "Beans Flour",
+    "sourceName": "BEANS FLOUR",
+    "productUrl": "https://papachoice.co.uk/product/beans-flour/",
+    "imageUrl": "https://papachoice.co.uk/wp-content/uploads/2025/09/Beans-flour1kg-300x300.jpg",
+    "localImage": "/assets/products/beans-flour.jpg"
+  },
+  {
+    "id": "semolina-coarse",
+    "name": "Semolina Coarse",
+    "sourceName": "SEMOLINA COARSE",
+    "productUrl": "https://papachoice.co.uk/product/semolina-coarse/",
+    "imageUrl": "https://papachoice.co.uk/wp-content/uploads/2025/09/Semolina-coarse1.5kg-300x300.jpg",
+    "localImage": "/assets/products/semolina-coarse.jpg"
+  },
+  {
+    "id": "red-kidney-beans",
+    "name": "Red Kidney Beans",
+    "sourceName": "RED KIDNEY BEANS",
+    "productUrl": "https://papachoice.co.uk/product/red-kidney-beans/",
+    "imageUrl": "https://papachoice.co.uk/wp-content/uploads/2025/09/Red-kidney-beans1.5kg-300x300.jpg",
+    "localImage": "/assets/products/red-kidney-beans.jpg"
+  },
+  {
+    "id": "mashed-potato",
+    "name": "Mashed Potato",
+    "sourceName": "MASHED POTATO",
+    "productUrl": "https://papachoice.co.uk/product/mashed-potato/",
+    "imageUrl": "https://papachoice.co.uk/wp-content/uploads/2025/09/Mashed-potato1.5kg-300x300.jpg",
+    "localImage": "/assets/products/mashed-potato.jpg"
+  },
+  {
+    "id": "semolina-fine",
+    "name": "Semolina Fine",
+    "sourceName": "SEMOLINA FINE",
+    "productUrl": "https://papachoice.co.uk/product/semolina-fine/",
+    "imageUrl": "https://papachoice.co.uk/wp-content/uploads/2025/09/Semolina-fine1.5kg-300x300.jpg",
+    "localImage": "/assets/products/semolina-fine.jpg"
+  },
+  {
+    "id": "white-maizemeal",
+    "name": "White Maizemeal",
+    "sourceName": "WHITE MAIZEMEAL",
+    "productUrl": "https://papachoice.co.uk/product/white-maizemeal/",
+    "imageUrl": "https://papachoice.co.uk/wp-content/uploads/2025/09/White-maizemeal1.5kg-300x300.jpg",
+    "localImage": "/assets/products/white-maizemeal.jpg"
+  },
+  {
+    "id": "yam-flour",
+    "name": "Yam Flour",
+    "sourceName": "YAM FLOUR",
+    "productUrl": "https://papachoice.co.uk/product/yam-flour/",
+    "imageUrl": "https://papachoice.co.uk/wp-content/uploads/2025/09/Yam-flour1kg-300x300.jpg",
+    "localImage": "/assets/products/yam-flour.jpg"
+  },
+  {
+    "id": "rice-flour",
+    "name": "Rice Flour",
+    "sourceName": "RICE FLOUR",
+    "productUrl": "https://papachoice.co.uk/product/rice-flour/",
+    "imageUrl": "https://papachoice.co.uk/wp-content/uploads/2025/09/Rice-flour1.5kg-300x300.jpg",
+    "localImage": "/assets/products/rice-flour.jpg"
+  },
+  {
+    "id": "bulgur-wheat",
+    "name": "Bulgur Wheat",
+    "sourceName": "BULGUR WHEAT",
+    "productUrl": "https://papachoice.co.uk/product/bulgur-wheat/",
+    "imageUrl": "https://papachoice.co.uk/wp-content/uploads/2025/09/Bulgur-Wheat1.5kg-300x300.jpg",
+    "localImage": "/assets/products/bulgur-wheat.jpg"
+  },
+  {
+    "id": "butter-beans",
+    "name": "Butter Beans",
+    "sourceName": "BUTTER BEANS",
+    "productUrl": "https://papachoice.co.uk/product/butter-beans/",
+    "imageUrl": "https://papachoice.co.uk/wp-content/uploads/2025/09/Butter-beans1.5kg-300x300.jpg",
+    "localImage": "/assets/products/butter-beans.jpg"
+  },
+  {
+    "id": "gungo-beans",
+    "name": "Gungo Peas",
+    "sourceName": "GUGO PEAS",
+    "productUrl": "https://papachoice.co.uk/product/gungo-beans/",
+    "imageUrl": "https://papachoice.co.uk/wp-content/uploads/2025/09/Gungo-Peas1.5kg-300x300.jpg",
+    "localImage": "/assets/products/gungo-beans.jpg"
+  },
+  {
+    "id": "crabeye-beans",
+    "name": "Crabeye Beans",
+    "sourceName": "CRABEYE BEANS",
+    "productUrl": "https://papachoice.co.uk/product/crabeye-beans/",
+    "imageUrl": "https://papachoice.co.uk/wp-content/uploads/2025/09/Crabeye-beasn1.5kg-300x300.jpg",
+    "localImage": "/assets/products/crabeye-beans.jpg"
+  },
+  {
+    "id": "oats-flour",
+    "name": "Oats Flour",
+    "sourceName": "OATS FLOUR",
+    "productUrl": "https://papachoice.co.uk/product/oats-flour/",
+    "imageUrl": "https://papachoice.co.uk/wp-content/uploads/2025/09/Oats-flour1kg-300x300.jpg",
+    "localImage": "/assets/products/oats-flour.jpg"
+  },
+  {
+    "id": "wheat-flour",
+    "name": "Wheat Flour",
+    "sourceName": "WHEAT FLOUR",
+    "productUrl": "https://papachoice.co.uk/product/wheat-flour/",
+    "imageUrl": "https://papachoice.co.uk/wp-content/uploads/2025/09/Wheat-flour1.5kg-300x300.jpg",
+    "localImage": "/assets/products/wheat-flour.jpg"
+  },
+  {
+    "id": "white-hominy-corn",
+    "name": "White Hominy Corn",
+    "sourceName": "WHITE HOMINY CORN",
+    "productUrl": "https://papachoice.co.uk/product/white-hominy-corn/",
+    "imageUrl": "https://papachoice.co.uk/wp-content/uploads/2025/09/White-hominy-corn1.5kg-300x300.jpg",
+    "localImage": "/assets/products/white-hominy-corn.jpg"
+  },
+  {
+    "id": "white-kidney-beans",
+    "name": "White Kidney Beans",
+    "sourceName": "WHITE KIDNEY BEANS",
+    "productUrl": "https://papachoice.co.uk/product/white-kidney-beans/",
+    "imageUrl": "https://papachoice.co.uk/wp-content/uploads/2025/09/White-kidney-beans1.5kg-300x300.jpg",
+    "localImage": "/assets/products/white-kidney-beans.jpg"
+  },
+  {
+    "id": "pink-skin-peanuts",
+    "name": "Pink Skin Peanuts",
+    "sourceName": "PINK SKIN PEANUTS",
+    "productUrl": "https://papachoice.co.uk/product/pink-skin-peanuts/",
+    "imageUrl": "https://papachoice.co.uk/wp-content/uploads/2025/09/PINK-SKIN-PEANUTS1.5kg-300x300.jpg",
+    "localImage": "/assets/products/pink-skin-peanuts.jpg"
+  },
+  {
+    "id": "red-skin-peanuts",
+    "name": "Red Skin Peanuts",
+    "sourceName": "RED SKIN PEANUTS",
+    "productUrl": "https://papachoice.co.uk/product/red-skin-peanuts/",
+    "imageUrl": "https://papachoice.co.uk/wp-content/uploads/2025/09/Red-SKIN-PEANUTS1.5kg-300x300.jpg",
+    "localImage": "/assets/products/red-skin-peanuts.jpg"
+  },
+  {
+    "id": "turtle-black-beans",
+    "name": "Turtle Black Beans",
+    "sourceName": "TURTLE BLACK BEANS",
+    "productUrl": "https://papachoice.co.uk/product/turtle-black-beans/",
+    "imageUrl": "https://papachoice.co.uk/wp-content/uploads/2025/09/Turtle-black-beans1.5kg-300x300.jpg",
+    "localImage": "/assets/products/turtle-black-beans.jpg"
+  },
+  {
+    "id": "sesame-seed",
+    "name": "Sesame Seeds",
+    "sourceName": "SESAME SEED",
+    "productUrl": "https://papachoice.co.uk/product/sesame-seed/",
+    "imageUrl": "https://papachoice.co.uk/wp-content/uploads/2025/09/Sesame-seed1kg-300x300.jpg",
+    "localImage": "/assets/products/sesame-seed.jpg"
+  },
+  {
+    "id": "pop-corn",
+    "name": "Popcorn",
+    "sourceName": "POP CORN",
+    "productUrl": "https://papachoice.co.uk/product/pop-corn/",
+    "imageUrl": "https://papachoice.co.uk/wp-content/uploads/2025/09/Pop-corn1.5kg-300x300.jpg",
+    "localImage": "/assets/products/pop-corn.jpg"
+  },
+  {
+    "id": "oats-porridge",
+    "name": "Porridge Oats",
+    "sourceName": "OATS PORRIDGE",
+    "productUrl": "https://papachoice.co.uk/product/oats-porridge/",
+    "imageUrl": "https://papachoice.co.uk/wp-content/uploads/2025/09/Oats-porridge1kg-300x300.jpg",
+    "localImage": "/assets/products/oats-porridge.jpg"
+  },
+  {
+    "id": "blanches-peanuts",
+    "name": "Blanched Peanuts",
+    "sourceName": "BLANCHES PEANUTS",
+    "productUrl": "https://papachoice.co.uk/product/blanches-peanuts/",
+    "imageUrl": "https://papachoice.co.uk/wp-content/uploads/2025/09/Blanched-peanut500g-300x300.jpg",
+    "localImage": "/assets/products/blanches-peanuts.jpg"
+  },
+  {
+    "id": "plantain-flour",
+    "name": "Plantain Flour",
+    "sourceName": "PLANTAIN FLOUR",
+    "productUrl": "https://papachoice.co.uk/product/plantain-flour/",
+    "imageUrl": "https://papachoice.co.uk/wp-content/uploads/2025/09/Plantain-flour1kg-300x300.jpg",
+    "localImage": "/assets/products/plantain-flour.jpg"
+  },
+  {
+    "id": "quinwa-white",
+    "name": "White Quinoa",
+    "sourceName": "QUINWA WHITE",
+    "productUrl": "https://papachoice.co.uk/product/quinwa-white/",
+    "imageUrl": "https://papachoice.co.uk/wp-content/uploads/2025/09/quinwa500g-300x300.jpg",
+    "localImage": "/assets/products/quinwa-white.jpg"
+  },
+  {
+    "id": "corn-flour",
+    "name": "Fufu Flakes",
+    "sourceName": "FUFU FLAKES",
+    "productUrl": "https://papachoice.co.uk/product/corn-flour/",
+    "imageUrl": "https://papachoice.co.uk/wp-content/uploads/2025/09/Fufu-flakes1kg-300x300.jpg",
+    "localImage": "/assets/products/corn-flour.jpg"
+  },
+  {
+    "id": "cous-cous",
+    "name": "Couscous",
+    "sourceName": "COUS COUS",
+    "productUrl": "https://papachoice.co.uk/product/cous-cous/",
+    "imageUrl": "https://papachoice.co.uk/wp-content/uploads/2025/09/Cous-cous500g-300x300.jpg",
+    "localImage": "/assets/products/cous-cous.jpg"
+  },
+  {
+    "id": "wheate-whole",
+    "name": "Whole Wheat",
+    "sourceName": "WHEATE WHOLE",
+    "productUrl": "https://papachoice.co.uk/product/wheate-whole/",
+    "imageUrl": "https://papachoice.co.uk/wp-content/uploads/2025/09/Wheat-whole500g-300x300.jpg",
+    "localImage": "/assets/products/wheate-whole.jpg"
+  },
+  {
+    "id": "pounded-iyam-orange-bag",
+    "name": "Pounded Iyam Orange Bag",
+    "sourceName": "POUNDED IYAM ORANGE BAG",
+    "productUrl": "https://papachoice.co.uk/product/pounded-iyam-orange-bag/",
+    "imageUrl": "https://papachoice.co.uk/wp-content/uploads/2025/09/WhatsApp-Image-2026-02-20-at-2.10.10-AM-300x300.jpeg",
+    "localImage": "/assets/products/pounded-iyam-orange-bag.jpeg"
+  },
+  {
+    "id": "palm-oil-white-box",
+    "name": "Palm Oil White Box",
+    "sourceName": "PALM OIL WHITE BOX",
+    "productUrl": "https://papachoice.co.uk/product/palm-oil-white-box/",
+    "imageUrl": "https://papachoice.co.uk/wp-content/uploads/2025/09/Palm-oil-whitebox1ltr-300x300.jpg",
+    "localImage": "/assets/products/palm-oil-white-box.jpg"
+  },
+  {
+    "id": "zomi-oil",
+    "name": "Zomi Oil",
+    "sourceName": "ZOMI OIL",
+    "productUrl": "https://papachoice.co.uk/product/zomi-oil/",
+    "imageUrl": "https://papachoice.co.uk/wp-content/uploads/2025/09/Zomi-oil1L-300x300.jpg",
+    "localImage": "/assets/products/zomi-oil.jpg"
+  },
+  {
+    "id": "groundnut-oil",
+    "name": "Groundnut Oil",
+    "sourceName": "GROUNDNUT OIL",
+    "productUrl": "https://papachoice.co.uk/product/groundnut-oil/",
+    "imageUrl": "https://papachoice.co.uk/wp-content/uploads/2025/09/Groundnut-oil1L-300x300.jpg",
+    "localImage": "/assets/products/groundnut-oil.jpg"
+  },
+  {
+    "id": "ofada-oil",
+    "name": "Ofada Oil",
+    "sourceName": "OFADA OIL",
+    "productUrl": "https://papachoice.co.uk/product/ofada-oil/",
+    "imageUrl": "https://papachoice.co.uk/wp-content/uploads/2025/09/Ofada-oil1L-300x300.jpg",
+    "localImage": "/assets/products/ofada-oil.jpg"
+  },
+  {
+    "id": "rock-salt-fine",
+    "name": "Rock Salt Fine",
+    "sourceName": "ROCK SALT FINE",
+    "productUrl": "https://papachoice.co.uk/product/rock-salt-fine/",
+    "imageUrl": "https://papachoice.co.uk/wp-content/uploads/2025/09/Rock-salt-fine500g-300x300.jpg",
+    "localImage": "/assets/products/rock-salt-fine.jpg"
+  },
+  {
+    "id": "sea-salt-fine",
+    "name": "Sea Salt Fine",
+    "sourceName": "SEA SALT FINE",
+    "productUrl": "https://papachoice.co.uk/product/sea-salt-fine/",
+    "imageUrl": "https://papachoice.co.uk/wp-content/uploads/2025/09/Sea-salt500g-300x300.jpg",
+    "localImage": "/assets/products/sea-salt-fine.jpg"
+  },
+  {
+    "id": "epsom-salt-fine",
+    "name": "Epsom Salt Fine",
+    "sourceName": "EPSOM SALT FINE",
+    "productUrl": "https://papachoice.co.uk/product/epsom-salt-fine/",
+    "imageUrl": "https://papachoice.co.uk/wp-content/uploads/2025/09/Epsom-salt-fine500g-261x300.jpg",
+    "localImage": "/assets/products/epsom-salt-fine.jpg"
+  },
+  {
+    "id": "pink-himalayan-salt-coarse",
+    "name": "Pink Himalayan Salt Coarse",
+    "sourceName": "PINK HIMALAYAN SALT COARSE",
+    "productUrl": "https://papachoice.co.uk/product/pink-himalayan-salt-coarse/",
+    "imageUrl": "https://papachoice.co.uk/wp-content/uploads/2025/09/Pink-Himalayn-salt-coarse820G-300x300.jpg",
+    "localImage": "/assets/products/pink-himalayan-salt-coarse.jpg"
+  },
+  {
+    "id": "pink-himalayan-salt-fine",
+    "name": "Pink Himalayan Salt Fine",
+    "sourceName": "PINK HIMALAYAN SALT FINE",
+    "productUrl": "https://papachoice.co.uk/product/pink-himalayan-salt-fine/",
+    "imageUrl": "https://papachoice.co.uk/wp-content/uploads/2025/09/Pink-Himalayn-salt-fine820G-300x300.jpg",
+    "localImage": "/assets/products/pink-himalayan-salt-fine.jpg"
+  },
+  {
+    "id": "peanut-butter-pm",
+    "name": "Peanut Butter (PM)",
+    "sourceName": "PEANUT BUTTER (PM)",
+    "productUrl": "https://papachoice.co.uk/product/peanut-butter-pm/",
+    "imageUrl": "https://papachoice.co.uk/wp-content/uploads/2025/09/PC-Peanut-butter-PM1kg-300x300.jpg",
+    "localImage": "/assets/products/peanut-butter-pm.jpg"
+  },
+  {
+    "id": "peanut-butter-non-pm",
+    "name": "Peanut Butter (Non PM)",
+    "sourceName": "PEANUT BUTTER (NON-PM)",
+    "productUrl": "https://papachoice.co.uk/product/peanut-butter-non-pm/",
+    "imageUrl": "https://papachoice.co.uk/wp-content/uploads/2025/09/PC-Peanut-butter-NON-PM1kg-300x300.jpg",
+    "localImage": "/assets/products/peanut-butter-non-pm.jpg"
+  },
+  {
+    "id": "jollof-sauce",
+    "name": "Jollof Sauce",
+    "sourceName": "JOLLOF SAUCE",
+    "productUrl": "https://papachoice.co.uk/product/jollof-sauce/",
+    "imageUrl": "https://papachoice.co.uk/wp-content/uploads/2025/09/Jollof-sauce350g-300x300.jpg",
+    "localImage": "/assets/products/jollof-sauce.jpg"
+  },
+  {
+    "id": "peanut-butter-black",
+    "name": "Peanut Butter Black Lid",
+    "sourceName": "PEANUT BUTTER BLACK",
+    "productUrl": "https://papachoice.co.uk/product/peanut-butter-black/",
+    "imageUrl": "https://papachoice.co.uk/wp-content/uploads/2025/09/PCD-Peanut-butter-black500g-300x300.jpg",
+    "localImage": "/assets/products/peanut-butter-black.jpg"
+  },
+  {
+    "id": "peanut-butter-yellow",
+    "name": "Peanut Butter Yellow Lid",
+    "sourceName": "PEANUT BUTTER YELLOW",
+    "productUrl": "https://papachoice.co.uk/product/peanut-butter-yellow/",
+    "imageUrl": "https://papachoice.co.uk/wp-content/uploads/2025/09/PCD-Peanut-butter-yellow500g-300x300.jpg",
+    "localImage": "/assets/products/peanut-butter-yellow.jpg"
+  },
+  {
+    "id": "ginger-garlic-paste",
+    "name": "Ginger Garlic Paste",
+    "sourceName": "GINGER GARLIC PASTE",
+    "productUrl": "https://papachoice.co.uk/product/ginger-garlic-paste/",
+    "imageUrl": "https://papachoice.co.uk/wp-content/uploads/2025/09/Ginger-garlic-paste1kg-300x300.jpg",
+    "localImage": "/assets/products/ginger-garlic-paste.jpg"
+  },
+  {
+    "id": "ginger-paste",
+    "name": "Ginger Paste",
+    "sourceName": "GINGER PASTE",
+    "productUrl": "https://papachoice.co.uk/product/ginger-paste/",
+    "imageUrl": "https://papachoice.co.uk/wp-content/uploads/2025/09/Ginger-paste1kg-300x300.jpg",
+    "localImage": "/assets/products/ginger-paste.jpg"
+  },
+  {
+    "id": "garlic-paste",
+    "name": "Garlic Paste",
+    "sourceName": "GARLIC PASTE",
+    "productUrl": "https://papachoice.co.uk/product/garlic-paste/",
+    "imageUrl": "https://papachoice.co.uk/wp-content/uploads/2025/09/Garlic-paste1kg-300x300.jpg",
+    "localImage": "/assets/products/garlic-paste.jpg"
+  },
+  {
+    "id": "shito-mild",
+    "name": "Shito Hot",
+    "sourceName": "SHITO HOT",
+    "productUrl": "https://papachoice.co.uk/product/shito-mild/",
+    "imageUrl": "https://papachoice.co.uk/wp-content/uploads/2025/09/Shito-hot160g-300x300.jpg",
+    "localImage": "/assets/products/shito-mild.jpg"
+  },
+  {
+    "id": "corn-dough",
+    "name": "Corn Dough",
+    "sourceName": "CORN DOUGH",
+    "productUrl": "https://papachoice.co.uk/product/corn-dough/",
+    "imageUrl": "https://papachoice.co.uk/wp-content/uploads/2025/09/Corn-dough1kg-300x300.jpg",
+    "localImage": "/assets/products/corn-dough.jpg"
+  },
+  {
+    "id": "exotic-corn-dough",
+    "name": "Exotic Corn Dough",
+    "sourceName": "EXOTIC CORN DOUGH",
+    "productUrl": "https://papachoice.co.uk/product/exotic-corn-dough/",
+    "imageUrl": "https://papachoice.co.uk/wp-content/uploads/2025/09/Exotic-Corn-dough1kg-300x300.jpg",
+    "localImage": "/assets/products/exotic-corn-dough.jpg"
+  },
+  {
+    "id": "cassava-dough",
+    "name": "Cassava Dough",
+    "sourceName": "CASSAVA DOUGH",
+    "productUrl": "https://papachoice.co.uk/product/cassava-dough/",
+    "imageUrl": "https://papachoice.co.uk/wp-content/uploads/2025/09/Cassava-dough1kg-300x300.jpg",
+    "localImage": "/assets/products/cassava-dough.jpg"
+  },
+  {
+    "id": "white-vinegar",
+    "name": "White Vinegar",
+    "sourceName": "WHITE VINEGAR",
+    "productUrl": "https://papachoice.co.uk/product/white-vinegar/",
+    "imageUrl": "https://papachoice.co.uk/wp-content/uploads/2025/09/White-vinegar1L-300x300.jpg",
+    "localImage": "/assets/products/white-vinegar.jpg"
+  },
+  {
+    "id": "golden-sella-basmati",
+    "name": "Golden Sella Basmati Rice",
+    "sourceName": "GOLDEN SELLA BASMATI",
+    "productUrl": "https://papachoice.co.uk/product/golden-sella-basmati/",
+    "imageUrl": "https://papachoice.co.uk/wp-content/uploads/2025/09/Golden-sella10kg-300x300.jpg",
+    "localImage": "/assets/products/golden-sella-basmati.jpg"
+  },
+  {
+    "id": "plantain-fufu",
+    "name": "Plantain Fufu",
+    "sourceName": "PLANTAIN FUFU",
+    "productUrl": "https://papachoice.co.uk/product/plantain-fufu/",
+    "imageUrl": "https://papachoice.co.uk/wp-content/uploads/2025/10/14-300x300.png",
+    "localImage": "/assets/products/plantain-fufu.png"
+  },
+  {
+    "id": "osupa-golden-sella-basmati",
+    "name": "Osupa Golden Sella Basmati Rice",
+    "sourceName": "OSUPA GOLDEN SELLA BASMATI",
+    "productUrl": "https://papachoice.co.uk/product/osupa-golden-sella-basmati/",
+    "imageUrl": "https://papachoice.co.uk/wp-content/uploads/2025/10/Osupa-basmati5kg-300x300.jpg",
+    "localImage": "/assets/products/osupa-golden-sella-basmati.jpg"
+  },
+  {
+    "id": "flying-eagle-jasmine-rice",
+    "name": "Flying Eagle Jasmine Rice",
+    "sourceName": "FLYING EAGLE JASMINE RICE",
+    "productUrl": "https://papachoice.co.uk/product/flying-eagle-jasmine-rice/",
+    "imageUrl": "https://papachoice.co.uk/wp-content/uploads/2025/10/flying-eagle10kg-300x300.jpg",
+    "localImage": "/assets/products/flying-eagle-jasmine-rice.jpg"
+  },
+  {
+    "id": "crayfish-stock-powder",
+    "name": "Crayfish Stock Powder",
+    "sourceName": "CRAYFISH STOCK POWDER",
+    "productUrl": "https://papachoice.co.uk/product/crayfish-stock-powder/",
+    "imageUrl": "https://papachoice.co.uk/wp-content/uploads/2025/10/Crayfish-powder-300x300.jpg",
+    "localImage": "/assets/products/crayfish-stock-powder.jpg"
+  }
+]

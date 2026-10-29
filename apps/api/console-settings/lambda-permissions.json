@@ -1,0 +1,31 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "SendRegistrationEmail",
+      "Effect": "Allow",
+      "Action": "ses:SendEmail",
+      "Resource": "arn:aws:ses:eu-west-2:YOUR_AWS_ACCOUNT_ID:identity/imfahim003@gmail.com",
+      "Condition": {
+        "StringEquals": {
+          "ses:FromAddress": "imfahim003@gmail.com"
+        },
+        "ForAllValues:StringEquals": {
+          "ses:Recipients": [
+            "imfahim003@gmail.com"
+          ]
+        }
+      }
+    },
+    {
+      "Sid": "UseTemporaryRegistrationDocuments",
+      "Effect": "Allow",
+      "Action": [
+        "s3:PutObject",
+        "s3:GetObject",
+        "s3:DeleteObject"
+      ],
+      "Resource": "arn:aws:s3:::YOUR_BUCKET_NAME/registrations/*"
+    }
+  ]
+}

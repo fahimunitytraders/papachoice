@@ -1,0 +1,12 @@
+{
+  "name": "@papas-choice/content",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./index.js"
+  },
+  "scripts": {
+    "test": "node --test tests/*.test.js"
+  }
+}

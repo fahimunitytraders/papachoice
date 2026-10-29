@@ -1,0 +1,26 @@
+{
+  "name": "papas-choice-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "npm run dev --workspace=@papas-choice/web",
+    "build": "npm run build:web && npm run build:api",
+    "build:web": "npm run build --workspace=@papas-choice/web",
+    "build:api": "npm run build --workspace=@papas-choice/api",
+    "dev:api": "npm run dev --workspace=@papas-choice/api",
+    "preview": "npm run preview --workspace=@papas-choice/web",
+    "test": "npm run test --workspace=@papas-choice/content && npm run test --workspace=@papas-choice/api && npm run test:ui --workspace=@papas-choice/web",
+    "format": "prettier --write apps/web/src apps/web/tests apps/api/src apps/api/tests apps/api/scripts apps/api/template.yaml packages docs *.json *.md .github"
+  },
+  "devDependencies": {
+    "prettier": "3.9.10"
+  }
+}
