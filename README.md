@@ -1,12 +1,6 @@
 # Papa's Choice
 
-<<<<<<< HEAD
 A React + Vite catalogue website in an npm workspaces monorepo. The frontend runs on its own. The backend workspace is reserved for your team to implement later.
-=======
-A React + Vite catalogue website in an npm workspaces monorepo, with an AWS Lambda registration backend. Registrations are emailed through Amazon SES to `imfahim003@gmail.com`, including the supporting document and any drawn signature.
-
-Follow [the AWS Console setup guide](docs/aws-registration-setup.md) for the backend. Nothing has been deployed into your AWS account yet.
->>>>>>> origin/fullprods
 
 ## Start on Windows
 
@@ -35,11 +29,6 @@ Stop the server with Ctrl+C. Next time, only run `npm.cmd run dev`.
 - Credit Controller and Warehouse Operative roles, without salary details.
 - Footer contact information, opening times, working navigation, directions and website information.
 - A local site editor for hex colours, text, button labels and destinations, products, categories, partners and company details.
-<<<<<<< HEAD
-=======
-- Registration emails with server validation, private document uploads and local email previews.
-- A manual AWS Console guide for Lambda, its Function URL, SES and S3, plus an optional infrastructure template.
->>>>>>> origin/fullprods
 
 ## Pages
 
@@ -80,22 +69,13 @@ The supplied phone number, WhatsApp number, address and opening times are includ
 ```text
 apps/
   web/                    React + Vite frontend
-<<<<<<< HEAD
   api/                    Reserved backend workspace and integration notes
-=======
-  api/                    Lambda backend, local preview, SAM template and tests
->>>>>>> origin/fullprods
 packages/
   content/                Shared defaults, validation and catalogue utilities
     defaults.json         Team's committed content configuration
     index.js              Shared data contract and validation
     tests/                Data and validation tests
-<<<<<<< HEAD
 docs/                     Architecture, editing, assets and backend plan
-=======
-  registration/           Shared application schema and declaration
-docs/                     AWS setup, architecture, editing and asset notes
->>>>>>> origin/fullprods
 .github/                  CI workflow, issue and pull request templates
 package.json              Root workspace commands
 package-lock.json         One shared lockfile
@@ -108,24 +88,12 @@ Run from the repository root. In PowerShell, use `npm.cmd` instead of `npm`.
 ```sh
 npm run dev
 npm run build
-<<<<<<< HEAD
-=======
-npm run build:api
-npm run build:web
-npm run dev:api
->>>>>>> origin/fullprods
 npm run preview
 npm test
 npm run format
 ```
 
-<<<<<<< HEAD
 Production output goes to `apps/web/dist`. The delivered ZIP also contains a prebuilt copy. No database, API credentials or environment variables are needed to try the frontend.
-=======
-Frontend output goes to `apps/web/dist`; Lambda output goes to `apps/api/dist`. The ZIP includes both builds. The catalogue runs without AWS. Registration needs the local preview API or a deployed backend, configured through `apps/web/.env.local`.
-
-To test without sending email, set `VITE_REGISTRATION_API_URL=http://localhost:3001` in that file. Run `npm.cmd run dev:api` in one terminal and `npm.cmd run dev` in another. Submit sample details at `http://localhost:5173/#/register` and inspect `apps/api/.local-mail/`. The setup guide has the complete steps.
->>>>>>> origin/fullprods
 
 ## Work in a team
 
@@ -141,7 +109,6 @@ git push -u origin main
 
 Replace the URL with your repository. No remote repository has been created or pushed by this delivery.
 
-<<<<<<< HEAD
 Use feature branches and pull requests. GitHub Actions runs the shared tests, frontend interaction tests and production build. The workflow checks both Windows and Linux. Configure repository branch protection to require the workflow before merging. See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Backend next
@@ -149,15 +116,6 @@ Use feature branches and pull requests. GitHub Actions runs the shared tests, fr
 `apps/api` deliberately has no HTTP server, database or authentication yet. Follow [the backend plan](docs/backend-plan.md) when adding it. The shared content package can be imported by either workspace. The first real admin implementation must authorise content changes on the server; hiding the editor link is not access control.
 
 Registration and career forms validate input and demonstrate completion, but do not submit or retain personal information. File inputs stay in memory only. Website information dialogs describe this current behaviour and need updating when the backend is connected.
-=======
-Use feature branches and pull requests. GitHub Actions runs shared tests, backend tests, frontend interaction tests, both builds and infrastructure validation. It checks Windows and Linux. Configure branch protection to require the workflow before merging. See [CONTRIBUTING.md](CONTRIBUTING.md).
-
-## Backend scope
-
-`apps/api` implements registration and email delivery. The browser never receives AWS credentials. Lambda uses its execution role, and the destination email is controlled by the deployment configuration.
-
-The local site editor and career form retain their existing behaviour. Staff authentication, shared content editing, customer logins and career submissions remain future work. See [the backend plan](docs/backend-plan.md). Registration requests manual review; it does not automatically approve an account or grant credit.
->>>>>>> origin/fullprods
 
 ## Images and verification
 

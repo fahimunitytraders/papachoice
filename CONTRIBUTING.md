@@ -13,11 +13,6 @@ Use Node.js 24 and npm. Install from the repository root with `npm ci` (`npm.cmd
 
 Keep UI components in apps/web and shared content validation in packages/content. Add backend implementation under apps/api. Do not put secrets in public frontend environment variables or commit .env files.
 
-<<<<<<< HEAD
-=======
-Shared registration validation belongs in packages/registration. Run `npm run dev:api` alongside Vite to test without sending email. Use sample information because email previews are written to apps/api/.local-mail/. This folder, .env files and samconfig.toml are ignored by Git.
-
->>>>>>> origin/fullprods
 Use `npm install PACKAGE --workspace=@papas-choice/web` for frontend dependencies. Commit package.json and the root lockfile together. Export browser editor changes into packages/content/defaults.json before expecting teammates to see them.
 
 For visual changes, check mobile and desktop widths, keyboard navigation, empty states and reduced motion. Product prices and company identifiers should be verified before replacing placeholder values.

@@ -1,8 +1,0 @@
-[
-  {
-    "AllowedHeaders": ["*"],
-    "AllowedMethods": ["POST"],
-    "AllowedOrigins": ["http://localhost:5173"],
-    "MaxAgeSeconds": 300
-  }
-]

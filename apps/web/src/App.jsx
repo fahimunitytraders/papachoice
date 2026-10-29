@@ -147,13 +147,7 @@ export default function App() {
             <div className="detail-price">
               {money(modal.product.price)}
               <span>
-<<<<<<< HEAD
                 {c.catalogue.priceLabel} · {modal.product.priceBasis} · {modal.product.size}
-=======
-                {modal.product.price === null
-                  ? modal.product.size
-                  : `${c.catalogue.priceLabel} · ${modal.product.priceBasis} · ${modal.product.size}`}
->>>>>>> origin/fullprods
               </span>
             </div>
             <p className="price-notice">{c.catalogue.priceNotice}</p>
@@ -183,18 +177,8 @@ export default function App() {
         <Modal title="Privacy & cookies" onClose={close}>
           <div className="info-copy">
             <p>
-<<<<<<< HEAD
               This frontend preview does not send registration or job application details to a
               server. Form entries and selected files stay in memory while the form is open.
-=======
-              When you submit a registration, your contact and business details, references,
-              declaration and supporting document are sent to our team by email. Guarantor details
-              and a drawn signature are included if you provide them. Supporting documents use
-              private temporary storage and are removed after sending, with automatic expiry for
-              abandoned uploads. Temporary document metadata and operational logs help us process
-              and troubleshoot submissions. Registration details are not saved in your browser.
-              Career applications remain a preview.
->>>>>>> origin/fullprods
             </p>
             <p>
               The site editor stores your content settings in this browser’s local storage. You can
@@ -208,13 +192,8 @@ export default function App() {
               own privacy practices.
             </p>
             <p>
-<<<<<<< HEAD
               For company enquiries, call {c.contact.phone}. A production privacy notice should be
               updated when the backend and data handling are defined.
-=======
-              For questions about your information or to request a correction, call{' '}
-              {c.contact.phone}.
->>>>>>> origin/fullprods
             </p>
           </div>
         </Modal>
@@ -233,14 +212,8 @@ export default function App() {
               ingredients, allergens and preparation guidance.
             </p>
             <p>
-<<<<<<< HEAD
               Registration and career applications are currently demonstrations. Nothing is
               submitted. For assistance using this website, call {c.contact.phone}.
-=======
-              Registration applications are emailed to our team for review when online registration
-              is available. Career applications are currently demonstrations. For assistance using
-              this website, call {c.contact.phone}.
->>>>>>> origin/fullprods
             </p>
           </div>
         </Modal>

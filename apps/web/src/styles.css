@@ -1,25 +1,4 @@
 @import './base.css';
-<<<<<<< HEAD
-=======
-
-.registration-step-fields {
-  border: 0;
-  padding: 0;
-  margin: 0;
-  min-width: 0;
-}
-.registration-trap {
-  position: absolute;
-  left: -10000px;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-}
-.form-actions button:disabled {
-  opacity: 0.6;
-  cursor: wait;
-}
->>>>>>> origin/fullprods
 :root {
   --background: #fff;
   --surface: #f5f0e9;
@@ -212,21 +191,6 @@ h2 {
   color: var(--muted);
   margin: 4px 0 0;
 }
-<<<<<<< HEAD
-=======
-.price.price-enquiry {
-  font-size: 15px;
-  letter-spacing: 0;
-}
-.image-button > img.product-image {
-  aspect-ratio: 1;
-  object-fit: contain;
-  background: #fff;
-}
-.product-detail > img.product-image {
-  object-fit: contain;
-}
->>>>>>> origin/fullprods
 .product-card-bottom .text-link {
   font-size: 11px;
   white-space: nowrap;

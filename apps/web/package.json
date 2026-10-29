@@ -16,12 +16,7 @@
     "react": "19.3.1",
     "react-dom": "19.3.1",
     "react-router-dom": "7.18.5",
-<<<<<<< HEAD
     "@papas-choice/content": "*"
-=======
-    "@papas-choice/content": "*",
-    "@papas-choice/registration": "*"
->>>>>>> origin/fullprods
   },
   "devDependencies": {
     "@testing-library/react": "16.3.3",

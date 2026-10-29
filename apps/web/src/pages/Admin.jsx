@@ -35,21 +35,8 @@ function EditorField({ label, value, onChange, type = 'text', options }) {
           type={type}
           step={type === 'number' ? '0.01' : undefined}
           min={type === 'number' ? '0' : undefined}
-<<<<<<< HEAD
           value={value}
           onChange={(e) => onChange(type === 'number' ? Number(e.target.value) : e.target.value)}
-=======
-          value={value ?? ''}
-          onChange={(e) =>
-            onChange(
-              type === 'number'
-                ? e.target.value === ''
-                  ? null
-                  : Number(e.target.value)
-                : e.target.value,
-            )
-          }
->>>>>>> origin/fullprods
         />
       )}
     </label>
@@ -295,15 +282,9 @@ export default function Admin() {
       {tab === 'Products' && (
         <div>
           <p className="editor-help">
-<<<<<<< HEAD
             Product prices are editable sample values. Update the catalogue price label and notice
             when you add verified pricing. To use a normal product image, enter its path or HTTPS
             URL and clear the crop.
-=======
-            Leave the price blank to display “Price on enquiry”. Existing prices are editable sample
-            values. Update the catalogue price label and notice when you add verified pricing. To
-            use a normal product image, enter its path or HTTPS URL and clear the crop.
->>>>>>> origin/fullprods
           </p>
           <details className="editor-group">
             <summary>Categories</summary>
@@ -407,11 +388,7 @@ export default function Admin() {
                     category: draft.categories[0] || '',
                     image: '/assets/logo.png',
                     crop: [],
-<<<<<<< HEAD
                     price: 0,
-=======
-                    price: null,
->>>>>>> origin/fullprods
                     bestSeller: false,
                   },
                 ],
