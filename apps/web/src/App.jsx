@@ -147,7 +147,9 @@ export default function App() {
             <div className="detail-price">
               {money(modal.product.price)}
               <span>
-                {c.catalogue.priceLabel} · {modal.product.priceBasis} · {modal.product.size}
+                {modal.product.price === null
+                  ? modal.product.size
+                  : `${c.catalogue.priceLabel} · ${modal.product.priceBasis} · ${modal.product.size}`}
               </span>
             </div>
             <p className="price-notice">{c.catalogue.priceNotice}</p>
