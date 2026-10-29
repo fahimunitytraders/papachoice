@@ -2,7 +2,13 @@ import defaults from './defaults.json' with { type: 'json' };
 export const defaultContent = defaults;
 export const cloneContent = (value) => JSON.parse(JSON.stringify(value));
 export const money = (value) =>
+<<<<<<< HEAD
   new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'GBP' }).format(value);
+=======
+  value === null
+    ? 'Price on enquiry'
+    : new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'GBP' }).format(value);
+>>>>>>> origin/fullprods
 export const localAsset = (path) =>
   path.startsWith('/assets/') ? `${import.meta.env?.BASE_URL || './'}${path.slice(1)}` : path;
 export const allowedTargets = [
@@ -34,6 +40,10 @@ export function validateContent(input) {
       return value;
     }
     if (typeof template === 'number') {
+<<<<<<< HEAD
+=======
+      if (/^content\.products\.\d+\.price$/.test(path) && value === null) return null;
+>>>>>>> origin/fullprods
       if (typeof value !== 'number' || !Number.isFinite(value) || value < 0 || value > 100000)
         throw new Error(`${path} must be a valid non-negative number.`);
       return value;
@@ -112,8 +122,18 @@ export function filterProducts(products, category, query, sort = 'featured') {
       (category === 'All products' || p.category === category) &&
       `${p.name} ${p.brand} ${p.sku}`.toLowerCase().includes(query.toLowerCase().trim()),
   );
+<<<<<<< HEAD
   if (sort === 'price-low') result.sort((a, b) => a.price - b.price);
   if (sort === 'price-high') result.sort((a, b) => b.price - a.price);
+=======
+  if (sort === 'price-low' || sort === 'price-high') {
+    result.sort((a, b) => {
+      if (a.price === null) return b.price === null ? 0 : 1;
+      if (b.price === null) return -1;
+      return sort === 'price-low' ? a.price - b.price : b.price - a.price;
+    });
+  }
+>>>>>>> origin/fullprods
   if (sort === 'name') result.sort((a, b) => a.name.localeCompare(b.name));
   return result;
 }

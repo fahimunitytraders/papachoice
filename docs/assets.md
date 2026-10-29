@@ -9,6 +9,17 @@
 
 food-concept.png is the approved homepage mockup from this conversation. The product photographs and hero are reused through SVG viewports in ProductImage.jsx. Only the product image regions are displayed; the mockup UI is not part of the live interface. Supply individual original product photographs for a production catalogue.
 
+<<<<<<< HEAD
+=======
+## Added product catalogue
+
+The supplied HTML attachment contains 70 product listings. All 70 are added alongside the original three products, with their primary photographs downloaded unchanged into apps/web/public/assets/products. Product names, source pages, original image URLs and local image paths are recorded in product-sources.json. Images are bundled, so the catalogue does not depend on the original website at runtime.
+
+Descriptions are newly written from the product names and visible packaging. They do not add certification or nutritional claims. Pack sizes use visible labels where legible, otherwise the supplied image filename; unconfirmed sizes invite an enquiry. SKUs PC-004 through PC-073 are internal catalogue identifiers, not supplier barcodes. No new prices were supplied, so the added products use null and display “Price on enquiry”. Printed prices in source photographs are not treated as current wholesale prices.
+
+Two source image mismatches are retained and disclosed in the affected product descriptions: the Epsom Salt Fine image shows a Sea Salt label, and the non price marked peanut butter image shows a price marked jar. Replace these source photographs when corrected product images are available. For Exotic Corn Dough and Flying Eagle Jasmine Rice, the displayed 2kg and 5kg pack labels take precedence over their misleading 1kg and 10kg image filenames. The Beans Flour photograph reads 1.5kg despite its 1kg filename.
+
+>>>>>>> origin/fullprods
 mission.png, quality.png and values.png are generated editorial illustrations for the About page. They do not document actual staff, premises or customers. They were created with the built-in image generation tool for this project.
 
 The image briefs were: a shared African family meal for Mission; an editorial ingredient still life for Quality; and two people exchanging a carton at a neighbourhood shop for Values. All use natural light and warm colours without text or external branding.

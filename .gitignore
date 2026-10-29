@@ -7,3 +7,9 @@ coverage/
 !.env.example
 .DS_Store
 *.log
+<<<<<<< HEAD
+=======
+.aws-sam/
+.local-mail/
+samconfig.toml
+>>>>>>> origin/fullprods
