@@ -1,121 +1,91 @@
 
 /**
- * PapaChoice Registration API
+ * PapaChoice Business Registration API
  *
- * File:
- * apps/web/src/api/registration.js
+ * File: apps/web/src/api/registration.js
  *
- * Sends registration details and proof-of-address
- * documents to AWS Lambda using JSON and Base64.
+ * Sends business registration details and
+ * proof-of-address attachments to AWS Lambda.
  */
 
-const LAMBDA_URL =
-  import.meta.env.VITE_REGISTRATION_LAMBDA_URL;
+const LAMBDA_URL = import.meta.env.VITE_REGISTRATION_LAMBDA_URL;
 
 const MAX_FILE_SIZE = 3 * 1024 * 1024;
 
-const ALLOWED_FILE_TYPES = [
-  "application/pdf",
-  "image/jpeg",
-  "image/png",
-];
+const ALLOWED_EXTENSIONS = ["pdf", "png", "jpg", "jpeg"];
+
+const MIME_TYPES = {
+  pdf: "application/pdf",
+  png: "image/png",
+  jpg: "image/jpeg",
+  jpeg: "image/jpeg",
+};
 
 /**
- * Convert a browser File object into Base64.
+ * Convert a browser File into a Base64 attachment.
  */
 export function fileToBase64(file) {
   return new Promise((resolve, reject) => {
-    if (!(file instanceof File)) {
-      reject(
-        new Error("Please select a valid file.")
-      );
+    if (typeof File === "undefined" || !(file instanceof File)) {
+      reject(new Error("Please select a valid attachment."));
+      return;
+    }
+
+    if (file.size === 0) {
+      reject(new Error("The selected file is empty."));
       return;
     }
 
     if (file.size > MAX_FILE_SIZE) {
-      reject(
-        new Error(
-          "The uploaded file must be smaller than 3 MB."
-        )
-      );
+      reject(new Error("The uploaded file must be 3 MB or smaller."));
       return;
     }
 
-    const extension = file.name
-      .split(".")
-      .pop()
-      ?.toLowerCase();
+    const extension = file.name.split(".").pop()?.toLowerCase();
 
-    const allowedExtensions = [
-      "pdf",
-      "jpg",
-      "jpeg",
-      "png",
-    ];
+    if (!ALLOWED_EXTENSIONS.includes(extension)) {
+      reject(new Error("Only PDF, PNG, JPG and JPEG files are allowed."));
+      return;
+    }
 
-    if (
-      !ALLOWED_FILE_TYPES.includes(file.type) &&
-      !allowedExtensions.includes(extension)
-    ) {
-      reject(
-        new Error(
-          "Only PDF, JPG, JPEG and PNG files are allowed."
-        )
-      );
+    const mimeType = MIME_TYPES[extension];
+
+    if (file.type && file.type !== mimeType) {
+      reject(new Error("The file type does not match its extension."));
       return;
     }
 
     const reader = new FileReader();
 
     reader.onload = () => {
-      const result = reader.result;
-
-      if (typeof result !== "string") {
-        reject(
-          new Error("Unable to read uploaded file.")
-        );
+      if (typeof reader.result !== "string") {
+        reject(new Error("Unable to read the uploaded file."));
         return;
       }
 
-      const commaIndex = result.indexOf(",");
+      const commaIndex = reader.result.indexOf(",");
 
       if (commaIndex === -1) {
-        reject(
-          new Error("Invalid file encoding.")
-        );
+        reject(new Error("Invalid file encoding."));
         return;
       }
 
-      const base64 = result.slice(
-        commaIndex + 1
-      );
+      const base64 = reader.result.slice(commaIndex + 1);
 
       if (!base64) {
-        reject(
-          new Error("Uploaded file is empty.")
-        );
+        reject(new Error("The uploaded file could not be encoded."));
         return;
       }
 
       resolve({
         filename: file.name,
-        mimeType:
-          file.type ||
-          (
-            extension === "pdf"
-              ? "application/pdf"
-              : extension === "png"
-                ? "image/png"
-                : "image/jpeg"
-          ),
+        mimeType,
         base64,
       });
     };
 
     reader.onerror = () => {
-      reject(
-        new Error("Unable to read uploaded file.")
-      );
+      reject(new Error("Unable to read the uploaded file."));
     };
 
     reader.readAsDataURL(file);
@@ -123,113 +93,70 @@ export function fileToBase64(file) {
 }
 
 /**
- * Check whether a value is a browser File.
- */
-function isFile(value) {
-  return (
-    typeof File !== "undefined" &&
-    value instanceof File
-  );
-}
-
-/**
- * Check whether a value is a Blob.
- */
-function isBlob(value) {
-  return (
-    typeof Blob !== "undefined" &&
-    value instanceof Blob
-  );
-}
-
-/**
- * Convert a Blob into a File.
- */
-function blobToFile(blob, filename) {
-  return new File(
-    [blob],
-    filename,
-    {
-      type:
-        blob.type ||
-        "image/png",
-    }
-  );
-}
-
-/**
- * Convert the proof-of-address attachment.
- *
- * Supports:
- * - File objects
- * - Blob objects
- * - FileList objects
- * - Existing Base64 attachment objects
+ * Convert supported attachment inputs into
+ * the structure expected by Lambda.
  */
 async function prepareAttachment(value) {
   if (!value) {
     return null;
   }
 
-  if (isFile(value)) {
+  if (typeof File !== "undefined" && value instanceof File) {
     return fileToBase64(value);
-  }
-
-  if (isBlob(value)) {
-    return fileToBase64(
-      blobToFile(value, "attachment.png")
-    );
   }
 
   if (
     typeof FileList !== "undefined" &&
     value instanceof FileList
   ) {
-    if (!value.length) {
+    if (value.length === 0) {
       return null;
     }
 
     return fileToBase64(value[0]);
   }
 
+  if (typeof Blob !== "undefined" && value instanceof Blob) {
+    const extension =
+      value.type === "application/pdf"
+        ? "pdf"
+        : value.type === "image/jpeg"
+          ? "jpg"
+          : "png";
+
+    const file = new File(
+      [value],
+      `attachment.${extension}`,
+      { type: value.type || MIME_TYPES[extension] }
+    );
+
+    return fileToBase64(file);
+  }
+
   if (
     typeof value === "object" &&
     typeof value.base64 === "string"
   ) {
+    if (!value.base64.trim()) {
+      throw new Error("Attachment content is empty.");
+    }
+
     return {
       filename:
         value.filename ||
         value.fileName ||
         value.name ||
         "attachment.pdf",
-
       mimeType:
         value.mimeType ||
         value.type ||
         "application/pdf",
-
       base64: value.base64,
     };
   }
 
-  if (
-    typeof value === "object" &&
-    isFile(value.file)
-  ) {
-    return fileToBase64(value.file);
-  }
-
-  if (
-    typeof value === "object" &&
-    isBlob(value.file)
-  ) {
-    return fileToBase64(
-      blobToFile(
-        value.file,
-        value.filename ||
-        "attachment.png"
-      )
-    );
+  if (typeof value === "object" && value.file) {
+    return prepareAttachment(value.file);
   }
 
   throw new Error(
@@ -238,7 +165,8 @@ async function prepareAttachment(value) {
 }
 
 /**
- * Find the proof-of-address document.
+ * Find an attachment supplied inside the
+ * registration data object.
  */
 function findProofFile(data) {
   const possibleKeys = [
@@ -264,43 +192,35 @@ function findProofFile(data) {
 }
 
 /**
- * Prepare the registration payload.
+ * Build the JSON payload expected by AWS Lambda:
  *
- * Keeps all form fields, including:
- * - Business information
- * - Contact information
- * - Guarantor information
- * - Signatures
- *
- * Moves the uploaded proof file into a
- * dedicated Base64 attachment object.
+ * {
+ *   fields: { ...registrationDetails },
+ *   proofFile: {
+ *     filename: "...",
+ *     mimeType: "application/pdf",
+ *     base64: "..."
+ *   }
+ * }
  */
-export async function prepareRegistrationPayload(
-  registrationData
-) {
+export async function prepareRegistrationPayload(registrationData) {
   if (
     !registrationData ||
-    typeof registrationData !== "object"
+    typeof registrationData !== "object" ||
+    Array.isArray(registrationData)
   ) {
-    throw new Error(
-      "Registration information is missing."
-    );
+    throw new Error("Registration information is missing.");
   }
 
-  const fields = {
-    ...registrationData,
-  };
+  const fields = { ...registrationData };
 
-  const proof = findProofFile(fields);
+  const foundProof = findProofFile(fields);
 
   let proofFile = null;
 
-  if (proof) {
-    proofFile = await prepareAttachment(
-      proof.value
-    );
-
-    delete fields[proof.key];
+  if (foundProof) {
+    proofFile = await prepareAttachment(foundProof.value);
+    delete fields[foundProof.key];
   }
 
   return {
@@ -310,23 +230,58 @@ export async function prepareRegistrationPayload(
 }
 
 /**
- * Send registration to AWS Lambda.
+ * Submit a registration to AWS Lambda.
+ *
+ * Compatible with RegistrationForm.jsx:
+ *
+ * submitRegistration(
+ *   registrationData,
+ *   proof,
+ *   signatureImage
+ * )
  */
 export async function submitRegistration(
   registrationData,
   proof = null,
   signatureImage = null
-) { {
+) {
   if (!LAMBDA_URL) {
     throw new Error(
       "Registration service URL is not configured."
     );
   }
 
-  const payload =
-    await prepareRegistrationPayload(
-      registrationData
+  if (
+    !registrationData ||
+    typeof registrationData !== "object" ||
+    Array.isArray(registrationData)
+  ) {
+    throw new Error("Registration information is missing.");
+  }
+
+  const data = {
+    ...registrationData,
+  };
+
+  // The form passes the uploaded PDF as
+  // the second argument. Include it in the payload.
+  if (proof) {
+    data.proofFile = proof;
+  }
+
+  // Include a drawn signature, when supplied.
+  if (signatureImage) {
+    data.signatureImage = signatureImage;
+  }
+
+  const payload = await prepareRegistrationPayload(data);
+
+  // Proof of address is required by the registration form.
+  if (!payload.proofFile) {
+    throw new Error(
+      "Please upload proof of your business address."
     );
+  }
 
   let response;
 
@@ -334,19 +289,18 @@ export async function submitRegistration(
     response = await fetch(LAMBDA_URL, {
       method: "POST",
       headers: {
-        "Content-Type":
-          "application/json",
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(payload),
     });
   } catch (error) {
     console.error(
       "Registration connection failed:",
-      error.message
+      error
     );
 
     throw new Error(
-      "Unable to connect to registration service."
+      "Unable to connect to the registration service. Please try again."
     );
   }
 
@@ -356,26 +310,24 @@ export async function submitRegistration(
     result = await response.json();
   } catch {
     throw new Error(
-      "Registration service returned an invalid response."
+      "The registration service returned an invalid response."
     );
   }
 
-  if (!response.ok || !result.success) {
+  if (!response.ok || result.success !== true) {
     throw new Error(
       result.error ||
       result.message ||
-      "Unable to send registration."
+      "Unable to send registration. Please try again."
     );
   }
 
   return result;
 }
 
-// Optional aliases for existing imports.
-export const sendRegistration =
-  submitRegistration;
+// Aliases for other parts of the application.
+export const sendRegistration = submitRegistration;
 
-export const registerBusiness =
-  submitRegistration;
+export const registerBusiness = submitRegistration;
 
 export default submitRegistration;
