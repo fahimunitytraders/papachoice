@@ -24,8 +24,8 @@
     "search": "Search products…"
   },
   "home": {
-    "eyebrow": "PAPA’S CHOICE WHOLESALE",
-    "title": "Big flavour.\nSimply wholesale.",
+    "eyebrow": "UNITY TRADERS LTD",
+    "title": "You deserve better food",
     "description": "Stock your shelves with authentic favourites.",
     "primaryButton": "Explore our products",
     "primaryTarget": "/products",
@@ -59,16 +59,16 @@
     "eyebrow": "ROOTED IN COMMUNITY",
     "title": "Welcome to Papa’s Choice",
     "intro": "Welcome to Papa’s Choice, your trusted African wholesale cash and carry in London. For the past 12 years, we have proudly dedicated ourselves to serving our community with authentic African and international foods, offering a wide range of quality products at competitive wholesale prices.",
-    "journeyTitle": "Our journey",
-    "journeyText": "Our story began with a simple mission: to make African food and culture more accessible to everyone. We noticed how challenging it could be for families, restaurants, and shop owners to find authentic African ingredients in bulk, and we set out to fill that gap.\n\nWhat started as a local idea has now grown into a thriving wholesale destination, trusted by individuals and businesses across London and beyond.",
+    "journeyTitle": "From Humble Beginnings to a Growing Business",
+    "journeyText": "Every great journey starts somewhere, and for Papa's Choice, our journey began in a small unit beneath the railway arches in Deptford, southeast London.\n\nWhat started as a small business was built on a vision, determination and a passion for bringing quality African food products to the community. Our beginnings were modest, but our ambitions were strong. With hard work, dedication, and the support of our customers, we began laying the foundations for what Papa's Choice would become.",
     "communityTitle": "More than just wholesale",
-    "communityText": "We are more than just a wholesale store. We are part of the community. Over the years, we have built strong relationships with our customers, many of whom see us not only as a supplier but as a partner who understands their needs.\n\nWhether you’re a family looking to bring the taste of home to your table, a restaurant sourcing authentic African ingredients, or a retailer stocking your shelves, we are here to make the process smooth, reliable, and affordable.",
+    "communityText": "At Papa's Choice, we believe food is more than what we put on our plates. It connects us to our roots, brings families together and keeps our traditions alive.\n\nFrom our humble beginnings in the railway arches of Deptford, we have been driven by a passion for bringing the flavours of home closer to our community. We understand the importance of finding the ingredients you know, the products you trust and the familiar tastes that make every meal special.\n\nWhether you are shopping for your family, stocking your store or supplying your restaurant, we're proud to be part of your journey.\n\nFor us, it's not just about wholesale. It's about our roots, our relationships and the communities we serve.",
     "sections": [
       {
         "id": "mission",
-        "eyebrow": "01 / OUR MISSION",
-        "title": "Bring a little\nhome to every table.",
-        "text": "To make authentic African food and culture more accessible, connecting our community with the ingredients they know and love.",
+        "eyebrow": "Food that feels like home",
+        "title": "Bringing Communities Together Through Food",
+        "text": "At Unity Traders Ltd, we believe that food brings people together. It connects us to our cultures, traditions and the flavours that make us feel at home.",
         "image": "/assets/mission.png",
         "alt": "Hands sharing a bowl of jollof rice and plantain around a table"
       },
@@ -92,8 +92,8 @@
     "button": "Discover our products"
   },
   "partnersPage": {
-    "eyebrow": "BETTER TOGETHER",
-    "title": "Familiar names.\nShared standards.",
+    "eyebrow": "OUR BRAND FAMILY",
+    "title": "Our Brands & Partners",
     "description": "Meet the brands featured across our wholesale network.",
     "sliderTitle": "Good company.",
     "sliderDescription": "A few familiar faces from our shelves.",

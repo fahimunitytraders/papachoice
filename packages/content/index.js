@@ -28,7 +28,6 @@ export function validateContent(input) {
     throw new Error('Choose a Papa’s Choice content JSON file.');
   if (input.schemaVersion !== 1)
     throw new Error('Unsupported content version. Expected version 1.');
-  // Validate the full known shape, then rebuild from known keys to discard unknown properties.
   function shape(value, template, path) {
     if (typeof template === 'string') {
       if (typeof value !== 'string' || value.length > 12000)

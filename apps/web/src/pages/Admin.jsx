@@ -83,7 +83,7 @@ export default function Admin() {
   function commit() {
     try {
       save(draft);
-      setMessage('Saved in this browser. Open the site to see your changes.');
+      setMessage('Saved in this browser.');
       setError('');
     } catch (e) {
       setError(
@@ -104,9 +104,7 @@ export default function Admin() {
       a.download = 'papas-choice-content.json';
       a.click();
       setTimeout(() => URL.revokeObjectURL(url), 1000);
-      setMessage(
-        'Content exported. Commit this file as packages/content/defaults.json to share it with the team.',
-      );
+      setMessage('Content exported.');
       setError('');
     } catch (e) {
       setError(e.message);
@@ -153,22 +151,14 @@ export default function Admin() {
     <section className="container admin-page">
       <div className="admin-heading">
         <div>
-          <p className="eyebrow">YOUR SITE, YOUR STYLE</p>
           <h1>Site editor</h1>
-          <p>Update colours, copy, buttons, products and partners.</p>
         </div>
         <Link className="button button-outline" to="/" target="_blank">
           Preview site
           <Icon name="arrow" />
         </Link>
       </div>
-      <div className="editor-notice">
-        <strong>Local preview editor</strong>
-        <p>
-          There is no admin login or server yet. Changes stay in this browser. Export the JSON to
-          back up your work or share it with your team. Nothing is published automatically.
-        </p>
-      </div>
+      <p className="small muted">Changes are saved in this browser.</p>
       <div className="editor-toolbar">
         <div className="editor-tabs" role="group" aria-label="Editor sections">
           {tabs.map((t) => (
@@ -197,9 +187,7 @@ export default function Admin() {
           {error}
         </p>
       )}
-      <p className="small muted editor-dirty">
-        {dirty ? 'You have unsaved changes.' : 'Your editor matches the saved site.'}
-      </p>
+      {dirty && <p className="small muted editor-dirty">You have unsaved changes.</p>}
       {tab === 'Appearance' && (
         <div className="editor-appearance">
           <div className="editor-fields">
@@ -243,7 +231,6 @@ export default function Admin() {
                 {draft.home.primaryButton} →
               </span>
             </div>
-            <p className="small">Colour preview. Save to apply across the site.</p>
           </div>
           <details className="editor-group">
             <summary>Brand and logo</summary>
@@ -289,11 +276,7 @@ export default function Admin() {
       )}
       {tab === 'Products' && (
         <div>
-          <p className="editor-help">
-            Leave the price blank to display “Price on enquiry”. Existing prices are editable sample
-            values. Update the catalogue price label and notice when you add verified pricing. To
-            use a normal product image, enter its path or HTTPS URL and clear the crop.
-          </p>
+          <p className="editor-help">Leave the price blank to display “Price on enquiry”.</p>
           <details className="editor-group">
             <summary>Categories</summary>
             {draft.categories.map((category, i) => (
@@ -410,10 +393,6 @@ export default function Admin() {
       )}
       {tab === 'Partners' && (
         <div>
-          <p className="editor-help">
-            Partners appear in both the homepage slider and the full directory. Use a local logo
-            path or an HTTPS image URL. Brand website links are optional.
-          </p>
           {draft.partners.map((p, i) => (
             <details className="editor-group" key={p.id}>
               <summary>{p.name}</summary>
@@ -457,22 +436,10 @@ export default function Admin() {
           </button>
         </div>
       )}
-      {tab === 'Company' && (
-        <>
-          <p className="editor-help">
-            Contact details update the footer, contact page and enquiry links. Company registration,
-            VAT and email fields stay hidden until you provide them.
-          </p>
-          {textGroup('contact')}
-        </>
-      )}
+      {tab === 'Company' && <>{textGroup('contact')}</>}
       <div className="editor-backup">
         <div>
-          <h2>Keep a copy. Share the work.</h2>
-          <p>
-            Export your content, then replace packages/content/defaults.json and commit it to GitHub
-            so your team sees the same version.
-          </p>
+          <h2>Import and export</h2>
         </div>
         <div className="backup-buttons">
           <button className="button button-outline" onClick={exportFile}>

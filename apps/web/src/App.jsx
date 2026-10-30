@@ -1,5 +1,5 @@
 import { lazy, Suspense, useEffect, useState } from 'react';
-import { Link, NavLink, Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
+import { Link, NavLink, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import { localAsset, money } from '@papas-choice/content';
 import { useContent } from './context/ContentContext.jsx';
 import Home from './pages/Home.jsx';
@@ -26,7 +26,8 @@ export default function App() {
     setMenu(false);
     setModal(null);
     window.scrollTo({ top: 0, behavior: 'instant' });
-    document.title = `${{ '/': 'African wholesale in London', '/about': 'About us', '/products': 'Products', '/partners': 'Our partners', '/careers': 'Careers', '/register': 'Register', '/contact': 'Contact us', '/admin': 'Site editor' }[location.pathname] || 'Home'} | ${c.brand.name}`;
+    const pagePath = location.pathname.replace(/\/+$/, '').toLowerCase() || '/';
+    document.title = `${{ '/': 'African wholesale in London', '/about': 'About us', '/products': 'Products', '/partners': 'Our partners', '/careers': 'Careers', '/register': 'Register', '/contact': 'Contact us', '/admin': 'Site editor' }[pagePath] || 'Page not found'} | ${c.brand.name}`;
   }, [location.pathname, c.brand.name]);
   function searchSubmit(e) {
     e.preventDefault();
@@ -127,7 +128,19 @@ export default function App() {
             />
             <Route path="/register" element={<Register />} />
             <Route path="/admin" element={<Admin />} />
-            <Route path="*" element={<Navigate to="/" replace />} />
+            <Route
+              path="*"
+              element={
+                <section className="container page-section empty-state">
+                  <p className="eyebrow">404</p>
+                  <h1>Page not found</h1>
+                  <p>The page you’re looking for does not exist.</p>
+                  <Link className="button" to="/">
+                    Back to home
+                  </Link>
+                </section>
+              }
+            />
           </Routes>
         </Suspense>
       </main>
@@ -172,15 +185,15 @@ export default function App() {
       )}
       {modal?.type === 'application' && (
         <Modal title={`Apply: ${modal.job.title}`} onClose={close} wide>
-          <ApplicationForm job={modal.job} />
+          <ApplicationForm />
         </Modal>
       )}
       {modal?.type === 'privacy' && (
         <Modal title="Privacy & cookies" onClose={close}>
           <div className="info-copy">
             <p>
-              This frontend preview does not send registration or job application details to a
-              server. Form entries and selected files stay in memory while the form is open.
+              Registration details and supporting documents are emailed to our team for review.
+              Career application previews are not submitted or saved.
             </p>
             <p>
               The site editor stores your content settings in this browser’s local storage. You can
@@ -193,10 +206,7 @@ export default function App() {
               websites. Links to WhatsApp, Maps and partner sites open external services with their
               own privacy practices.
             </p>
-            <p>
-              For company enquiries, call {c.contact.phone}. A production privacy notice should be
-              updated when the backend and data handling are defined.
-            </p>
+            <p>For questions about your information, call {c.contact.phone}.</p>
           </div>
         </Modal>
       )}
@@ -214,8 +224,8 @@ export default function App() {
               ingredients, allergens and preparation guidance.
             </p>
             <p>
-              Registration and career applications are currently demonstrations. Nothing is
-              submitted. For assistance using this website, call {c.contact.phone}.
+              Register online to send your business details for review. For career enquiries or help
+              using this website, call {c.contact.phone}.
             </p>
           </div>
         </Modal>

@@ -185,15 +185,6 @@ main:focus {
   color: #7d7164;
   font-weight: 600;
 }
-.wordmark {
-  font-size: 22px;
-  font-weight: 600;
-  letter-spacing: 1.3px;
-  white-space: nowrap;
-}
-.wordmark span {
-  color: #9f7e5c;
-}
 .site-header {
   border-bottom: 1px solid var(--line);
   background: rgba(255, 255, 255, 0.97);
@@ -248,23 +239,6 @@ main:focus {
   margin-left: auto;
   width: 200px;
 }
-.header-action {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  white-space: nowrap;
-  font-size: 12px;
-  padding: 8px 0;
-}
-.basket-count {
-  font-size: 10px;
-  background: var(--surface);
-  width: 21px;
-  height: 21px;
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-}
 .menu-toggle,
 .mobile-nav {
   display: none;
@@ -299,11 +273,6 @@ main:focus {
 .hero-cta {
   margin-top: 30px;
   min-width: 205px;
-}
-.hero-footnote {
-  font-size: 11px;
-  color: #918980;
-  margin-top: 15px;
 }
 .category-tabs {
   display: flex;
@@ -427,121 +396,6 @@ main:focus {
   color: var(--muted);
   margin-left: 3px;
 }
-.pack {
-  font-size: 11px;
-  color: var(--muted);
-  margin-top: 3px;
-}
-.card-controls {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  margin-top: 14px;
-}
-.quantity {
-  display: inline-flex;
-  align-items: center;
-  height: 32px;
-  border: 1px solid #dcd9d4;
-  border-radius: 5px;
-  background: var(--background);
-  flex-shrink: 0;
-}
-.quantity button {
-  display: grid;
-  place-items: center;
-  padding: 0;
-  width: 28px;
-  height: 30px;
-}
-.quantity input {
-  border: 0;
-  background: transparent;
-  text-align: center;
-  width: 29px;
-  padding: 0;
-  font-size: 11px;
-  appearance: textfield;
-  -moz-appearance: textfield;
-}
-.quantity input::-webkit-inner-spin-button,
-.quantity input::-webkit-outer-spin-button {
-  appearance: none;
-  margin: 0;
-}
-.swatches {
-  display: flex;
-  gap: 6px;
-  align-items: center;
-}
-.swatches button {
-  width: 15px;
-  height: 15px;
-  border-radius: 50%;
-  padding: 0;
-  border: 2px solid white;
-  box-shadow: 0 0 0 1px transparent;
-}
-.swatches button.selected {
-  box-shadow: 0 0 0 1px #b2a38f;
-}
-.card-add {
-  margin-top: 12px;
-  width: 100%;
-  min-height: 36px;
-  padding: 8px 13px;
-  justify-content: space-between;
-  font-size: 11px;
-}
-.card-add span {
-  font-size: 17px;
-}
-.benefits {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  border-block: 1px solid var(--line);
-  margin-top: 70px;
-  padding-block: 34px;
-  gap: 40px;
-}
-.benefits > div {
-  display: grid;
-  grid-template-columns: 32px 1fr;
-  column-gap: 16px;
-}
-.benefits svg {
-  grid-row: span 2;
-  margin-top: 3px;
-  color: #9b7a58;
-}
-.benefits h3 {
-  font-size: 15px;
-  letter-spacing: -0.2px;
-}
-.benefits p {
-  font-size: 12px;
-  color: var(--muted);
-  margin-top: 4px;
-}
-.trade-banner {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: var(--surface);
-  padding: 48px 55px;
-  margin-top: 50px;
-  margin-bottom: 70px;
-}
-.trade-banner h2 {
-  font-size: 37px;
-  margin-top: 12px;
-}
-.trade-banner p:not(.eyebrow) {
-  font-size: 13px;
-  color: #777068;
-  margin-top: 12px;
-}
 .site-footer {
   border-top: 1px solid var(--line);
   margin-top: 50px;
@@ -551,9 +405,6 @@ main:focus {
   justify-content: space-between;
   gap: 60px;
   padding: 45px 0;
-}
-.footer-top .wordmark {
-  font-size: 19px;
 }
 .footer-top p {
   font-size: 12px;
@@ -649,15 +500,6 @@ main:focus {
 }
 .catalogue-toolbar .search-field {
   width: 310px;
-}
-.sort-label select {
-  background: var(--background);
-  border: 1px solid var(--line);
-  padding: 11px 28px 11px 12px;
-  font-size: 12px;
-  border-radius: 5px;
-  color: #65615c;
-  max-width: 100%;
 }
 .result-count {
   font-size: 11px;
@@ -880,7 +722,7 @@ main:focus {
   border-radius: 8px;
   background: var(--background);
 }
-.demo-note {
+.form-note {
   padding: 12px 15px;
   background: var(--surface);
   font-size: 11px;
@@ -892,7 +734,7 @@ main:focus {
   align-items: center;
   margin-bottom: 25px;
 }
-.demo-note svg {
+.form-note svg {
   flex-shrink: 0;
 }
 .form-steps {
@@ -1135,79 +977,6 @@ legend {
   align-items: center;
   margin-block: 20px;
 }
-.basket-line {
-  display: grid;
-  grid-template-columns: 85px 1fr auto;
-  gap: 16px;
-  align-items: start;
-  padding: 20px 0;
-  border-bottom: 1px solid var(--line);
-}
-.basket-line:first-child {
-  padding-top: 0;
-}
-.basket-line h3 {
-  font-size: 14px;
-}
-.basket-line p {
-  font-size: 11px;
-  color: var(--muted);
-  margin: 5px 0 10px;
-}
-.basket-line > strong {
-  font-size: 13px;
-  font-weight: 500;
-}
-.remove-button {
-  font-size: 10px;
-  color: var(--muted);
-  margin-left: 12px;
-}
-.basket-total {
-  display: flex;
-  justify-content: space-between;
-  padding-top: 25px;
-  font-size: 18px;
-  margin-bottom: 12px;
-}
-.full-button {
-  width: 100%;
-  margin-top: 15px;
-}
-.toast {
-  position: fixed;
-  bottom: 24px;
-  left: 50%;
-  transform: translate(-50%, 20px);
-  opacity: 0;
-  pointer-events: none;
-  display: flex;
-  gap: 12px;
-  align-items: center;
-  background: #2c2924;
-  color: var(--background);
-  font-size: 12px;
-  padding: 15px 20px;
-  border-radius: 7px;
-  box-shadow: 0 10px 30px #0002;
-  z-index: 100;
-  transition:
-    transform 0.25s,
-    opacity 0.25s;
-  max-width: calc(100% - 24px);
-  width: max-content;
-}
-.toast.visible {
-  opacity: 1;
-  transform: translate(-50%, 0);
-  pointer-events: auto;
-}
-.toast button {
-  text-decoration: underline;
-  color: #e5c9ac;
-  font-size: 11px;
-  white-space: nowrap;
-}
 .sr-only {
   position: absolute;
   width: 1px;
@@ -1279,9 +1048,6 @@ legend {
   .header-search {
     width: 155px;
   }
-  .trade-link span {
-    display: none;
-  }
   .hero {
     gap: 15px;
     min-height: 450px;
@@ -1319,9 +1085,6 @@ legend {
     width: 135px;
     height: 135px;
   }
-  .benefits {
-    gap: 20px;
-  }
   .footer-top {
     gap: 30px;
   }
@@ -1332,9 +1095,6 @@ legend {
   }
   .header-inner {
     height: 76px;
-  }
-  .trade-link {
-    margin-left: auto;
   }
   .hero {
     min-height: 390px;
@@ -1358,26 +1118,6 @@ legend {
   .product-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 30px 20px;
-  }
-  .benefits {
-    grid-template-columns: 1fr;
-    gap: 25px;
-  }
-  .benefits p {
-    margin-top: 4px;
-  }
-  .trade-banner {
-    padding: 35px;
-    gap: 25px;
-  }
-  .trade-banner h2 {
-    font-size: 30px;
-  }
-  .trade-banner .button {
-    gap: 12px;
-  }
-  .footer-note {
-    display: none;
   }
   .registration-layout {
     grid-template-columns: 1fr;
@@ -1420,26 +1160,12 @@ legend {
     height: 70px;
     gap: 14px;
   }
-  .wordmark {
-    font-size: 18px;
-    letter-spacing: 0.7px;
-  }
   .desktop-nav {
     display: none;
   }
   .menu-toggle {
     display: flex;
     margin-right: -8px;
-  }
-  .basket-button > span:not(.basket-count) {
-    display: none;
-  }
-  .trade-link {
-    display: none;
-  }
-  .basket-button {
-    margin-left: auto;
-    gap: 5px;
   }
   .mobile-nav {
     display: flex;
@@ -1484,11 +1210,6 @@ legend {
   .hero-cta {
     margin-top: 20px;
     min-width: 0;
-  }
-  .hero-footnote {
-    display: inline-block;
-    margin: 0 0 0 14px;
-    font-size: 9px;
   }
   .category-tabs {
     height: 55px;
@@ -1536,57 +1257,12 @@ legend {
     font-size: 9px;
     display: inline-block;
   }
-  .pack {
-    font-size: 9px;
-  }
-  .card-controls {
-    flex-wrap: wrap;
-    gap: 10px;
-  }
-  .quantity {
-    height: 31px;
-  }
-  .quantity button {
-    width: 25px;
-  }
-  .quantity input {
-    width: 25px;
-  }
-  .swatches {
-    gap: 5px;
-  }
-  .swatches button {
-    width: 13px;
-    height: 13px;
-  }
-  .card-add {
-    padding: 8px 10px;
-    font-size: 10px;
-  }
-  .benefits {
-    margin-top: 40px;
-    padding-block: 28px;
-  }
-  .trade-banner {
-    margin-top: 30px;
-    margin-bottom: 40px;
-    padding: 30px 25px;
-    flex-direction: column;
-    align-items: start;
-    gap: 25px;
-  }
-  .trade-banner h2 {
-    font-size: 31px;
-  }
   .site-footer {
     margin-top: 30px;
   }
   .footer-top {
     padding: 30px 0;
     gap: 20px;
-  }
-  .footer-top .wordmark {
-    font-size: 15px;
   }
   .footer-top p {
     font-size: 10px;
@@ -1644,13 +1320,6 @@ legend {
   }
   .catalogue-toolbar .search-field input {
     font-size: 11px;
-  }
-  .sort-label {
-    max-width: 133px;
-  }
-  .sort-label select {
-    padding: 10px 4px;
-    font-size: 10px;
   }
   .result-count {
     margin-top: 16px;
@@ -1743,7 +1412,7 @@ legend {
     height: 24px;
     font-size: 10px;
   }
-  .demo-note {
+  .form-note {
     font-size: 10px;
     padding: 10px;
     margin-bottom: 20px;
@@ -1781,28 +1450,6 @@ legend {
   }
   .modal-body {
     padding: 18px;
-  }
-  .basket-line {
-    grid-template-columns: 65px 1fr auto;
-    gap: 10px;
-  }
-  .basket-line h3 {
-    font-size: 12px;
-  }
-  .basket-line > strong {
-    font-size: 12px;
-  }
-  .remove-button {
-    margin-left: 5px;
-  }
-  .toast {
-    font-size: 10px;
-    gap: 8px;
-    padding: 13px 12px;
-    bottom: 15px;
-  }
-  .toast button {
-    font-size: 10px;
   }
   .detail-actions {
     gap: 12px;
