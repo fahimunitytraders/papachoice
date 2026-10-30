@@ -68,7 +68,7 @@ h2 {
   gap: 25px;
 }
 .desktop-nav a {
-  font-size: 14px;
+  font-size: 15px;
 }
 .header-search {
   margin-left: 0;
@@ -78,7 +78,7 @@ h2 {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 14px;
+  font-size: 15px;
   white-space: nowrap;
 }
 .search-field {
@@ -538,18 +538,7 @@ h2 {
 .in-view .chapter-image img {
   transform: scale(1.02);
 }
-.chapter-number {
-  position: absolute;
-  font-size: 130px;
-  font-weight: 400;
-  letter-spacing: -10px;
-  line-height: 1;
-  bottom: -45px;
-  right: 20px;
-  color: var(--accent);
-  mix-blend-mode: multiply;
-  pointer-events: none;
-}
+
 .chapter-copy h2 {
   font-size: clamp(38px, 4.1vw, 62px);
   line-height: 1.08;
@@ -851,10 +840,7 @@ summary:focus-visible {
   .chapter-copy > p:not(.eyebrow) {
     font-size: 14px;
   }
-  .chapter-number {
-    font-size: 100px;
-    bottom: -35px;
-  }
+
   .contact-card {
     padding: 30px;
   }
@@ -878,7 +864,7 @@ summary:focus-visible {
     padding: 18px 32px 25px;
     gap: 20px;
     border-top: 1px solid var(--line);
-    font-size: 16px;
+    font-size: 17px;
   }
   .mobile-nav .search-field {
     max-width: 400px;
@@ -966,10 +952,7 @@ summary:focus-visible {
   .chapter-copy > p:not(.eyebrow) {
     font-size: 13px;
   }
-  .chapter-number {
-    font-size: 80px;
-    letter-spacing: -6px;
-  }
+
   .partners-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -1004,7 +987,7 @@ summary:focus-visible {
     font-size: 20px;
   }
   .register-link {
-    font-size: 13px;
+    font-size: 14px;
     gap: 6px;
   }
   .register-link svg {
@@ -1279,11 +1262,7 @@ summary:focus-visible {
   .chapter-image {
     aspect-ratio: 1.15;
   }
-  .chapter-number {
-    font-size: 88px;
-    right: 12px;
-    bottom: -28px;
-  }
+
   .chapter-copy {
     padding-top: 10px;
   }

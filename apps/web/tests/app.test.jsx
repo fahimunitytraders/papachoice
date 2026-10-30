@@ -72,11 +72,12 @@ describe('Papa’s Choice catalogue', () => {
     expect(screen.getByRole('heading', { name: 'Rajah' })).toBeTruthy();
   });
   it('shows all three illustrated About sections and contact details', () => {
-    mount('/about');
+    const { container } = mount('/about');
     expect(screen.getByRole('heading', { name: 'Welcome to Papa’s Choice' })).toBeTruthy();
-    expect(screen.getByText('Food that feels like home')).toBeTruthy();
-    expect(screen.getByText('02 / QUALITY')).toBeTruthy();
-    expect(screen.getByText('03 / OUR VALUES')).toBeTruthy();
+    expect(screen.queryByText('Food that feels like home')).toBeNull();
+    expect(screen.queryByText('02 / QUALITY')).toBeNull();
+    expect(screen.queryByText('03 / OUR VALUES')).toBeNull();
+    expect(container.querySelector('.chapter-number')).toBeNull();
     expect(screen.getAllByRole('img')).toHaveLength(3);
     expect(screen.getByRole('link', { name: '+44 20 4618 8640' }).getAttribute('href')).toBe(
       'tel:+442046188640',

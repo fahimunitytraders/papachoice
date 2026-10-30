@@ -40,12 +40,8 @@ export default function About() {
                 <div className="chapter-image">
                   <img src={localAsset(s.image)} alt={s.alt} loading="lazy" />
                 </div>
-                <span className="chapter-number" aria-hidden="true">
-                  0{i + 1}
-                </span>
               </Reveal>
               <Reveal className="chapter-copy" delay={150}>
-                <p className="eyebrow">{s.eyebrow}</p>
                 <h2>{s.title}</h2>
                 <p>{s.text}</p>
                 <div className="chapter-rule" />
