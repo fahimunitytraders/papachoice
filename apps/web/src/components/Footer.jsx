@@ -74,7 +74,6 @@ export default function Footer({ onInfo }) {
           <div>
             <button onClick={() => onInfo('privacy')}>Privacy & cookies</button>
             <button onClick={() => onInfo('website')}>Website information</button>
-            <Link to="/admin">Site editor</Link>
           </div>
         </div>
       </div>

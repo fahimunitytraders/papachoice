@@ -2,7 +2,7 @@ import { describe, it, expect, vi } from 'vitest';
 import { render, screen, within, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router-dom';
-import { ContentProvider, STORAGE_KEY } from '../src/context/ContentContext.jsx';
+import { ContentProvider } from '../src/context/ContentContext.jsx';
 import App from '../src/App.jsx';
 import RegistrationForm from '../src/components/RegistrationForm.jsx';
 import { submitRegistration } from '../src/api/registration.js';
@@ -99,53 +99,20 @@ describe('Papa’s Choice catalogue', () => {
     expect(screen.queryByRole('dialog')).toBeNull();
   });
 });
-describe('local content editor', () => {
-  it('can enter and clear a price on an imported product', async () => {
-    const user = userEvent.setup();
+describe('admin removal', () => {
+  it('shows a not found page for the former admin route without an editor link', () => {
     mount('/admin');
-    await user.click(await screen.findByRole('button', { name: 'Products', exact: true }));
-    await user.click(screen.getByText('Honey Beans', { selector: 'summary' }));
-    const field = screen.getByRole('spinbutton', { name: 'Product 4: Price', exact: true });
-    expect(field.value).toBe('');
-    await user.type(field, '4.99');
-    await user.click(screen.getByRole('button', { name: 'Save changes' }));
-    expect(JSON.parse(localStorage.getItem(STORAGE_KEY)).products[3].price).toBe(4.99);
-    await user.clear(field);
-    await user.click(screen.getByRole('button', { name: 'Save changes' }));
-    expect(JSON.parse(localStorage.getItem(STORAGE_KEY)).products[3].price).toBeNull();
+    expect(screen.getByRole('heading', { name: 'Page not found' })).toBeTruthy();
+    expect(screen.queryByRole('link', { name: 'Site editor' })).toBeNull();
   });
-  it('saves a hex colour, persists it, and blocks invalid values', async () => {
-    const user = userEvent.setup();
-    mount('/admin');
-    const field = await screen.findByRole('textbox', { name: 'Accent hex' });
-    await user.clear(field);
-    await user.type(field, '#AABBCC');
-    await user.click(screen.getByRole('button', { name: 'Save changes' }));
-    expect(JSON.parse(localStorage.getItem(STORAGE_KEY)).theme.accent).toBe('#AABBCC');
-    expect(document.documentElement.style.getPropertyValue('--accent')).toBe('#AABBCC');
-    await user.clear(field);
-    await user.type(field, 'bad');
-    await user.click(screen.getByRole('button', { name: 'Save changes' }));
-    expect(screen.getByRole('alert').textContent).toContain('hex colour');
-    expect(JSON.parse(localStorage.getItem(STORAGE_KEY)).theme.accent).toBe('#AABBCC');
-  });
-  it('edits a homepage button and sees the change on the public page', async () => {
-    const user = userEvent.setup();
-    mount('/admin');
-    await screen.findByRole('heading', { name: 'Site editor' });
-    await user.click(screen.getByRole('button', { name: 'Page text' }));
-    await user.click(screen.getByText('Home', { selector: 'summary' }));
-    const field = screen.getByRole('textbox', { name: 'Home: Primary Button' });
-    await user.clear(field);
-    await user.type(field, 'Browse our food');
-    await user.click(screen.getByRole('button', { name: 'Save changes' }));
-    await user.click(screen.getByRole('link', { name: "Papa's Choice home" }));
-    expect(await screen.findByRole('link', { name: 'Browse our food' })).toBeTruthy();
-  });
-  it('ignores corrupt stored content instead of crashing', () => {
-    localStorage.setItem(STORAGE_KEY, 'invalid');
+  it('uses published content even when legacy editor settings exist', () => {
+    localStorage.setItem(
+      'papas-choice-content-v1',
+      JSON.stringify({ theme: { accent: '#AABBCC' } }),
+    );
     mount();
     expect(screen.getByRole('heading', { name: 'Best sellers' })).toBeTruthy();
+    expect(document.documentElement.style.getPropertyValue('--accent')).not.toBe('#AABBCC');
   });
 });
 describe('registration', () => {

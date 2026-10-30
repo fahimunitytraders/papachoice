@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, NavLink, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import { localAsset, money } from '@papas-choice/content';
 import { useContent } from './context/ContentContext.jsx';
@@ -14,7 +14,6 @@ import ApplicationForm from './components/ApplicationForm.jsx';
 import ProductImage from './components/ProductImage.jsx';
 import Footer from './components/Footer.jsx';
 import Icon from './components/Icon.jsx';
-const Admin = lazy(() => import('./pages/Admin.jsx'));
 export default function App() {
   const { content: c } = useContent();
   const location = useLocation();
@@ -27,7 +26,7 @@ export default function App() {
     setModal(null);
     window.scrollTo({ top: 0, behavior: 'instant' });
     const pagePath = location.pathname.replace(/\/+$/, '').toLowerCase() || '/';
-    document.title = `${{ '/': 'African wholesale in London', '/about': 'About us', '/products': 'Products', '/partners': 'Our partners', '/careers': 'Careers', '/register': 'Register', '/contact': 'Contact us', '/admin': 'Site editor' }[pagePath] || 'Page not found'} | ${c.brand.name}`;
+    document.title = `${{ '/': 'African wholesale in London', '/about': 'About us', '/products': 'Products', '/partners': 'Our partners', '/careers': 'Careers', '/register': 'Register', '/contact': 'Contact us' }[pagePath] || 'Page not found'} | ${c.brand.name}`;
   }, [location.pathname, c.brand.name]);
   function searchSubmit(e) {
     e.preventDefault();
@@ -115,34 +114,31 @@ export default function App() {
         )}
       </header>
       <main id="main" tabIndex="-1">
-        <Suspense fallback={<div className="container page-section">Loading editor…</div>}>
-          <Routes>
-            <Route path="/" element={<Home onDetails={onDetails} />} />
-            <Route path="/products" element={<Products onDetails={onDetails} />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/partners" element={<Partners />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route
-              path="/careers"
-              element={<Careers onApply={(job) => setModal({ type: 'application', job })} />}
-            />
-            <Route path="/register" element={<Register />} />
-            <Route path="/admin" element={<Admin />} />
-            <Route
-              path="*"
-              element={
-                <section className="container page-section empty-state">
-                  <p className="eyebrow">404</p>
-                  <h1>Page not found</h1>
-                  <p>The page you’re looking for does not exist.</p>
-                  <Link className="button" to="/">
-                    Back to home
-                  </Link>
-                </section>
-              }
-            />
-          </Routes>
-        </Suspense>
+        <Routes>
+          <Route path="/" element={<Home onDetails={onDetails} />} />
+          <Route path="/products" element={<Products onDetails={onDetails} />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/partners" element={<Partners />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route
+            path="/careers"
+            element={<Careers onApply={(job) => setModal({ type: 'application', job })} />}
+          />
+          <Route path="/register" element={<Register />} />
+          <Route
+            path="*"
+            element={
+              <section className="container page-section empty-state">
+                <p className="eyebrow">404</p>
+                <h1>Page not found</h1>
+                <p>The page you’re looking for does not exist.</p>
+                <Link className="button" to="/">
+                  Back to home
+                </Link>
+              </section>
+            }
+          />
+        </Routes>
       </main>
       <Footer onInfo={(type) => setModal({ type })} />
       {modal?.type === 'product' && (
@@ -196,15 +192,9 @@ export default function App() {
               Career application previews are not submitted or saved.
             </p>
             <p>
-              The site editor stores your content settings in this browser’s local storage. You can
-              remove them using Reset to defaults in the editor or your browser’s site data
-              settings.
-            </p>
-            <p>
               No analytics or advertising cookies are installed. Fonts are requested from Google
-              Fonts, and custom image URLs entered in the editor may request files from other
-              websites. Links to WhatsApp, Maps and partner sites open external services with their
-              own privacy practices.
+              Fonts. Links to WhatsApp, Maps and partner sites open external services with their own
+              privacy practices.
             </p>
             <p>For questions about your information, call {c.contact.phone}.</p>
           </div>
