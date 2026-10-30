@@ -4,6 +4,18 @@
   --surface: #f5f0e9;
   --text: #26241f;
   --brand: #8b2523;
+  --ghana-red: #ce2437;
+  --ghana-gold: #f4c542;
+  --ghana-green: #087f4f;
+  --ghana-gradient: linear-gradient(
+    110deg,
+    var(--ghana-red) 0%,
+    #e35d38 24%,
+    var(--ghana-gold) 50%,
+    #8cae51 74%,
+    var(--ghana-green) 100%
+  );
+  --ghana-soft-gradient: linear-gradient(110deg, #f3b3a9 0%, #ffe19a 48%, #aed5b5 100%);
   --line: color-mix(in srgb, var(--text) 12%, var(--background));
   color: var(--text);
   background: var(--background);
@@ -13,11 +25,25 @@ h2 {
   white-space: pre-line;
 }
 .button {
-  background: var(--accent);
-  color: var(--text);
+  background: var(--ghana-soft-gradient);
+  background-size: 150% 100%;
+  color: #23251e;
+  border-color: rgb(121 93 30 / 15%);
+  box-shadow:
+    0 3px 10px rgb(121 93 30 / 8%),
+    inset 0 1px 0 rgb(255 255 255 / 55%);
+  transition:
+    background-position 0.35s ease,
+    transform 0.2s ease,
+    box-shadow 0.25s ease;
 }
 .button:hover {
-  background: var(--accent-hover);
+  background: var(--ghana-soft-gradient);
+  background-size: 150% 100%;
+  background-position: 100% 50%;
+  box-shadow:
+    0 7px 18px rgb(40 96 61 / 15%),
+    inset 0 1px 0 rgb(255 255 255 / 55%);
 }
 .button-dark {
   background: var(--text);
@@ -28,12 +54,18 @@ h2 {
 }
 .button-outline {
   background: transparent;
+  border-color: color-mix(in srgb, var(--ghana-green) 30%, var(--line));
+  box-shadow: none;
+}
+.button-outline:hover {
+  background: var(--ghana-soft-gradient);
 }
 .eyebrow {
   color: color-mix(in srgb, var(--brand) 55%, var(--muted));
 }
 .text-link {
-  border-bottom: 1px solid var(--accent);
+  border-bottom: 1px solid transparent;
+  background: var(--ghana-gradient) left bottom / 100% 1px no-repeat;
 }
 .text-link:hover,
 .text-button:hover {
@@ -69,6 +101,36 @@ h2 {
 }
 .desktop-nav a {
   font-size: 15px;
+}
+.desktop-nav a::after,
+.mobile-nav > a::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 0;
+  height: 3px;
+  border-radius: 999px;
+  background: var(--ghana-gradient);
+  opacity: 0;
+  transform: scaleX(0.4);
+  transform-origin: center;
+  transition:
+    opacity 0.25s ease,
+    transform 0.3s ease;
+}
+.mobile-nav > a {
+  position: relative;
+  align-self: flex-start;
+  padding-bottom: 7px;
+}
+.desktop-nav a:is(.active, :hover, :focus-visible)::after,
+.mobile-nav > a:is(.active, :hover, :focus-visible)::after {
+  background: var(--ghana-gradient);
+  opacity: 1;
+  transform: scaleX(1);
+}
+.catalogue-sidebar > button.active {
+  background: linear-gradient(110deg, #fce8e4, #fff4cf 50%, #e3f1e6);
+  box-shadow: inset 3px 0 0 var(--ghana-green);
 }
 .header-search {
   margin-left: 0;
@@ -138,7 +200,7 @@ h2 {
   bottom: 0;
   width: 100%;
   height: 3px;
-  background: var(--accent);
+  background: var(--ghana-gradient);
 }
 .section-heading {
   margin-block: 35px 25px;
@@ -553,7 +615,7 @@ h2 {
 .chapter-rule {
   height: 2px;
   width: 70px;
-  background: var(--accent);
+  background: var(--ghana-gradient);
   margin-top: 30px;
   transform: scaleX(0.2);
   transform-origin: left;
