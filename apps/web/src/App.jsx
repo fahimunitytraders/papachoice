@@ -172,15 +172,15 @@ export default function App() {
       )}
       {modal?.type === 'application' && (
         <Modal title={`Apply: ${modal.job.title}`} onClose={close} wide>
-          <ApplicationForm job={modal.job} />
+          <ApplicationForm />
         </Modal>
       )}
       {modal?.type === 'privacy' && (
         <Modal title="Privacy & cookies" onClose={close}>
           <div className="info-copy">
             <p>
-              This frontend preview does not send registration or job application details to a
-              server. Form entries and selected files stay in memory while the form is open.
+              Registration details and supporting documents are emailed to our team for review.
+              Career application previews are not submitted or saved.
             </p>
             <p>
               The site editor stores your content settings in this browser’s local storage. You can
@@ -193,10 +193,7 @@ export default function App() {
               websites. Links to WhatsApp, Maps and partner sites open external services with their
               own privacy practices.
             </p>
-            <p>
-              For company enquiries, call {c.contact.phone}. A production privacy notice should be
-              updated when the backend and data handling are defined.
-            </p>
+            <p>For questions about your information, call {c.contact.phone}.</p>
           </div>
         </Modal>
       )}
@@ -214,8 +211,8 @@ export default function App() {
               ingredients, allergens and preparation guidance.
             </p>
             <p>
-              Registration and career applications are currently demonstrations. Nothing is
-              submitted. For assistance using this website, call {c.contact.phone}.
+              Register online to send your business details for review. For career enquiries or help
+              using this website, call {c.contact.phone}.
             </p>
           </div>
         </Modal>

@@ -30,17 +30,13 @@ export default function Register() {
             <li>Trade references</li>
             <li>Your declaration</li>
           </ul>
-          <p className="small muted">This is a frontend preview. Please use sample information.</p>
         </aside>
         <div className="registration-panel">
           {complete ? (
             <div className="empty-state success-state" role="status">
               <Icon name="check" size={44} />
-              <h2>You’ve tried the full form.</h2>
-              <p>
-                Demo complete. Your details have not been sent or saved, and no account has been
-                created.
-              </p>
+              <h2>Registration sent</h2>
+              <p>Our team will review your details and contact you about your account.</p>
               <Link to="/products" className="button">
                 Explore the collection
                 <Icon name="arrow" />

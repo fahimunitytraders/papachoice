@@ -67,6 +67,9 @@ h2 {
   margin-left: auto;
   gap: 25px;
 }
+.desktop-nav a {
+  font-size: 13px;
+}
 .header-search {
   margin-left: 0;
   width: 190px;
@@ -75,7 +78,7 @@ h2 {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 12px;
+  font-size: 13px;
   white-space: nowrap;
 }
 .search-field {
@@ -667,7 +670,7 @@ h2 {
   color: var(--text);
   background: var(--background);
 }
-.demo-note {
+.form-note {
   background: var(--surface);
   color: var(--muted);
 }
@@ -703,21 +706,6 @@ h2 {
 .admin-heading p:not(.eyebrow) {
   font-size: 14px;
   color: var(--muted);
-}
-.editor-notice {
-  padding: 20px 25px;
-  background: var(--surface);
-  border-radius: 5px;
-  margin-bottom: 25px;
-}
-.editor-notice strong {
-  font-size: 13px;
-  font-weight: 600;
-}
-.editor-notice p {
-  font-size: 12px;
-  color: var(--muted);
-  margin-top: 5px;
 }
 .editor-toolbar {
   position: sticky;
@@ -1096,7 +1084,7 @@ summary:focus-visible {
     padding: 18px 32px 25px;
     gap: 20px;
     border-top: 1px solid var(--line);
-    font-size: 14px;
+    font-size: 15px;
   }
   .mobile-nav .search-field {
     max-width: 400px;
@@ -1234,7 +1222,7 @@ summary:focus-visible {
     font-size: 20px;
   }
   .register-link {
-    font-size: 11px;
+    font-size: 12px;
     gap: 6px;
   }
   .register-link svg {
@@ -1584,12 +1572,6 @@ summary:focus-visible {
   }
   .admin-heading p:not(.eyebrow) {
     font-size: 13px;
-  }
-  .editor-notice {
-    padding: 17px;
-  }
-  .editor-notice p {
-    font-size: 11px;
   }
   .editor-toolbar {
     gap: 10px;

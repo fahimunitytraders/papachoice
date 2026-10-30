@@ -74,7 +74,7 @@ describe('Papa’s Choice catalogue', () => {
   it('shows all three illustrated About sections and contact details', () => {
     mount('/about');
     expect(screen.getByRole('heading', { name: 'Welcome to Papa’s Choice' })).toBeTruthy();
-    expect(screen.getByText('01 / OUR MISSION')).toBeTruthy();
+    expect(screen.getByText('Food that feels like home')).toBeTruthy();
     expect(screen.getByText('02 / QUALITY')).toBeTruthy();
     expect(screen.getByText('03 / OUR VALUES')).toBeTruthy();
     expect(screen.getAllByRole('img')).toHaveLength(3);
@@ -183,9 +183,7 @@ describe('registration', () => {
     await fill(/Job title \/ position/, 'Director');
     await fill(/Signing date/, '2026-10-28');
     await fill(/Typed signature/, 'Sample Person');
-    await user.click(
-      screen.getByRole('checkbox', { name: /I confirm that I am authorised/ }),
-    );
+    await user.click(screen.getByRole('checkbox', { name: /I confirm that I am authorised/ }));
     await user.click(screen.getByRole('button', { name: 'Submit registration' }));
     await waitFor(() => expect(done).toHaveBeenCalledOnce());
     expect(submitRegistration).toHaveBeenCalledWith(

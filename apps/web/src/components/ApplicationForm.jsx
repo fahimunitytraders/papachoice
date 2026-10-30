@@ -1,14 +1,14 @@
 import { useState } from 'react';
 import Icon from './Icon.jsx';
-export default function ApplicationForm({ job }) {
+export default function ApplicationForm() {
   const [complete, setComplete] = useState(false);
   const [error, setError] = useState('');
   if (complete)
     return (
       <div className="empty-state" role="status">
         <Icon name="check" size={40} />
-        <h3>Demo application complete</h3>
-        <p>No application was sent. Your details and CV have not been saved.</p>
+        <h3>Application preview</h3>
+        <p>Your application has not been submitted.</p>
       </div>
     );
   return (
@@ -18,9 +18,7 @@ export default function ApplicationForm({ job }) {
         if (!error) setComplete(true);
       }}
     >
-      <p className="demo-note">
-        Demo application for {job.title}. Use sample information; nothing is sent or saved.
-      </p>
+      <p className="form-note">Online applications are not available yet.</p>
       <div className="form-grid">
         <label className="field">
           <span>Full name *</span>
@@ -58,11 +56,11 @@ export default function ApplicationForm({ job }) {
               } else setError('');
             }}
           />
-          <span className="small muted">Sample file only. PDF or Word document, maximum 5 MB.</span>
+          <span className="small muted">PDF or Word document, maximum 5 MB.</span>
         </label>
       </div>
       <label className="checkbox">
-        <input type="checkbox" required />I understand this is a demonstration application.
+        <input type="checkbox" required />I understand this form does not submit an application.
       </label>
       {error && (
         <p role="alert" className="form-error">
@@ -70,7 +68,7 @@ export default function ApplicationForm({ job }) {
         </p>
       )}
       <button className="button" type="submit">
-        Complete demo application
+        Preview application
         <Icon name="arrow" size={17} />
       </button>
     </form>

@@ -184,8 +184,9 @@ export default function RegistrationForm({ onDone }) {
   }
   return (
     <form ref={form} onSubmit={submit}>
-      <p className="demo-note">
-        <Icon name="box" size={17} /> Your information and uploaded document will be emailed to our registration team. Please submit only information you are authorised to share.
+      <p className="form-note">
+        <Icon name="box" size={17} /> Your details and supporting document will be emailed to our
+        team.
       </p>
       <ol className="form-steps">
         {steps.map((name, index) => (
@@ -298,7 +299,8 @@ export default function RegistrationForm({ onDone }) {
             <label className="field upload-field">
               <span>Proof of business address *</span>
               <span className="muted small">
-                Choose a PDF, JPG or PNG, up to 3 MB. This document will be attached to the registration email.
+                Choose a PDF, JPG or PNG, up to 3 MB. This document will be attached to the
+                registration email.
               </span>
               <input
                 type="file"
@@ -333,8 +335,7 @@ export default function RegistrationForm({ onDone }) {
               Include a credit account guarantor
             </label>
             <p className="muted small">
-              The reference form includes a personal guarantee. Submitting this information does not itself create a
-              guarantee or credit agreement.
+              Submitting these details does not create a guarantee or credit agreement.
             </p>
             {credit && (
               <fieldset>
@@ -369,16 +370,9 @@ export default function RegistrationForm({ onDone }) {
                 onChange={(e) => setAccepted(e.target.checked)}
                 required
               />
-              I confirm that I am authorised to submit these registration details and the attached document for review. No account is automatically created.
+              I confirm that I am authorised to submit these registration details and the attached
+              document for review. No account is automatically created.
             </label>
-            <a
-              className="small text-link"
-              href="https://papachoice.co.uk/register/"
-              target="_blank"
-              rel="noreferrer"
-            >
-              View the original registration form ↗
-            </a>
           </>
         )}
       </div>
