@@ -1677,3 +1677,121 @@ summary:focus-visible {
     transition: none;
   }
 }
+
+/* Keep each contact panel inside the viewport; navigation moves the track. */
+body:has(.contact-deck) {
+  overflow: hidden;
+}
+.contact-deck,
+.contact-panel {
+  overscroll-behavior: none;
+}
+.contact-panel {
+  overflow: hidden;
+  padding-block: 12px;
+  gap: 8px;
+}
+.contact-panel > .container {
+  flex: 1;
+  min-height: 0;
+  margin-block: 0;
+}
+.warehouse-panel > .container {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+}
+.contact-panel-heading {
+  margin-bottom: 12px;
+}
+.contact-panel-heading h1 {
+  font-size: clamp(25px, 4svh, 42px);
+}
+.warehouse-card,
+.warehouse-card > img {
+  min-height: 0;
+  height: 100%;
+  max-height: 100%;
+}
+.warehouse-card > img {
+  object-fit: contain;
+}
+.contact-panel > .contact-back {
+  margin: 0 auto;
+}
+.contact-team-content {
+  justify-content: center;
+  gap: clamp(12px, 3svh, 25px);
+}
+@media (max-width: 760px) {
+  .warehouse-card,
+  .warehouse-card-reverse {
+    grid-template-rows: minmax(0, 1fr) auto;
+    gap: 12px;
+  }
+  .warehouse-card > img {
+    aspect-ratio: auto;
+  }
+  .warehouse-details h2 {
+    font-size: 21px;
+    margin-bottom: 8px;
+  }
+  .warehouse-details ul {
+    font-size: 12px;
+    line-height: 1.5;
+  }
+  .warehouse-details li {
+    margin-bottom: 4px;
+  }
+  .contact-next {
+    min-height: 44px;
+    margin-top: 8px;
+    padding: 10px 18px;
+  }
+}
+@media (max-height: 600px) {
+  .contact-panel {
+    padding-block: 6px;
+    gap: 4px;
+  }
+  .contact-panel-heading {
+    margin-bottom: 6px;
+  }
+  .contact-panel-heading .eyebrow {
+    display: none;
+  }
+  .contact-panel-heading h1 {
+    margin-top: 0;
+    font-size: 25px;
+  }
+  .warehouse-details h2 {
+    font-size: 19px;
+    margin-bottom: 6px;
+  }
+  .warehouse-details ul {
+    font-size: 12px;
+    line-height: 1.4;
+  }
+  .warehouse-details li {
+    margin-bottom: 3px;
+  }
+  .contact-next {
+    margin-top: 4px;
+    padding: 8px 16px;
+    min-height: 40px;
+  }
+  .contact-next span {
+    font-size: 11px;
+  }
+  .contact-team-content {
+    gap: 12px;
+  }
+  .contact-team-content h2 {
+    font-size: 44px;
+  }
+  .contact-team-content .eyebrow {
+    font-size: 10px;
+  }
+  .contact-team-phone {
+    font-size: 27px;
+  }
+}
