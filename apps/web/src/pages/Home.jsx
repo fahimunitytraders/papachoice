@@ -66,7 +66,7 @@ export default function Home({ onDetails }) {
       <section className="container home-story">
         <Reveal className="home-story-image">
           <img
-            src={localAsset('/assets/mission.png')}
+            src={localAsset('/assets/stories/family-feast.jpg')}
             alt="Sharing African food around a family table"
             loading="lazy"
           />

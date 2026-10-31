@@ -121,7 +121,7 @@
     "address": "310-326 St James Road, London, SE1 5JX",
     "warehouses": [
       {
-        "name": "London warehouse",
+        "name": "London branch",
         "hours": "Monday to Saturday: 8:30am to 6:30pm",
         "cashAndCarry": true,
         "address": "310-326 St James Road, London, SE1 5JX",
@@ -129,7 +129,7 @@
         "alt": "Unity Traders London warehouse and cash and carry on St James Road"
       },
       {
-        "name": "Thrapston warehouse",
+        "name": "Thrapston branch",
         "hours": "Contact us to confirm opening times.",
         "cashAndCarry": false,
         "address": "20 Midland Road, Thrapston, NN14 4JR",

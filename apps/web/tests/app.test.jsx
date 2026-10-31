@@ -210,47 +210,38 @@ describe('career applications', () => {
   });
 });
 
-it('shows each branch photo and directions in its own section', async () => {
-  const user = userEvent.setup();
+it('shows both branches together with photos, details and directions', () => {
   mount('/contact');
-  for (const [name, address, image] of [
-    ['London warehouse', '310-326 St James Road, London, SE1 5JX', '/assets/warehouses/london.jpg'],
-    [
-      'Thrapston warehouse',
-      '20 Midland Road, Thrapston, NN14 4JR',
-      '/assets/warehouses/thrapston.jpg',
-    ],
+  for (const [name, image] of [
+    ['London branch', 'london.jpg'],
+    ['Thrapston branch', 'thrapston.jpg'],
   ]) {
     const card = screen.getByRole('heading', { name }).closest('.warehouse-card');
-    expect(within(card).getByText(address)).toBeTruthy();
     expect(within(card).getByRole('img').getAttribute('src')).toContain(image);
-    expect(
-      within(card)
-        .getByRole('link', { name: `Get directions to ${name}` })
-        .getAttribute('href'),
-    ).toContain(encodeURIComponent(address));
-    if (name === 'London warehouse')
-      await user.click(screen.getByRole('button', { name: 'Thrapston branch' }));
+    expect(within(card).getByRole('link', { name: `Get directions to ${name}` })).toBeTruthy();
   }
+  expect(screen.queryByText('COME SAY HELLO')).toBeNull();
 });
-it('navigates London, Thrapston and contact panels in both directions', async () => {
+it('switches between branch and contact panels in both directions', async () => {
   const user = userEvent.setup();
   mount('/contact');
-  expect(screen.getByRole('region', { name: 'London branch' })).toBeTruthy();
-  expect(screen.queryByRole('region', { name: 'Thrapston branch' })).toBeNull();
-  await user.click(screen.getByRole('button', { name: 'Thrapston branch' }));
-  expect(screen.getByRole('region', { name: 'Thrapston branch' })).toBeTruthy();
-  expect(screen.getByText('Cash and carry not available')).toBeTruthy();
+  expect(screen.getByRole('region', { name: 'Find us' })).toBeTruthy();
   await user.click(screen.getByRole('button', { name: 'Talk to us' }));
   const team = screen.getByRole('region', { name: 'Let’s talk.' });
   expect(within(team).getByRole('link', { name: '+44 7398477274' }).getAttribute('href')).toBe(
     'tel:+447398477274',
   );
-  expect(within(team).getByRole('link', { name: 'Message on WhatsApp' }).getAttribute('href')).toBe(
-    'https://wa.me/447398477274',
-  );
-  await user.click(screen.getByRole('button', { name: 'Back to Thrapston branch' }));
-  expect(screen.getByRole('region', { name: 'Thrapston branch' })).toBeTruthy();
-  await user.click(screen.getByRole('button', { name: 'Back to London branch' }));
-  expect(screen.getByRole('region', { name: 'London branch' })).toBeTruthy();
+  expect(screen.queryByRole('region', { name: 'Find us' })).toBeNull();
+  await user.click(screen.getByRole('button', { name: 'Find us' }));
+  expect(screen.getByRole('region', { name: 'Find us' })).toBeTruthy();
+  expect(screen.queryByRole('region', { name: 'Let’s talk.' })).toBeNull();
+});
+it('shows the family feast artwork with More than wholesale on the homepage', () => {
+  mount();
+  expect(
+    screen
+      .getByRole('img', { name: 'Sharing African food around a family table' })
+      .getAttribute('src'),
+  ).toContain('/assets/stories/family-feast.jpg');
+  expect(screen.getByRole('heading', { name: /More than wholesale/ })).toBeTruthy();
 });
