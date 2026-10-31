@@ -1493,17 +1493,22 @@ summary:focus-visible {
 
 .contact-deck {
   height: calc(100svh - 92px);
-  overflow-y: auto;
+  overflow: hidden;
+}
+.contact-panel-track {
+  height: 100%;
+  transition: transform 0.65s cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 .contact-panel {
-  min-height: 100%;
-
+  height: 100%;
+  overflow-y: auto;
   display: flex;
-  align-items: center;
+  flex-direction: column;
   padding-block: 16px;
 }
-.contact-panel[hidden] {
-  display: none;
+.contact-panel > .container {
+  flex-shrink: 0;
+  margin-block: auto;
 }
 .warehouse-panel {
   background: #faf9f6;
@@ -1543,8 +1548,8 @@ summary:focus-visible {
 .warehouse-card > img {
   width: 100%;
   height: clamp(185px, 23svh, 300px);
-  object-fit: cover;
-  border-radius: 18px;
+  object-fit: contain;
+  border-radius: 0;
 }
 .warehouse-details h2 {
   font-size: clamp(22px, 2.2vw, 32px);
@@ -1573,10 +1578,10 @@ summary:focus-visible {
 .contact-next {
   position: static;
   width: max-content;
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  background: var(--background);
-  box-shadow: 0 6px 24px rgb(38 36 31 / 14%);
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1592,7 +1597,8 @@ summary:focus-visible {
   letter-spacing: 1.5px;
 }
 .contact-next:hover {
-  background: var(--surface);
+  background: transparent;
+  color: var(--text);
 }
 .contact-next svg {
   transform: rotate(90deg);
@@ -1606,7 +1612,7 @@ summary:focus-visible {
 }
 .contact-team-panel {
   text-align: center;
-  background: var(--surface);
+  background: var(--background);
 }
 .contact-team-content {
   display: flex;
@@ -1659,5 +1665,11 @@ summary:focus-visible {
   }
   .contact-next {
     padding: 15px 25px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contact-panel-track {
+    transition: none;
   }
 }
