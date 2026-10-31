@@ -14,7 +14,7 @@ it('advances every three seconds and wraps back to the first image', () => {
   act(() => vi.advanceTimersByTime(3000));
   expect(screen.getByRole('group', { name: '1 of 2' })).toBeTruthy();
 });
-it('supports both arrows and resumes automatic sliding after hover', () => {
+it('supports both arrows and keeps rotating while hovered', () => {
   vi.useFakeTimers();
   render(<HeroSlider />);
   fireEvent.click(screen.getByRole('button', { name: 'Next product image' }));
@@ -22,12 +22,14 @@ it('supports both arrows and resumes automatic sliding after hover', () => {
   fireEvent.click(screen.getByRole('button', { name: 'Previous product image' }));
   const slider = screen.getByRole('region', { name: 'Papa’s Choice product highlights' });
   fireEvent.mouseEnter(slider);
-  act(() => vi.advanceTimersByTime(6000));
+  act(() => vi.advanceTimersByTime(2999));
   expect(screen.getByRole('group', { name: '1 of 2' })).toBeTruthy();
+  act(() => vi.advanceTimersByTime(1));
+  expect(screen.getByRole('group', { name: '2 of 2' })).toBeTruthy();
   fireEvent.mouseLeave(slider);
   expect(screen.queryByRole('button', { name: 'Pause product slideshow' })).toBeNull();
   act(() => vi.advanceTimersByTime(3000));
-  expect(screen.getByRole('group', { name: '2 of 2' })).toBeTruthy();
+  expect(screen.getByRole('group', { name: '1 of 2' })).toBeTruthy();
 });
 it('leaves navigation manual for reduced motion', () => {
   vi.useFakeTimers();

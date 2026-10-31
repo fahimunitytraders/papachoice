@@ -5,7 +5,6 @@ import Icon from './Icon.jsx';
 
 export default function HeroSlider() {
   const [active, setActive] = useState(0);
-  const [hovered, setHovered] = useState(false);
   const [focused, setFocused] = useState(false);
   const [reduced, setReduced] = useState(
     () => window.matchMedia('(prefers-reduced-motion: reduce)').matches,
@@ -23,47 +22,47 @@ export default function HeroSlider() {
     };
   }, []);
   useEffect(() => {
-    if (hovered || focused || reduced || !visible) return;
+    if (focused || reduced || !visible) return;
     const timer = window.setTimeout(() => setActive((value) => (value + 1) % 2), 3000);
     return () => window.clearTimeout(timer);
-  }, [active, hovered, focused, reduced, visible]);
+  }, [active, focused, reduced, visible]);
   return (
     <section
       className="hero-slider"
       aria-label="Papa’s Choice product highlights"
       aria-roledescription="carousel"
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
       onFocusCapture={() => setFocused(true)}
       onBlurCapture={(event) => {
         if (!event.currentTarget.contains(event.relatedTarget)) setFocused(false);
       }}
     >
-      <div className="hero-slider-track" style={{ transform: `translateX(-${active * 100}%)` }}>
-        <div
-          className={`hero-slide ${active === 0 ? 'is-active' : ''}`}
-          role="group"
-          aria-roledescription="slide"
-          aria-label="1 of 2"
-          aria-hidden={active !== 0}
-        >
-          <ProductImage
-            crop={[80, 76, 765, 465]}
-            label="Papa’s Choice Nigerian Palm Oil, Cocoyam Fufu Flour and Pepper Soup Mix"
-          />
-        </div>
-        <div
-          className={`hero-slide ${active === 1 ? 'is-active' : ''}`}
-          role="group"
-          aria-roledescription="slide"
-          aria-label="2 of 2"
-          aria-hidden={active !== 1}
-        >
-          <img
-            src={localAsset('/assets/hero/papas-choice-range.jpg')}
-            alt="Papa’s Choice Golden Sella Basmati Rice, Nigerian Palm Oil and Plantain Fufu Flour"
-            decoding="async"
-          />
+      <div className="hero-slider-viewport">
+        <div className="hero-slider-track" style={{ transform: `translateX(-${active * 100}%)` }}>
+          <div
+            className={`hero-slide ${active === 0 ? 'is-active' : ''}`}
+            role="group"
+            aria-roledescription="slide"
+            aria-label="1 of 2"
+            aria-hidden={active !== 0}
+          >
+            <ProductImage
+              crop={[80, 76, 765, 465]}
+              label="Papa’s Choice Nigerian Palm Oil, Cocoyam Fufu Flour and Pepper Soup Mix"
+            />
+          </div>
+          <div
+            className={`hero-slide ${active === 1 ? 'is-active' : ''}`}
+            role="group"
+            aria-roledescription="slide"
+            aria-label="2 of 2"
+            aria-hidden={active !== 1}
+          >
+            <img
+              src={localAsset('/assets/hero/papas-choice-range.jpg')}
+              alt="Papa’s Choice Golden Sella Basmati Rice, Nigerian Palm Oil and Plantain Fufu Flour"
+              decoding="async"
+            />
+          </div>
         </div>
       </div>
       <button
