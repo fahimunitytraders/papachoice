@@ -1837,41 +1837,35 @@ body:has(.contact-deck) {
   }
 }
 
-/* Stagger the full-size photographs through the middle of the branch panel. */
-@media (min-width: 761px) and (min-height: 650px) {
+/* Large branch photographs side by side, with their details underneath. */
+@media (min-width: 761px) {
   .combined-branches > .container {
     width: calc(100% - 64px);
     max-width: 1600px;
   }
   .branch-pair {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    grid-template-rows: minmax(0, 1fr) minmax(0, 0.8fr) minmax(0, 1fr);
-    gap: 12px 40px;
+    grid-template-rows: minmax(0, 1fr);
+    gap: 32px;
   }
-  .branch-pair .warehouse-card {
-    display: contents;
-    opacity: 1;
-    transform: none;
+  .branch-pair .warehouse-card,
+  .branch-pair .warehouse-card-reverse {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr) auto;
+    gap: 16px;
   }
   .branch-pair .warehouse-card > img {
     grid-column: 1;
-    grid-row: 1 / 3;
-    object-position: left center;
+    grid-row: 1;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center bottom;
   }
   .branch-pair .warehouse-card .warehouse-details {
-    grid-column: 2;
-    grid-row: 1;
-    align-self: center;
-    padding-left: 0;
-  }
-  .branch-pair .warehouse-card-reverse > img {
-    grid-column: 2;
-    grid-row: 2 / 4;
-    object-position: right center;
-  }
-  .branch-pair .warehouse-card-reverse .warehouse-details {
     grid-column: 1;
-    grid-row: 3;
-    padding-left: 12px;
+    grid-row: 2;
+    padding-left: 0;
   }
 }
