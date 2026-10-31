@@ -1,18 +1,37 @@
+import { useEffect, useRef, useState } from 'react';
 import { localAsset } from '@papas-choice/content';
 import { useContent } from '../context/ContentContext.jsx';
 import Reveal from '../components/Reveal.jsx';
 import Icon from '../components/Icon.jsx';
 export default function Contact() {
+  const [section, setSection] = useState('warehouses');
+  const deck = useRef(null);
+  const switched = useRef(false);
+  useEffect(() => {
+    if (!switched.current) return;
+    deck.current.scrollTop = 0;
+    deck.current
+      .querySelector('section:not([hidden]) [tabindex="-1"]')
+      ?.focus({ preventScroll: true });
+  }, [section]);
+  function showSection(next) {
+    switched.current = true;
+    setSection(next);
+  }
   const {
     content: { contact: c },
   } = useContent();
   return (
-    <div className="contact-deck">
-      <section className="contact-panel warehouse-panel" aria-labelledby="warehouse-heading">
+    <div className="contact-deck" ref={deck}>
+      <section
+        className="contact-panel warehouse-panel"
+        aria-labelledby="warehouse-heading"
+        hidden={section !== 'warehouses'}
+      >
         <div className="container">
           <Reveal className="contact-panel-heading">
             <p className="eyebrow">COME SAY HELLO</p>
-            <h1 id="warehouse-heading">
+            <h1 id="warehouse-heading" tabIndex={-1}>
               Two locations.
               <br />
               One warm welcome.
@@ -57,14 +76,8 @@ export default function Contact() {
           <button
             className="contact-next"
             aria-label="Go to phone and WhatsApp"
-            onClick={() =>
-              document.getElementById('contact-team')?.scrollIntoView({
-                behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches
-                  ? 'instant'
-                  : 'smooth',
-                block: 'start',
-              })
-            }
+            onClick={() => showSection('team')}
+            aria-controls="contact-team"
           >
             <span>TALK TO US</span>
             <Icon name="arrow" size={26} />
@@ -75,10 +88,13 @@ export default function Contact() {
         id="contact-team"
         className="contact-panel contact-team-panel"
         aria-labelledby="contact-team-heading"
+        hidden={section !== 'team'}
       >
         <Reveal className="container contact-team-content">
           <p className="eyebrow">A GOOD CONVERSATION STARTS HERE</p>
-          <h2 id="contact-team-heading">Let’s talk.</h2>
+          <h2 id="contact-team-heading" tabIndex={-1}>
+            Let’s talk.
+          </h2>
           <p>Questions about our products or planning a visit? We’re here to help.</p>
           <a className="contact-team-phone" href={`tel:${c.phone.replace(/[^+\d]/g, '')}`}>
             {c.phone}
@@ -97,6 +113,16 @@ export default function Contact() {
               {c.email}
             </a>
           )}
+          <button
+            type="button"
+            className="contact-next contact-back"
+            onClick={() => showSection('warehouses')}
+            aria-label="Find us"
+            aria-controls="warehouse-heading"
+          >
+            <span>FIND US</span>
+            <Icon name="arrow" size={26} />
+          </button>
         </Reveal>
       </section>
     </div>
