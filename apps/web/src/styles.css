@@ -1491,80 +1491,48 @@ summary:focus-visible {
   }
 }
 
-.contact-deck {
-  height: calc(100svh - 92px);
-  overflow: hidden;
-}
-.contact-panel-track {
-  height: 100%;
-  transition: transform 0.65s cubic-bezier(0.22, 0.61, 0.36, 1);
-}
 .contact-panel {
-  height: 100%;
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-  padding-block: 16px;
-}
-.contact-panel > .container {
-  flex-shrink: 0;
-  margin-block: auto;
+  padding-block: clamp(28px, 4vw, 64px);
+  scroll-margin-top: 20px;
 }
 .warehouse-panel {
   background: #faf9f6;
 }
-.contact-panel-heading {
-  text-align: center;
-  margin-bottom: 16px;
+.combined-branches > .container {
+  width: calc(100% - 64px);
+  max-width: 1600px;
 }
-.contact-panel-heading h1 {
-  font-size: clamp(28px, 3vw, 42px);
-  letter-spacing: -2px;
-  margin-top: 12px;
-}
-.warehouse-grid {
+.branch-pair {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 16px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 32px;
 }
 .warehouse-card {
-  display: grid;
-  grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr);
-  align-items: center;
-  gap: clamp(28px, 5vw, 80px);
-}
-.warehouse-card-reverse {
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1.7fr);
-}
-.warehouse-card-reverse > img {
-  grid-column: 2;
-  grid-row: 1;
-}
-.warehouse-card-reverse .warehouse-details {
-  grid-column: 1;
-  grid-row: 1;
-  padding-left: clamp(0px, 3vw, 48px);
+  min-width: 0;
 }
 .warehouse-card > img {
+  display: block;
   width: 100%;
   height: auto;
   object-fit: contain;
-  border-radius: 0;
+}
+.warehouse-details {
+  padding-top: 24px;
 }
 .warehouse-details h2 {
-  font-size: clamp(22px, 2.2vw, 32px);
-  margin-bottom: 10px;
+  font-size: clamp(25px, 2.5vw, 36px);
+  margin-bottom: 16px;
 }
 .warehouse-details ul {
-  padding-left: 17px;
-  margin: 0 0 10px;
+  padding-left: 19px;
+  margin: 0 0 20px;
   color: var(--muted);
-  font-size: 13px;
+  font-size: 15px;
   line-height: 1.7;
 }
 .warehouse-details li {
   padding-left: 3px;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
 }
 .warehouse-details li::marker {
   color: var(--brand);
@@ -1576,19 +1544,16 @@ summary:focus-visible {
   display: block;
 }
 .contact-next {
-  position: static;
-  width: max-content;
-  border: 0;
-  border-radius: 0;
-  background: transparent;
-  box-shadow: none;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 18px;
-  margin: 16px auto 0;
+  width: max-content;
+  margin: 36px auto 0;
   padding: 14px 30px;
   min-height: 54px;
+  border: 0;
+  background: transparent;
   color: var(--brand);
 }
 .contact-next span {
@@ -1597,31 +1562,34 @@ summary:focus-visible {
   letter-spacing: 1.5px;
 }
 .contact-next:hover {
-  background: transparent;
   color: var(--text);
 }
 .contact-next svg {
   transform: rotate(90deg);
 }
 .contact-panel > .contact-back {
-  margin: 0 auto 24px;
-  flex-shrink: 0;
+  margin: 0 auto 40px;
 }
 .contact-back svg {
   transform: rotate(-90deg);
 }
-.contact-panel-heading h1:focus,
+.warehouse-details h2:focus,
 .contact-team-content h2:focus {
   outline: none;
 }
 .contact-team-panel {
+  display: flex;
+  flex-direction: column;
+  min-height: 75svh;
   text-align: center;
   background: var(--background);
 }
 .contact-team-content {
   display: flex;
+  flex: 1;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 25px;
 }
 .contact-team-content h2 {
@@ -1640,232 +1608,18 @@ summary:focus-visible {
   color: var(--brand);
 }
 @media (max-width: 760px) {
-  .contact-deck {
-    height: calc(100svh - 76px);
-  }
-  .warehouse-grid {
-    gap: 35px;
-  }
-  .warehouse-card,
-  .warehouse-card-reverse {
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
-  .warehouse-card-reverse > img,
-  .warehouse-card-reverse .warehouse-details {
-    grid-column: auto;
-    grid-row: auto;
-    padding-left: 0;
-  }
-  .warehouse-card > img {
-    height: auto;
-    aspect-ratio: 4 / 3;
-  }
-  .warehouse-details ul {
-    font-size: 13px;
-  }
-  .contact-panel {
-    padding-block: 26px;
-  }
-  .contact-next {
-    padding: 15px 25px;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .contact-panel-track {
-    transition: none;
-  }
-}
-
-/* Keep each contact panel inside the viewport; navigation moves the track. */
-body:has(.contact-deck) {
-  overflow: hidden;
-}
-.contact-deck,
-.contact-panel {
-  overscroll-behavior: none;
-}
-.contact-panel {
-  overflow: hidden;
-  padding-block: 12px;
-  gap: 8px;
-}
-.contact-panel > .container {
-  flex: 1;
-  min-height: 0;
-  margin-block: 0;
-}
-.warehouse-panel > .container {
-  display: grid;
-  grid-template-rows: auto minmax(0, 1fr) auto;
-}
-.contact-panel-heading {
-  margin-bottom: 12px;
-}
-.contact-panel-heading h1 {
-  font-size: clamp(25px, 4svh, 42px);
-}
-.warehouse-card,
-.warehouse-card > img {
-  min-height: 0;
-  height: 100%;
-  max-height: 100%;
-}
-.warehouse-card > img {
-  object-fit: contain;
-}
-.contact-panel > .contact-back {
-  margin: 0 auto;
-}
-.contact-team-content {
-  justify-content: center;
-  gap: clamp(12px, 3svh, 25px);
-}
-@media (max-width: 760px) {
-  .warehouse-card,
-  .warehouse-card-reverse {
-    grid-template-rows: minmax(0, 1fr) auto;
-    gap: 12px;
-  }
-  .warehouse-card > img {
-    aspect-ratio: auto;
-  }
-  .warehouse-details h2 {
-    font-size: 21px;
-    margin-bottom: 8px;
-  }
-  .warehouse-details ul {
-    font-size: 12px;
-    line-height: 1.5;
-  }
-  .warehouse-details li {
-    margin-bottom: 4px;
-  }
-  .contact-next {
-    min-height: 44px;
-    margin-top: 8px;
-    padding: 10px 18px;
-  }
-}
-@media (max-height: 600px) {
-  .contact-panel {
-    padding-block: 6px;
-    gap: 4px;
-  }
-  .contact-panel-heading {
-    margin-bottom: 6px;
-  }
-  .contact-panel-heading .eyebrow {
-    display: none;
-  }
-  .contact-panel-heading h1 {
-    margin-top: 0;
-    font-size: 25px;
-  }
-  .warehouse-details h2 {
-    font-size: 19px;
-    margin-bottom: 6px;
-  }
-  .warehouse-details ul {
-    font-size: 12px;
-    line-height: 1.4;
-  }
-  .warehouse-details li {
-    margin-bottom: 3px;
-  }
-  .contact-next {
-    margin-top: 4px;
-    padding: 8px 16px;
-    min-height: 40px;
-  }
-  .contact-next span {
-    font-size: 11px;
-  }
-  .contact-team-content {
-    gap: 12px;
-  }
-  .contact-team-content h2 {
-    font-size: 44px;
-  }
-  .contact-team-content .eyebrow {
-    font-size: 10px;
-  }
-  .contact-team-phone {
-    font-size: 27px;
-  }
-}
-
-.combined-branches > .container {
-  grid-template-rows: minmax(0, 1fr) auto;
-}
-.branch-pair {
-  display: grid;
-  grid-template-rows: repeat(2, minmax(0, 1fr));
-  gap: clamp(12px, 3svh, 30px);
-  min-height: 0;
-}
-.branch-pair .warehouse-card > img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-}
-@media (max-width: 760px) {
-  .branch-pair .warehouse-card,
-  .branch-pair .warehouse-card-reverse {
-    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
-    grid-template-rows: 1fr;
-    gap: 14px;
-  }
-  .branch-pair .warehouse-card-reverse > img {
-    grid-column: 2;
-    grid-row: 1;
-  }
-  .branch-pair .warehouse-card-reverse .warehouse-details {
-    grid-column: 1;
-    grid-row: 1;
-  }
-  .branch-pair .warehouse-details h2 {
-    font-size: 18px;
-  }
-  .branch-pair .warehouse-details ul {
-    font-size: 11px;
-    line-height: 1.35;
-  }
-  .branch-pair .warehouse-details .text-link {
-    font-size: 11px;
-  }
-}
-
-/* Large branch photographs side by side, with their details underneath. */
-@media (min-width: 761px) {
   .combined-branches > .container {
-    width: calc(100% - 64px);
-    max-width: 1600px;
+    width: calc(100% - 32px);
   }
   .branch-pair {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    grid-template-rows: minmax(0, 1fr);
-    gap: 32px;
+    grid-template-columns: 1fr;
+    gap: 48px;
   }
-  .branch-pair .warehouse-card,
-  .branch-pair .warehouse-card-reverse {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr);
-    grid-template-rows: minmax(0, 1fr) auto;
-    gap: 16px;
+  .warehouse-details {
+    padding-inline: 8px;
+    padding-top: 20px;
   }
-  .branch-pair .warehouse-card > img {
-    grid-column: 1;
-    grid-row: 1;
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    object-position: center bottom;
-  }
-  .branch-pair .warehouse-card .warehouse-details {
-    grid-column: 1;
-    grid-row: 2;
-    padding-left: 0;
+  .contact-next {
+    padding-inline: 20px;
   }
 }
