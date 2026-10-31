@@ -28,11 +28,14 @@ export default function Contact() {
         <section
           id="contact-branches"
           className="contact-panel warehouse-panel combined-branches"
-          aria-label="Find us"
+          aria-labelledby="contact-branches-heading"
           aria-hidden={section !== 0}
           inert={section !== 0}
         >
           <div className="container">
+            <h1 id="contact-branches-heading" className="contact-branches-heading" tabIndex={-1}>
+              Where to find us
+            </h1>
             <div className="branch-pair">
               {c.warehouses.map((warehouse, index) => (
                 <Reveal
@@ -82,7 +85,7 @@ export default function Contact() {
               onClick={() => showSection(1)}
               aria-controls="contact-team"
             >
-              <span>Talk to us</span>
+              <span>TALK TO US</span>
               <Icon name="arrow" size={26} />
             </button>
           </div>
