@@ -1,3 +1,5 @@
+import { jobs } from '../web/src/data/jobs.js';
+
 const MAX_ATTACHMENT_BYTES = 3 * 1024 * 1024;
 const MAX_REQUEST_BYTES = 5_700_000;
 const ALLOWED = new Map([
@@ -7,19 +9,19 @@ const ALLOWED = new Map([
   ['jpeg', 'image/jpeg'],
 ]);
 
-export function reply(statusCode, message, success = false) {
+function reply(statusCode, message, success = false) {
   return {
     statusCode,
     headers: { 'content-type': 'application/json' },
     body: JSON.stringify({ success, message }),
   };
 }
-export function safeHeader(value) {
+function safeHeader(value) {
   return String(value)
     .replace(/[\r\n]/g, ' ')
     .slice(0, 200);
 }
-export function validateFile(item) {
+function validateFile(item) {
   if (!item || typeof item.name !== 'string' || typeof item.contentBase64 !== 'string')
     throw new Error('Missing attachment.');
   const name = item.name.split(/[\\/]/).pop().slice(0, 120);
@@ -43,7 +45,7 @@ export function validateFile(item) {
   if (!magic) throw new Error('Attachment content does not match its file type.');
   return { name, mime, data };
 }
-export function b64Lines(buf) {
+function b64Lines(buf) {
   return Buffer.from(buf)
     .toString('base64')
     .replace(/.{1,76}/g, '$&\r\n')
@@ -109,10 +111,8 @@ function formatFields(fields) {
     .map(([k, v]) => `${names[k]}: ${String(v).slice(0, 5000)}`)
     .join('\n');
 }
-function makeMime(fields, attachment, signature, from, to) {
+function makeMime(subject, body, attachment, signature, from, to) {
   const boundary = 'papachoice_' + crypto.randomUUID().replace(/-/g, '');
-  const subject = `PapaChoice registration: ${safeHeader(fields.businessName)}`;
-  const body = `New PapaChoice business registration\n\n${formatFields(fields)}\n\nAttachment: ${attachment.name}\n`;
   const chunks = [
     `From: ${safeHeader(from)}`,
     `To: ${safeHeader(to)}`,
@@ -144,7 +144,7 @@ function makeMime(fields, attachment, signature, from, to) {
   chunks.push(`--${boundary}--`, '');
   return chunks.join('\r\n');
 }
-export async function googleJson(url, options) {
+async function googleJson(url, options) {
   const res = await fetch(url, options);
   const data = await res.json().catch(() => ({}));
   if (!res.ok) throw new Error(`Google API returned HTTP ${res.status}`);
@@ -169,32 +169,64 @@ export const handler = async (event) => {
     const fields = payload?.fields;
     if (!fields || typeof fields !== 'object' || Array.isArray(fields))
       return reply(400, 'Missing registration details.');
-    const required = [
-      'contactName',
-      'businessName',
-      'email',
-      'mobile',
-      'accountAddress',
-      'accountCity',
-      'accountPostcode',
-    ];
-    if (
-      required.some((k) => typeof fields[k] !== 'string' || !fields[k].trim()) ||
-      fields.declarationAccepted !== true
-    )
-      return reply(400, 'Required registration fields or declaration missing.');
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(fields.email))
-      return reply(400, 'Invalid email address.');
-    if (JSON.stringify(fields).length > 100_000)
-      return reply(413, 'Registration details are too large.');
+    const type = payload.type || 'registration';
+    if (!['registration', 'careers'].includes(type)) return reply(400, 'Unknown submission type.');
+    let subject, body;
+    if (type === 'careers') {
+      const job = jobs.find((job) => job.id === fields.jobId);
+      if (
+        !job ||
+        fields.consent !== true ||
+        ['name', 'email', 'message'].some(
+          (key) => typeof fields[key] !== 'string' || !fields[key].trim(),
+        ) ||
+        !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(fields.email) ||
+        fields.name.length > 200 ||
+        fields.email.length > 254 ||
+        fields.message.length > 10000 ||
+        (fields.phone != null && (typeof fields.phone !== 'string' || fields.phone.length > 100))
+      )
+        return reply(400, 'Please provide a valid role, contact details, message and consent.');
+      subject = `PapaChoice application: ${job.title} — ${safeHeader(fields.name)}`;
+      body = `Role: ${job.title}\nName: ${fields.name}\nEmail: ${fields.email}\nPhone: ${fields.phone || 'Not provided'}\n\n${fields.message}\n\nApplicant consent: accepted`;
+    } else {
+      const required = [
+        'contactName',
+        'businessName',
+        'email',
+        'mobile',
+        'accountAddress',
+        'accountCity',
+        'accountPostcode',
+      ];
+      if (
+        required.some((k) => typeof fields[k] !== 'string' || !fields[k].trim()) ||
+        fields.declarationAccepted !== true
+      )
+        return reply(400, 'Required registration fields or declaration missing.');
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(fields.email))
+        return reply(400, 'Invalid email address.');
+      if (JSON.stringify(fields).length > 100_000)
+        return reply(413, 'Registration details are too large.');
+      subject = `PapaChoice registration: ${safeHeader(fields.businessName)}`;
+      body = `New PapaChoice business registration\n\n${formatFields(fields)}`;
+    }
     let attachment;
     try {
-      attachment = validateFile(payload.attachment);
+      const file =
+        payload.attachment ||
+        (payload.proofFile && {
+          name: payload.proofFile.filename,
+          contentBase64: payload.proofFile.base64,
+        });
+      attachment = validateFile(file);
     } catch (err) {
       return reply(400, err.message);
     }
+    if (type === 'careers' && attachment.mime !== 'application/pdf')
+      return reply(400, 'Please upload your CV as a PDF.');
     let signature = null;
-    if (payload.signatureImageBase64) {
+    if (type === 'registration' && payload.signatureImageBase64) {
       try {
         signature = validateFile({
           name: 'signature.png',
@@ -216,7 +248,7 @@ export const handler = async (event) => {
       }),
     });
     if (!token.access_token) throw new Error('No access token received.');
-    const mime = makeMime(fields, attachment, signature, GMAIL_FROM, GMAIL_TO);
+    const mime = makeMime(subject, body, attachment, signature, GMAIL_FROM, GMAIL_TO);
     const rawMessage = Buffer.from(mime).toString('base64url');
     await googleJson('https://gmail.googleapis.com/gmail/v1/users/me/messages/send', {
       method: 'POST',
@@ -226,15 +258,12 @@ export const handler = async (event) => {
       },
       body: JSON.stringify({ raw: rawMessage }),
     });
-    return reply(200, 'Registration email accepted by Gmail for sending.', true);
+    return reply(200, 'Email accepted by Gmail for sending.', true);
   } catch (err) {
     console.error(
-      'Registration email failed:',
+      'Email submission failed:',
       err instanceof SyntaxError ? 'Invalid JSON' : 'Upstream processing error',
     );
-    return reply(
-      err instanceof SyntaxError ? 400 : 502,
-      'Unable to send registration email. Please try again.',
-    );
+    return reply(err instanceof SyntaxError ? 400 : 502, 'Unable to send email. Please try again.');
   }
 };

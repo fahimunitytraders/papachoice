@@ -1,3 +1,4 @@
+import { sendEmail } from './email.js';
 const LAMBDA_URL = import.meta.env.VITE_REGISTRATION_LAMBDA_URL;
 
 const MAX_FILE_SIZE = 3 * 1024 * 1024;
@@ -203,35 +204,5 @@ export async function submitRegistration(registrationData, proof = null, signatu
     throw new Error('Please upload proof of your business address.');
   }
 
-  let response;
-
-  try {
-    response = await fetch(LAMBDA_URL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(payload),
-    });
-  } catch (error) {
-    console.error('Registration connection failed:', error);
-
-    throw new Error('Unable to connect to the registration service. Please try again.');
-  }
-
-  let result;
-
-  try {
-    result = await response.json();
-  } catch {
-    throw new Error('The registration service returned an invalid response.');
-  }
-
-  if (!response.ok || result.success !== true) {
-    throw new Error(
-      result.error || result.message || 'Unable to send registration. Please try again.',
-    );
-  }
-
-  return result;
+  return sendEmail(payload);
 }

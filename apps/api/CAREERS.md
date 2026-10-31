@@ -1,24 +1,18 @@
-# Career application email deployment
+# Enable career applications using the existing registration Lambda
 
-The frontend posts to `VITE_CAREERS_LAMBDA_URL`. Deploy `careers.handler` as a separate Node.js 24 Lambda; registration continues to use `index.handler` unchanged. Package the repository-relative files together so the ZIP contains:
+Both forms use the same Function URL, Gmail settings and recipient (`GMAIL_TO`). No new Lambda or environment variable is required.
 
-- `apps/api/careers.mjs`
-- `apps/api/index.mjs`
-- `apps/web/src/data/jobs.js`
-- root `package.json` (ES module mode)
+1. Check out the `careers-update` branch.
+2. From the repository root, package the shared handler and job list:
 
-Set the handler to `apps/api/careers.handler`. For example, from the repository root:
+   ```sh
+   zip email-lambda.zip apps/api/index.mjs apps/web/src/data/jobs.js package.json
+   ```
 
-```sh
-zip careers-lambda.zip apps/api/careers.mjs apps/api/index.mjs apps/web/src/data/jobs.js package.json
-```
+3. Upload `email-lambda.zip` to your existing registration Lambda. Set its handler to `apps/api/index.handler` and use Node.js 24. Keep the existing Gmail environment variables, Function URL and CORS settings. Ensure the timeout is at least 30 seconds.
+4. Deploy the website branch in Amplify. Keep `VITE_REGISTRATION_LAMBDA_URL` pointing to that same Lambda. Careers uses it too. Rebuild after changing frontend variables.
+5. Submit a registration and a career application from the deployed website. Confirm both emails and attachments reach the existing inbox.
 
-Configure the same Gmail OAuth environment bindings used by registration:
-`GMAIL_CLIENT_ID`, `GMAIL_CLIENT_SECRET`, `GMAIL_REFRESH_TOKEN`, `GMAIL_FROM`, `GMAIL_TO`.
-Optionally set `GMAIL_CAREERS_TO` to a separate recruitment inbox; otherwise `GMAIL_TO` is used. Never put Gmail credentials in Amplify frontend variables.
+Career applications send `type: "careers"`; requests without a type remain registrations. The shared handler validates each form separately and reuses the same file validation, MIME generation, OAuth exchange and Gmail sender. CVs must be PDFs no larger than 3 MB.
 
-Expose the Lambda using a Function URL configured with CORS for your actual Amplify/custom website origins, POST, and the Content-Type header. CORS belongs on the Function URL configuration, not in duplicate response headers. Use a public HTTPS endpoint for unauthenticated applicants. Set `VITE_CAREERS_LAMBDA_URL` in Amplify for the careers-update branch and rebuild the frontend. Keep `VITE_REGISTRATION_LAMBDA_URL` unchanged. A Vite variable change requires rebuilding.
-
-CV uploads are PDF only, at most 3 MB. The server validates required fields, known job IDs, consent, request size, and PDF header. This is basic format validation, not malware scanning. The function needs outbound HTTPS to Google's OAuth and Gmail endpoints and an appropriate timeout (for example 30 seconds). Apply abuse controls/rate limits at your API edge before opening recruitment to public traffic; CORS is not an abuse control.
-
-Run `node --test apps/api/careers.test.mjs`, `npm test`, and `npm run build`. These checks mock email transport and do not send real messages. After deployment, submit one authorised application from the deployed branch, confirm the role and attached CV arrive in the configured inbox, and confirm registration still works. Do not treat a passing local test as proof of deployed email delivery.
+Local checks: `node --test --test-isolation=none apps/api/careers.test.mjs`, `npm test`, `npm run build`. Tests mock Gmail and do not prove live delivery. The public endpoint should retain appropriate abuse protection; CORS alone is not rate limiting. File-header validation does not replace malware scanning.

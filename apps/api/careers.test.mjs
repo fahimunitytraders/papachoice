@@ -1,6 +1,6 @@
 import { test, afterEach } from 'node:test';
 import assert from 'node:assert/strict';
-import { handler } from './careers.mjs';
+import { handler } from './index.mjs';
 const originalFetch = globalThis.fetch;
 const names = [
   'GMAIL_CLIENT_ID',
@@ -25,6 +25,7 @@ function event(change = {}) {
   return {
     requestContext: { http: { method: 'POST' } },
     body: JSON.stringify({
+      type: 'careers',
       fields: {
         jobId: 'credit-controller',
         name: 'Applicant',
@@ -53,7 +54,7 @@ test('sends the selected role, applicant details and CV via Gmail', async () => 
   assert.equal(JSON.parse(response.body).success, true);
   assert.equal(calls.length, 2);
   const mime = Buffer.from(JSON.parse(calls[1].options.body).raw, 'base64url').toString();
-  assert.match(mime, /filename="cv.pdf"/);
+  assert.match(mime, /filename="document.pdf"/);
   assert.ok(
     mime.includes(
       Buffer.from(
@@ -85,6 +86,58 @@ test('reports Gmail failures without claiming success', async () => {
 });
 test('requires configuration and POST', async () => {
   delete process.env.GMAIL_CLIENT_SECRET;
-  assert.equal((await handler(event())).statusCode, 503);
+  assert.equal((await handler(event())).statusCode, 500);
   assert.equal((await handler({ requestContext: { http: { method: 'GET' } } })).statusCode, 405);
+});
+
+test('registration still sends with legacy attachment and frontend proofFile formats', async () => {
+  configured();
+  const messages = [];
+  globalThis.fetch = async (url, options) => {
+    if (url.includes('oauth2'))
+      return { ok: true, json: async () => ({ access_token: 'fixture' }) };
+    messages.push(Buffer.from(JSON.parse(options.body).raw, 'base64url').toString());
+    return { ok: true, json: async () => ({ id: 'sent' }) };
+  };
+  const fields = {
+    contactName: 'Customer',
+    businessName: 'Business',
+    email: 'customer@example.com',
+    mobile: '123',
+    accountAddress: 'Street',
+    accountCity: 'London',
+    accountPostcode: 'E1',
+    declarationAccepted: true,
+  };
+  const content = Buffer.from('%PDF-1.7\nProof').toString('base64');
+  for (const file of [
+    { attachment: { name: 'proof.pdf', contentBase64: content } },
+    { proofFile: { filename: 'proof.pdf', base64: content, mimeType: 'application/pdf' } },
+  ]) {
+    const response = await handler({
+      requestContext: { http: { method: 'POST' } },
+      body: JSON.stringify({ fields, ...file }),
+    });
+    assert.equal(response.statusCode, 200);
+  }
+  assert.equal(messages.length, 2);
+  for (const mime of messages) {
+    assert.ok(mime.includes(Buffer.from('PapaChoice registration: Business').toString('base64')));
+    assert.match(mime, /filename="document.pdf"/);
+  }
+});
+test('rejects invalid registration and unknown submission types without sending', async () => {
+  configured();
+  globalThis.fetch = () => assert.fail('Must not send');
+  for (const payload of [{ type: 'unknown', fields: {} }, { fields: { email: 'bad' } }]) {
+    assert.equal(
+      (
+        await handler({
+          requestContext: { http: { method: 'POST' } },
+          body: JSON.stringify(payload),
+        })
+      ).statusCode,
+      400,
+    );
+  }
 });
