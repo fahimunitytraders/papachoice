@@ -99,6 +99,16 @@ export default function Contact() {
           aria-hidden={section !== 'team'}
           inert={section !== 'team'}
         >
+          <button
+            type="button"
+            className="contact-next contact-back"
+            onClick={() => showSection('warehouses')}
+            aria-label="Find us"
+            aria-controls="warehouse-heading"
+          >
+            <span>FIND US</span>
+            <Icon name="arrow" size={26} />
+          </button>
           <Reveal className="container contact-team-content">
             <p className="eyebrow">A GOOD CONVERSATION STARTS HERE</p>
             <h2 id="contact-team-heading" tabIndex={-1}>
@@ -122,16 +132,6 @@ export default function Contact() {
                 {c.email}
               </a>
             )}
-            <button
-              type="button"
-              className="contact-next contact-back"
-              onClick={() => showSection('warehouses')}
-              aria-label="Find us"
-              aria-controls="warehouse-heading"
-            >
-              <span>FIND US</span>
-              <Icon name="arrow" size={26} />
-            </button>
           </Reveal>
         </section>
       </div>

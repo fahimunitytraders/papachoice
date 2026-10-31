@@ -1529,12 +1529,12 @@ summary:focus-visible {
 }
 .warehouse-card {
   display: grid;
-  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr);
   align-items: center;
   gap: clamp(28px, 5vw, 80px);
 }
 .warehouse-card:nth-child(even) {
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.7fr);
 }
 .warehouse-card:nth-child(even) > img {
   grid-column: 2;
@@ -1547,7 +1547,7 @@ summary:focus-visible {
 }
 .warehouse-card > img {
   width: 100%;
-  height: clamp(185px, 23svh, 300px);
+  height: auto;
   object-fit: contain;
   border-radius: 0;
 }
@@ -1602,6 +1602,10 @@ summary:focus-visible {
 }
 .contact-next svg {
   transform: rotate(90deg);
+}
+.contact-team-panel > .contact-back {
+  margin: 0 auto 24px;
+  flex-shrink: 0;
 }
 .contact-back svg {
   transform: rotate(-90deg);
