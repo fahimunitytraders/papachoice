@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { useContent } from '../context/ContentContext.jsx';
 import { localAsset } from '@papas-choice/content';
 import ProductCard from '../components/ProductCard.jsx';
-import ProductImage from '../components/ProductImage.jsx';
+import HeroSlider from '../components/HeroSlider.jsx';
 import PartnerSlider from '../components/PartnerSlider.jsx';
 import Reveal from '../components/Reveal.jsx';
 import Icon from '../components/Icon.jsx';
@@ -13,10 +13,7 @@ export default function Home({ onDetails }) {
     <>
       <section className="hero container">
         <Reveal className="hero-image">
-          <ProductImage
-            crop={[80, 76, 765, 465]}
-            label="Papa’s Choice Nigerian Palm Oil, Cocoyam Fufu Flour and Pepper Soup Mix"
-          />
+          <HeroSlider />
         </Reveal>
         <Reveal className="hero-copy" delay={120}>
           <p className="eyebrow">{h.eyebrow}</p>

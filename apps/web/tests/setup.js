@@ -12,3 +12,9 @@ HTMLDialogElement.prototype.showModal = function () {
 HTMLDialogElement.prototype.close = function () {
   this.removeAttribute('open');
 };
+window.matchMedia = vi.fn((media) => ({
+  matches: false,
+  media,
+  addEventListener: vi.fn(),
+  removeEventListener: vi.fn(),
+}));
