@@ -58,18 +58,16 @@ export default function Contact() {
             className="contact-next"
             aria-label="Go to phone and WhatsApp"
             onClick={() =>
-              document
-                .getElementById('contact-team')
-                ?.scrollIntoView({
-                  behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches
-                    ? 'instant'
-                    : 'smooth',
-                  block: 'start',
-                })
+              document.getElementById('contact-team')?.scrollIntoView({
+                behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches
+                  ? 'instant'
+                  : 'smooth',
+                block: 'start',
+              })
             }
           >
-            <span>LET’S TALK</span>
-            <Icon name="arrow" size={22} />
+            <span>TALK TO US</span>
+            <Icon name="arrow" size={26} />
           </button>
         </div>
       </section>
