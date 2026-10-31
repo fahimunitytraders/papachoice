@@ -181,7 +181,7 @@ export default function App() {
       )}
       {modal?.type === 'application' && (
         <Modal title={`Apply: ${modal.job.title}`} onClose={close} wide>
-          <ApplicationForm />
+          <ApplicationForm job={modal.job} />
         </Modal>
       )}
       {modal?.type === 'privacy' && (
@@ -189,7 +189,7 @@ export default function App() {
           <div className="info-copy">
             <p>
               Registration details and supporting documents are emailed to our team for review.
-              Career application previews are not submitted or saved.
+              Career applications and CVs are emailed to our recruitment team for review.
             </p>
             <p>
               No analytics or advertising cookies are installed. Fonts are requested from Google

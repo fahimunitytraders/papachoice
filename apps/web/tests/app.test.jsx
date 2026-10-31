@@ -1,11 +1,13 @@
 import { describe, it, expect, vi } from 'vitest';
-import { render, screen, within, waitFor } from '@testing-library/react';
+import { render, screen, within, waitFor, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router-dom';
 import { ContentProvider } from '../src/context/ContentContext.jsx';
+import { submitApplication } from '../src/api/careers.js';
 import App from '../src/App.jsx';
 import RegistrationForm from '../src/components/RegistrationForm.jsx';
 import { submitRegistration } from '../src/api/registration.js';
+vi.mock('../src/api/careers.js', () => ({ submitApplication: vi.fn() }));
 vi.mock('../src/api/registration.js', () => ({ submitRegistration: vi.fn() }));
 function mount(path = '/') {
   return render(
@@ -160,5 +162,50 @@ describe('registration', () => {
       null,
     );
     expect(localStorage.length).toBe(0);
+  });
+});
+
+describe('career applications', () => {
+  async function fillApplication() {
+    const user = userEvent.setup();
+    mount('/careers');
+    await user.click(screen.getByRole('button', { name: /Finance Credit Controller/ }));
+    await user.click(screen.getByRole('button', { name: 'Apply for this role' }));
+    const dialog = within(screen.getByRole('dialog'));
+    await user.type(dialog.getByLabelText('Full name *'), 'Applicant');
+    await user.type(dialog.getByLabelText('Email address *'), 'applicant@example.com');
+    await user.type(dialog.getByLabelText('A little about you *'), 'My experience');
+    await user.upload(
+      dialog.getByLabelText('CV *'),
+      new File(['%PDF-1.7'], 'cv.pdf', { type: 'application/pdf' }),
+    );
+    await user.click(dialog.getByRole('checkbox'));
+    return { user, dialog };
+  }
+  it('sends the selected role and CV, then confirms success', async () => {
+    vi.mocked(submitApplication).mockResolvedValue({ success: true });
+    const { user, dialog } = await fillApplication();
+    // jsdom reports valueMissing for uploaded files; dispatch submit after checking the upload.
+    expect(dialog.getByLabelText('CV *').files).toHaveLength(1);
+    fireEvent.submit(dialog.getByRole('button', { name: 'Submit application' }).closest('form'));
+    await screen.findByRole('heading', { name: 'Application submitted' });
+    expect(submitApplication).toHaveBeenCalledWith(
+      expect.objectContaining({
+        jobId: 'credit-controller',
+        email: 'applicant@example.com',
+        consent: true,
+      }),
+      expect.any(File),
+    );
+  });
+  it('preserves the form and allows retry when sending fails', async () => {
+    vi.mocked(submitApplication).mockRejectedValue(new Error('Unable to send.'));
+    const { user, dialog } = await fillApplication();
+    // jsdom reports valueMissing for uploaded files; dispatch submit after checking the upload.
+    expect(dialog.getByLabelText('CV *').files).toHaveLength(1);
+    fireEvent.submit(dialog.getByRole('button', { name: 'Submit application' }).closest('form'));
+    expect((await screen.findByRole('alert')).textContent).toContain('Unable to send.');
+    expect(dialog.getByLabelText('Full name *').value).toBe('Applicant');
+    expect(screen.queryByText('Application submitted')).toBeNull();
   });
 });

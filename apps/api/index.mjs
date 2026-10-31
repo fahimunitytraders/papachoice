@@ -7,19 +7,19 @@ const ALLOWED = new Map([
   ['jpeg', 'image/jpeg'],
 ]);
 
-function reply(statusCode, message, success = false) {
+export function reply(statusCode, message, success = false) {
   return {
     statusCode,
     headers: { 'content-type': 'application/json' },
     body: JSON.stringify({ success, message }),
   };
 }
-function safeHeader(value) {
+export function safeHeader(value) {
   return String(value)
     .replace(/[\r\n]/g, ' ')
     .slice(0, 200);
 }
-function validateFile(item) {
+export function validateFile(item) {
   if (!item || typeof item.name !== 'string' || typeof item.contentBase64 !== 'string')
     throw new Error('Missing attachment.');
   const name = item.name.split(/[\\/]/).pop().slice(0, 120);
@@ -43,7 +43,7 @@ function validateFile(item) {
   if (!magic) throw new Error('Attachment content does not match its file type.');
   return { name, mime, data };
 }
-function b64Lines(buf) {
+export function b64Lines(buf) {
   return Buffer.from(buf)
     .toString('base64')
     .replace(/.{1,76}/g, '$&\r\n')
@@ -144,7 +144,7 @@ function makeMime(fields, attachment, signature, from, to) {
   chunks.push(`--${boundary}--`, '');
   return chunks.join('\r\n');
 }
-async function googleJson(url, options) {
+export async function googleJson(url, options) {
   const res = await fetch(url, options);
   const data = await res.json().catch(() => ({}));
   if (!res.ok) throw new Error(`Google API returned HTTP ${res.status}`);
