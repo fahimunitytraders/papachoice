@@ -209,3 +209,24 @@ describe('career applications', () => {
     expect(screen.queryByText('Application submitted')).toBeNull();
   });
 });
+
+it('shows both warehouses with their matching photos and directions', () => {
+  mount('/contact');
+  for (const [name, address, image] of [
+    ['London warehouse', '310-326 St James Road, London, SE1 5JX', '/assets/warehouses/london.jpg'],
+    [
+      'Thrapston warehouse',
+      '20 Midland Road, Thrapston, NN14 4JR',
+      '/assets/warehouses/thrapston.jpg',
+    ],
+  ]) {
+    const card = screen.getByRole('heading', { name }).closest('.warehouse-card');
+    expect(within(card).getByText(address)).toBeTruthy();
+    expect(within(card).getByRole('img').getAttribute('src')).toContain(image);
+    expect(
+      within(card)
+        .getByRole('link', { name: `Get directions to ${name}` })
+        .getAttribute('href'),
+    ).toContain(encodeURIComponent(address));
+  }
+});

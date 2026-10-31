@@ -119,6 +119,20 @@
     "phone": "+44 20 4618 8640",
     "whatsapp": "+44 7398 477274",
     "address": "310-326 St James Road, London, SE1 5JX",
+    "warehouses": [
+      {
+        "name": "London warehouse",
+        "address": "310-326 St James Road, London, SE1 5JX",
+        "image": "/assets/warehouses/london.jpg",
+        "alt": "Unity Traders London warehouse and cash and carry on St James Road"
+      },
+      {
+        "name": "Thrapston warehouse",
+        "address": "20 Midland Road, Thrapston, NN14 4JR",
+        "image": "/assets/warehouses/thrapston.jpg",
+        "alt": "Aerial view of the Thrapston warehouse on Midland Road"
+      }
+    ],
     "hours": "Monday to Saturday: 8:30am to 6:30pm",
     "sunday": "Sunday: Closed",
     "email": "",

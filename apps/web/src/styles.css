@@ -1490,3 +1490,49 @@ summary:focus-visible {
     transition: none;
   }
 }
+
+.warehouse-section {
+  margin-top: 55px;
+}
+.warehouse-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 28px;
+}
+.warehouse-card {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--background);
+}
+.warehouse-card > img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+.warehouse-details {
+  padding: 28px;
+}
+.warehouse-details h3 {
+  font-size: 25px;
+  margin-bottom: 14px;
+}
+.warehouse-details address {
+  font-style: normal;
+  color: var(--muted);
+  line-height: 1.7;
+  margin-bottom: 22px;
+}
+@media (max-width: 760px) {
+  .warehouse-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .warehouse-details {
+    padding: 23px;
+  }
+  .warehouse-details h3 {
+    font-size: 22px;
+  }
+}

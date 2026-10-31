@@ -1,3 +1,4 @@
+import { localAsset } from '@papas-choice/content';
 import { useContent } from '../context/ContentContext.jsx';
 import Reveal from '../components/Reveal.jsx';
 import Icon from '../components/Icon.jsx';
@@ -16,7 +17,7 @@ export default function Contact() {
           <br />
           Great food.
         </h1>
-        <p>Visit our London cash and carry or speak to our team.</p>
+        <p>Find us in London and Thrapston, or speak to our team.</p>
       </Reveal>
       <div className="contact-grid">
         <Reveal className="contact-card">
@@ -36,25 +37,51 @@ export default function Contact() {
           )}
         </Reveal>
         <Reveal className="contact-card" delay={100}>
-          <span className="eyebrow">02 / FIND US</span>
-          <h2>A warm welcome.</h2>
-          <p>{c.address}</p>
+          <span className="eyebrow">LONDON CASH & CARRY</span>
+          <h2>Plan your visit.</h2>
           <p>
             {c.hours}
             <br />
             {c.sunday}
           </p>
-          <a
-            className="text-link"
-            href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(c.address)}`}
-            target="_blank"
-            rel="noreferrer"
-          >
-            Get directions
-            <Icon name="arrow" />
-          </a>
+          <p>For visits to our Thrapston warehouse, please contact our team.</p>
         </Reveal>
       </div>
+      <section className="warehouse-section" aria-labelledby="warehouse-heading">
+        <Reveal className="section-heading">
+          <div>
+            <p className="eyebrow">FIND US</p>
+            <h2 id="warehouse-heading">Two locations. One warm welcome.</h2>
+          </div>
+        </Reveal>
+        <div className="warehouse-grid">
+          {c.warehouses.map((warehouse, index) => (
+            <Reveal className="warehouse-card" delay={index * 100} key={warehouse.name}>
+              <img
+                src={localAsset(warehouse.image)}
+                alt={warehouse.alt}
+                loading="lazy"
+                width="1280"
+                height="960"
+              />
+              <div className="warehouse-details">
+                <h3>{warehouse.name}</h3>
+                <address>{warehouse.address}</address>
+                <a
+                  className="text-link"
+                  href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(warehouse.address)}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={`Get directions to ${warehouse.name}`}
+                >
+                  Get directions
+                  <Icon name="arrow" />
+                </a>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </section>
     </section>
   );
 }
