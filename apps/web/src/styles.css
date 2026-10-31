@@ -1466,7 +1466,7 @@ summary:focus-visible {
   color: var(--brand);
   border-radius: 50%;
 }
-.hero-slider-dots > button:not(.hero-slider-pause)::after {
+.hero-slider-dots > button::after {
   content: '';
   width: 7px;
   height: 7px;

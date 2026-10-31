@@ -14,7 +14,7 @@ it('advances every three seconds and wraps back to the first image', () => {
   act(() => vi.advanceTimersByTime(3000));
   expect(screen.getByRole('group', { name: '1 of 2' })).toBeTruthy();
 });
-it('supports both arrows and pauses on hover and with the pause control', () => {
+it('supports both arrows and resumes automatic sliding after hover', () => {
   vi.useFakeTimers();
   render(<HeroSlider />);
   fireEvent.click(screen.getByRole('button', { name: 'Next product image' }));
@@ -25,10 +25,7 @@ it('supports both arrows and pauses on hover and with the pause control', () => 
   act(() => vi.advanceTimersByTime(6000));
   expect(screen.getByRole('group', { name: '1 of 2' })).toBeTruthy();
   fireEvent.mouseLeave(slider);
-  fireEvent.click(screen.getByRole('button', { name: 'Pause product slideshow' }));
-  act(() => vi.advanceTimersByTime(6000));
-  expect(screen.getByRole('group', { name: '1 of 2' })).toBeTruthy();
-  fireEvent.click(screen.getByRole('button', { name: 'Play product slideshow' }));
+  expect(screen.queryByRole('button', { name: 'Pause product slideshow' })).toBeNull();
   act(() => vi.advanceTimersByTime(3000));
   expect(screen.getByRole('group', { name: '2 of 2' })).toBeTruthy();
 });

@@ -5,7 +5,6 @@ import Icon from './Icon.jsx';
 
 export default function HeroSlider() {
   const [active, setActive] = useState(0);
-  const [paused, setPaused] = useState(false);
   const [hovered, setHovered] = useState(false);
   const [focused, setFocused] = useState(false);
   const [reduced, setReduced] = useState(
@@ -24,10 +23,10 @@ export default function HeroSlider() {
     };
   }, []);
   useEffect(() => {
-    if (paused || hovered || focused || reduced || !visible) return;
+    if (hovered || focused || reduced || !visible) return;
     const timer = window.setTimeout(() => setActive((value) => (value + 1) % 2), 3000);
     return () => window.clearTimeout(timer);
-  }, [active, paused, hovered, focused, reduced, visible]);
+  }, [active, hovered, focused, reduced, visible]);
   return (
     <section
       className="hero-slider"
@@ -92,16 +91,6 @@ export default function HeroSlider() {
               onClick={() => setActive(index)}
             />
           ))}
-          {!reduced && (
-            <button
-              type="button"
-              className="hero-slider-pause"
-              aria-label={paused ? 'Play product slideshow' : 'Pause product slideshow'}
-              onClick={() => setPaused(!paused)}
-            >
-              {paused ? '▶' : 'Ⅱ'}
-            </button>
-          )}
         </div>
       </div>
     </section>
