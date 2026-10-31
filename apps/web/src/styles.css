@@ -1533,14 +1533,14 @@ summary:focus-visible {
   align-items: center;
   gap: clamp(28px, 5vw, 80px);
 }
-.warehouse-card:nth-child(even) {
+.warehouse-card-reverse {
   grid-template-columns: minmax(0, 1fr) minmax(0, 1.7fr);
 }
-.warehouse-card:nth-child(even) > img {
+.warehouse-card-reverse > img {
   grid-column: 2;
   grid-row: 1;
 }
-.warehouse-card:nth-child(even) .warehouse-details {
+.warehouse-card-reverse .warehouse-details {
   grid-column: 1;
   grid-row: 1;
   padding-left: clamp(0px, 3vw, 48px);
@@ -1603,7 +1603,7 @@ summary:focus-visible {
 .contact-next svg {
   transform: rotate(90deg);
 }
-.contact-team-panel > .contact-back {
+.contact-panel > .contact-back {
   margin: 0 auto 24px;
   flex-shrink: 0;
 }
@@ -1647,12 +1647,12 @@ summary:focus-visible {
     gap: 35px;
   }
   .warehouse-card,
-  .warehouse-card:nth-child(even) {
+  .warehouse-card-reverse {
     grid-template-columns: 1fr;
     gap: 20px;
   }
-  .warehouse-card:nth-child(even) > img,
-  .warehouse-card:nth-child(even) .warehouse-details {
+  .warehouse-card-reverse > img,
+  .warehouse-card-reverse .warehouse-details {
     grid-column: auto;
     grid-row: auto;
     padding-left: 0;

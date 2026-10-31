@@ -4,7 +4,7 @@ import { useContent } from '../context/ContentContext.jsx';
 import Reveal from '../components/Reveal.jsx';
 import Icon from '../components/Icon.jsx';
 export default function Contact() {
-  const [section, setSection] = useState('warehouses');
+  const [section, setSection] = useState(0);
   const deck = useRef(null);
   const switched = useRef(false);
   useEffect(() => {
@@ -24,89 +24,93 @@ export default function Contact() {
   } = useContent();
   return (
     <div className="contact-deck" ref={deck}>
-      <div
-        className="contact-panel-track"
-        style={{ transform: section === 'team' ? 'translateY(-100%)' : 'translateY(0)' }}
-      >
-        <section
-          className="contact-panel warehouse-panel"
-          aria-labelledby="warehouse-heading"
-          aria-hidden={section !== 'warehouses'}
-          inert={section !== 'warehouses'}
-        >
-          <div className="container">
-            <Reveal className="contact-panel-heading">
-              <p className="eyebrow">COME SAY HELLO</p>
-              <h1 id="warehouse-heading" tabIndex={-1}>
-                Two locations.
-                <br />
-                One warm welcome.
-              </h1>
-            </Reveal>
-            <div className="warehouse-grid">
-              {c.warehouses.map((warehouse, index) => (
-                <Reveal className="warehouse-card" delay={index * 100} key={warehouse.name}>
-                  <img
-                    src={localAsset(warehouse.image)}
-                    alt={warehouse.alt}
-                    width="1280"
-                    height="960"
-                  />
-                  <div className="warehouse-details">
-                    <h2>{warehouse.name}</h2>
-                    <ul>
-                      <li>
-                        <address>{warehouse.address}</address>
-                      </li>
-                      <li>
-                        {warehouse.hours || 'Contact us to confirm opening times.'}
-                        {index === 0 && <span className="warehouse-sunday">{c.sunday}</span>}
-                      </li>
-                      <li>Free parking</li>
-                      <li>
-                        Cash and carry {warehouse.cashAndCarry ? 'available' : 'not available'}
-                      </li>
-                    </ul>
-                    <a
-                      className="text-link"
-                      href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(warehouse.address)}`}
-                      target="_blank"
-                      rel="noreferrer"
-                      aria-label={`Get directions to ${warehouse.name}`}
-                    >
-                      Get directions
-                      <Icon name="arrow" />
-                    </a>
-                  </div>
-                </Reveal>
-              ))}
+      <div className="contact-panel-track" style={{ transform: `translateY(-${section * 100}%)` }}>
+        {c.warehouses.map((warehouse, index) => (
+          <section
+            key={warehouse.name}
+            id={`contact-branch-${index}`}
+            className="contact-panel warehouse-panel"
+            aria-labelledby={`branch-heading-${index}`}
+            aria-hidden={section !== index}
+            inert={section !== index}
+          >
+            {index > 0 && (
+              <button
+                type="button"
+                className="contact-next contact-back"
+                onClick={() => showSection(index - 1)}
+                aria-controls={`contact-branch-${index - 1}`}
+              >
+                <Icon name="arrow" size={26} />
+                <span>Back to London branch</span>
+              </button>
+            )}
+            <div className="container">
+              <Reveal className="contact-panel-heading">
+                <p className="eyebrow">COME SAY HELLO</p>
+                <h1 id={`branch-heading-${index}`} tabIndex={-1}>
+                  {index === 0 ? 'London branch' : 'Thrapston branch'}
+                </h1>
+              </Reveal>
+              <Reveal className={`warehouse-card ${index === 1 ? 'warehouse-card-reverse' : ''}`}>
+                <img
+                  src={localAsset(warehouse.image)}
+                  alt={warehouse.alt}
+                  width="1280"
+                  height="960"
+                />
+                <div className="warehouse-details">
+                  <h2>{warehouse.name}</h2>
+                  <ul>
+                    <li>
+                      <address>{warehouse.address}</address>
+                    </li>
+                    <li>
+                      {warehouse.hours || 'Contact us to confirm opening times.'}
+                      {index === 0 && <span className="warehouse-sunday">{c.sunday}</span>}
+                    </li>
+                    <li>Free parking</li>
+                    <li>Cash and carry {warehouse.cashAndCarry ? 'available' : 'not available'}</li>
+                  </ul>
+                  <a
+                    className="text-link"
+                    href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(warehouse.address)}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label={`Get directions to ${warehouse.name}`}
+                  >
+                    Get directions
+                    <Icon name="arrow" />
+                  </a>
+                </div>
+              </Reveal>
+              <button
+                type="button"
+                className="contact-next"
+                onClick={() => showSection(index + 1)}
+                aria-controls={index === 0 ? 'contact-branch-1' : 'contact-team'}
+              >
+                <span>{index === 0 ? 'Thrapston branch' : 'Talk to us'}</span>
+                <Icon name="arrow" size={26} />
+              </button>
             </div>
-            <button
-              className="contact-next"
-              aria-label="Go to phone and WhatsApp"
-              onClick={() => showSection('team')}
-              aria-controls="contact-team"
-            >
-              <span>TALK TO US</span>
-              <Icon name="arrow" size={26} />
-            </button>
-          </div>
-        </section>
+          </section>
+        ))}
         <section
           id="contact-team"
           className="contact-panel contact-team-panel"
           aria-labelledby="contact-team-heading"
-          aria-hidden={section !== 'team'}
-          inert={section !== 'team'}
+          aria-hidden={section !== 2}
+          inert={section !== 2}
         >
           <button
             type="button"
             className="contact-next contact-back"
-            onClick={() => showSection('warehouses')}
-            aria-label="Find us"
-            aria-controls="warehouse-heading"
+            onClick={() => showSection(1)}
+            aria-label="Back to Thrapston branch"
+            aria-controls="contact-branch-1"
           >
-            <span>FIND US</span>
+            <span>THRAPSTON BRANCH</span>
             <Icon name="arrow" size={26} />
           </button>
           <Reveal className="container contact-team-content">

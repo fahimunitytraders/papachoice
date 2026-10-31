@@ -210,7 +210,8 @@ describe('career applications', () => {
   });
 });
 
-it('shows both warehouses with their matching photos and directions', () => {
+it('shows each branch photo and directions in its own section', async () => {
+  const user = userEvent.setup();
   mount('/contact');
   for (const [name, address, image] of [
     ['London warehouse', '310-326 St James Road, London, SE1 5JX', '/assets/warehouses/london.jpg'],
@@ -228,19 +229,19 @@ it('shows both warehouses with their matching photos and directions', () => {
         .getByRole('link', { name: `Get directions to ${name}` })
         .getAttribute('href'),
     ).toContain(encodeURIComponent(address));
+    if (name === 'London warehouse')
+      await user.click(screen.getByRole('button', { name: 'Thrapston branch' }));
   }
 });
-
-it('separates warehouse information from phone and WhatsApp with a next-section control', async () => {
+it('navigates London, Thrapston and contact panels in both directions', async () => {
   const user = userEvent.setup();
   mount('/contact');
-  const locations = screen.getByRole('region', { name: 'Two locations.One warm welcome.' });
-  expect(within(locations).getAllByText('Free parking')).toHaveLength(2);
-  expect(within(locations).getByText('Cash and carry available')).toBeTruthy();
-  expect(within(locations).getByText('Cash and carry not available')).toBeTruthy();
-  expect(screen.queryByRole('region', { name: 'Let’s talk.' })).toBeNull();
-  await user.click(screen.getByRole('button', { name: 'Go to phone and WhatsApp' }));
-  expect(screen.queryByRole('region', { name: 'Two locations.One warm welcome.' })).toBeNull();
+  expect(screen.getByRole('region', { name: 'London branch' })).toBeTruthy();
+  expect(screen.queryByRole('region', { name: 'Thrapston branch' })).toBeNull();
+  await user.click(screen.getByRole('button', { name: 'Thrapston branch' }));
+  expect(screen.getByRole('region', { name: 'Thrapston branch' })).toBeTruthy();
+  expect(screen.getByText('Cash and carry not available')).toBeTruthy();
+  await user.click(screen.getByRole('button', { name: 'Talk to us' }));
   const team = screen.getByRole('region', { name: 'Let’s talk.' });
   expect(within(team).getByRole('link', { name: '+44 7398477274' }).getAttribute('href')).toBe(
     'tel:+447398477274',
@@ -248,7 +249,8 @@ it('separates warehouse information from phone and WhatsApp with a next-section 
   expect(within(team).getByRole('link', { name: 'Message on WhatsApp' }).getAttribute('href')).toBe(
     'https://wa.me/447398477274',
   );
-  await user.click(screen.getByRole('button', { name: 'Find us' }));
-  expect(screen.getByRole('region', { name: 'Two locations.One warm welcome.' })).toBeTruthy();
-  expect(screen.queryByRole('region', { name: 'Let’s talk.' })).toBeNull();
+  await user.click(screen.getByRole('button', { name: 'Back to Thrapston branch' }));
+  expect(screen.getByRole('region', { name: 'Thrapston branch' })).toBeTruthy();
+  await user.click(screen.getByRole('button', { name: 'Back to London branch' }));
+  expect(screen.getByRole('region', { name: 'London branch' })).toBeTruthy();
 });
