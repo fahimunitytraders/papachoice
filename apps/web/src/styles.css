@@ -1396,18 +1396,17 @@ summary:focus-visible {
   background: #fff;
   overflow: hidden;
 }
-.hero-slide {
+.hero-slider-track {
   position: absolute;
-  inset: 10px 34px 45px;
-  opacity: 0;
-  visibility: hidden;
-  transition:
-    opacity 0.6s ease,
-    visibility 0.6s ease;
+  inset: 0;
+  display: flex;
+  transition: transform 0.6s cubic-bezier(0.22, 0.61, 0.36, 1);
 }
-.hero-slide.is-active {
-  opacity: 1;
-  visibility: visible;
+.hero-slide {
+  flex: 0 0 100%;
+  min-width: 0;
+  height: 100%;
+  padding: 10px 34px 45px;
 }
 .hero-slide > img,
 .hero-image .hero-slide > .product-image {
@@ -1482,7 +1481,7 @@ summary:focus-visible {
   border-radius: 6px;
 }
 @media (prefers-reduced-motion: reduce) {
-  .hero-slide {
+  .hero-slider-track {
     transition: none;
   }
 }

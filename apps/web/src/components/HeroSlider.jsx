@@ -39,30 +39,32 @@ export default function HeroSlider() {
         if (!event.currentTarget.contains(event.relatedTarget)) setFocused(false);
       }}
     >
-      <div
-        className={`hero-slide ${active === 0 ? 'is-active' : ''}`}
-        role="group"
-        aria-roledescription="slide"
-        aria-label="1 of 2"
-        aria-hidden={active !== 0}
-      >
-        <ProductImage
-          crop={[80, 76, 765, 465]}
-          label="Papa’s Choice Nigerian Palm Oil, Cocoyam Fufu Flour and Pepper Soup Mix"
-        />
-      </div>
-      <div
-        className={`hero-slide ${active === 1 ? 'is-active' : ''}`}
-        role="group"
-        aria-roledescription="slide"
-        aria-label="2 of 2"
-        aria-hidden={active !== 1}
-      >
-        <img
-          src={localAsset('/assets/hero/papas-choice-range.jpg')}
-          alt="Papa’s Choice Golden Sella Basmati Rice, Nigerian Palm Oil and Plantain Fufu Flour"
-          decoding="async"
-        />
+      <div className="hero-slider-track" style={{ transform: `translateX(-${active * 100}%)` }}>
+        <div
+          className={`hero-slide ${active === 0 ? 'is-active' : ''}`}
+          role="group"
+          aria-roledescription="slide"
+          aria-label="1 of 2"
+          aria-hidden={active !== 0}
+        >
+          <ProductImage
+            crop={[80, 76, 765, 465]}
+            label="Papa’s Choice Nigerian Palm Oil, Cocoyam Fufu Flour and Pepper Soup Mix"
+          />
+        </div>
+        <div
+          className={`hero-slide ${active === 1 ? 'is-active' : ''}`}
+          role="group"
+          aria-roledescription="slide"
+          aria-label="2 of 2"
+          aria-hidden={active !== 1}
+        >
+          <img
+            src={localAsset('/assets/hero/papas-choice-range.jpg')}
+            alt="Papa’s Choice Golden Sella Basmati Rice, Nigerian Palm Oil and Plantain Fufu Flour"
+            decoding="async"
+          />
+        </div>
       </div>
       <button
         type="button"
