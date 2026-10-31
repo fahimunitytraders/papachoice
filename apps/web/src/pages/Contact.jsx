@@ -6,27 +6,91 @@ export default function Contact() {
   const {
     content: { contact: c },
   } = useContent();
-  const phone = c.phone.replace(/[^+\d]/g, '');
-  const whatsapp = c.whatsapp.replace(/\D/g, '');
   return (
-    <section className="container page-section">
-      <Reveal className="page-heading">
-        <p className="eyebrow">COME SAY HELLO</p>
-        <h1>
-          Good conversations.
-          <br />
-          Great food.
-        </h1>
-        <p>Find us in London and Thrapston, or speak to our team.</p>
-      </Reveal>
-      <div className="contact-grid">
-        <Reveal className="contact-card">
-          <span className="eyebrow">01 / TALK TO US</span>
-          <h2>We’re here to help.</h2>
-          <a className="contact-big" href={`tel:${phone}`}>
+    <div className="contact-deck">
+      <section className="contact-panel warehouse-panel" aria-labelledby="warehouse-heading">
+        <div className="container">
+          <Reveal className="contact-panel-heading">
+            <p className="eyebrow">COME SAY HELLO</p>
+            <h1 id="warehouse-heading">
+              Two locations.
+              <br />
+              One warm welcome.
+            </h1>
+          </Reveal>
+          <div className="warehouse-grid">
+            {c.warehouses.map((warehouse, index) => (
+              <Reveal className="warehouse-card" delay={index * 100} key={warehouse.name}>
+                <img
+                  src={localAsset(warehouse.image)}
+                  alt={warehouse.alt}
+                  width="1280"
+                  height="960"
+                />
+                <div className="warehouse-details">
+                  <h2>{warehouse.name}</h2>
+                  <ul>
+                    <li>
+                      <address>{warehouse.address}</address>
+                    </li>
+                    <li>
+                      {warehouse.hours || 'Contact us to confirm opening times.'}
+                      {index === 0 && <span className="warehouse-sunday">{c.sunday}</span>}
+                    </li>
+                    <li>Free parking</li>
+                    <li>Cash and carry {warehouse.cashAndCarry ? 'available' : 'not available'}</li>
+                  </ul>
+                  <a
+                    className="text-link"
+                    href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(warehouse.address)}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label={`Get directions to ${warehouse.name}`}
+                  >
+                    Get directions
+                    <Icon name="arrow" />
+                  </a>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+          <button
+            className="contact-next"
+            aria-label="Go to phone and WhatsApp"
+            onClick={() =>
+              document
+                .getElementById('contact-team')
+                ?.scrollIntoView({
+                  behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches
+                    ? 'instant'
+                    : 'smooth',
+                  block: 'start',
+                })
+            }
+          >
+            <span>LET’S TALK</span>
+            <Icon name="arrow" size={22} />
+          </button>
+        </div>
+      </section>
+      <section
+        id="contact-team"
+        className="contact-panel contact-team-panel"
+        aria-labelledby="contact-team-heading"
+      >
+        <Reveal className="container contact-team-content">
+          <p className="eyebrow">A GOOD CONVERSATION STARTS HERE</p>
+          <h2 id="contact-team-heading">Let’s talk.</h2>
+          <p>Questions about our products or planning a visit? We’re here to help.</p>
+          <a className="contact-team-phone" href={`tel:${c.phone.replace(/[^+\d]/g, '')}`}>
             {c.phone}
           </a>
-          <a className="button" href={`https://wa.me/${whatsapp}`} target="_blank" rel="noreferrer">
+          <a
+            className="button"
+            href={`https://wa.me/${c.whatsapp.replace(/\D/g, '')}`}
+            target="_blank"
+            rel="noreferrer"
+          >
             Message on WhatsApp
             <Icon name="arrow" />
           </a>
@@ -36,52 +100,7 @@ export default function Contact() {
             </a>
           )}
         </Reveal>
-        <Reveal className="contact-card" delay={100}>
-          <span className="eyebrow">LONDON CASH & CARRY</span>
-          <h2>Plan your visit.</h2>
-          <p>
-            {c.hours}
-            <br />
-            {c.sunday}
-          </p>
-          <p>For visits to our Thrapston warehouse, please contact our team.</p>
-        </Reveal>
-      </div>
-      <section className="warehouse-section" aria-labelledby="warehouse-heading">
-        <Reveal className="section-heading">
-          <div>
-            <p className="eyebrow">FIND US</p>
-            <h2 id="warehouse-heading">Two locations. One warm welcome.</h2>
-          </div>
-        </Reveal>
-        <div className="warehouse-grid">
-          {c.warehouses.map((warehouse, index) => (
-            <Reveal className="warehouse-card" delay={index * 100} key={warehouse.name}>
-              <img
-                src={localAsset(warehouse.image)}
-                alt={warehouse.alt}
-                loading="lazy"
-                width="1280"
-                height="960"
-              />
-              <div className="warehouse-details">
-                <h3>{warehouse.name}</h3>
-                <address>{warehouse.address}</address>
-                <a
-                  className="text-link"
-                  href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(warehouse.address)}`}
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label={`Get directions to ${warehouse.name}`}
-                >
-                  Get directions
-                  <Icon name="arrow" />
-                </a>
-              </div>
-            </Reveal>
-          ))}
-        </div>
       </section>
-    </section>
+    </div>
   );
 }

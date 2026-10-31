@@ -81,8 +81,8 @@ describe('Papa’s Choice catalogue', () => {
     expect(screen.queryByText('03 / OUR VALUES')).toBeNull();
     expect(container.querySelector('.chapter-number')).toBeNull();
     expect(screen.getAllByRole('img')).toHaveLength(3);
-    expect(screen.getByRole('link', { name: '+44 20 4618 8640' }).getAttribute('href')).toBe(
-      'tel:+442046188640',
+    expect(screen.getByRole('link', { name: '+44 7398477274' }).getAttribute('href')).toBe(
+      'tel:+447398477274',
     );
   });
   it('retains the two roles without salary and opens an application', async () => {
@@ -229,4 +229,22 @@ it('shows both warehouses with their matching photos and directions', () => {
         .getAttribute('href'),
     ).toContain(encodeURIComponent(address));
   }
+});
+
+it('separates warehouse information from phone and WhatsApp with a next-section control', async () => {
+  const user = userEvent.setup();
+  mount('/contact');
+  const locations = screen.getByRole('region', { name: 'Two locations.One warm welcome.' });
+  expect(within(locations).getAllByText('Free parking')).toHaveLength(2);
+  expect(within(locations).getByText('Cash and carry available')).toBeTruthy();
+  expect(within(locations).getByText('Cash and carry not available')).toBeTruthy();
+  const team = screen.getByRole('region', { name: 'Let’s talk.' });
+  expect(within(team).getByRole('link', { name: '+44 7398477274' }).getAttribute('href')).toBe(
+    'tel:+447398477274',
+  );
+  expect(within(team).getByRole('link', { name: 'Message on WhatsApp' }).getAttribute('href')).toBe(
+    'https://wa.me/447398477274',
+  );
+  await user.click(screen.getByRole('button', { name: 'Go to phone and WhatsApp' }));
+  expect(team.scrollIntoView).toHaveBeenCalled();
 });
