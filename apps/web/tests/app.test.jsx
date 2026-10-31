@@ -222,23 +222,29 @@ it('shows both branches together with photos, details and directions', () => {
   }
   expect(screen.queryByText('COME SAY HELLO')).toBeNull();
 });
-it('keeps both contact sections accessible and scrolls to them using the buttons', async () => {
+it('switches contact sections only through the buttons and focuses the active section', async () => {
   const user = userEvent.setup();
   mount('/contact');
   const branches = screen.getByRole('region', { name: 'Find us' });
-  const teamPanel = screen.getByRole('region', { name: 'Let’s talk.' });
-  const scrollToTeam = vi.spyOn(teamPanel, 'scrollIntoView');
+  expect(screen.queryByRole('region', { name: 'Let’s talk.' })).toBeNull();
+  branches.scrollTop = 500;
+  fireEvent.scroll(branches);
+  fireEvent.wheel(branches, { deltaY: 1000 });
+  expect(screen.queryByRole('region', { name: 'Let’s talk.' })).toBeNull();
   await user.click(screen.getByRole('button', { name: 'Talk to us' }));
   const team = screen.getByRole('region', { name: 'Let’s talk.' });
   expect(within(team).getByRole('link', { name: '+44 7398477274' }).getAttribute('href')).toBe(
     'tel:+447398477274',
   );
-  expect(scrollToTeam).toHaveBeenCalledWith({ behavior: 'smooth', block: 'start' });
+  expect(screen.queryByRole('region', { name: 'Find us' })).toBeNull();
+  expect(branches.hasAttribute('inert')).toBe(true);
   expect(within(team).getByRole('heading', { name: 'Let’s talk.' })).toBe(document.activeElement);
-  const scrollToBranches = vi.spyOn(branches, 'scrollIntoView');
   await user.click(screen.getByRole('button', { name: 'Find us' }));
   expect(screen.getByRole('region', { name: 'Find us' })).toBeTruthy();
-  expect(scrollToBranches).toHaveBeenCalledWith({ behavior: 'smooth', block: 'start' });
+  expect(screen.queryByRole('region', { name: 'Let’s talk.' })).toBeNull();
+  expect(team.hasAttribute('inert')).toBe(true);
+  expect(branches.hasAttribute('inert')).toBe(false);
+  expect(branches.scrollTop).toBe(0);
   expect(screen.getByRole('heading', { name: 'London branch' })).toBe(document.activeElement);
 });
 it('shows the family feast artwork with More than wholesale on the homepage', () => {

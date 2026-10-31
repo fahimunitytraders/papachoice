@@ -1491,9 +1491,38 @@ summary:focus-visible {
   }
 }
 
+body:has(.contact-deck) {
+  overflow: hidden;
+}
+#root:has(.contact-deck) {
+  display: flex;
+  flex-direction: column;
+  height: 100dvh;
+  overflow: hidden;
+}
+#root:has(.contact-deck) > .site-header {
+  flex-shrink: 0;
+}
+#root:has(.contact-deck) > main {
+  flex: 1;
+  min-height: 0;
+}
+#root:has(.contact-deck) > .site-footer {
+  display: none;
+}
+.contact-deck {
+  height: 100%;
+  overflow: clip;
+}
+.contact-panel-track {
+  height: 100%;
+  transition: transform 650ms cubic-bezier(0.22, 1, 0.36, 1);
+}
 .contact-panel {
+  height: 100%;
+  overflow-y: auto;
+  overscroll-behavior-y: contain;
   padding-block: clamp(28px, 4vw, 64px);
-  scroll-margin-top: 20px;
 }
 .warehouse-panel {
   background: #faf9f6;
@@ -1504,11 +1533,25 @@ summary:focus-visible {
 }
 .branch-pair {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 32px;
+  gap: clamp(48px, 6vw, 96px);
 }
 .warehouse-card {
+  display: grid;
+  grid-template-columns: minmax(0, 2.4fr) minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(28px, 4vw, 64px);
   min-width: 0;
+}
+.warehouse-card-reverse {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2.4fr);
+}
+.warehouse-card-reverse > img {
+  grid-column: 2;
+  grid-row: 1;
+}
+.warehouse-card-reverse .warehouse-details {
+  grid-column: 1;
+  grid-row: 1;
 }
 .warehouse-card > img {
   display: block;
@@ -1517,7 +1560,7 @@ summary:focus-visible {
   object-fit: contain;
 }
 .warehouse-details {
-  padding-top: 24px;
+  min-width: 0;
 }
 .warehouse-details h2 {
   font-size: clamp(25px, 2.5vw, 36px);
@@ -1580,13 +1623,12 @@ summary:focus-visible {
 .contact-team-panel {
   display: flex;
   flex-direction: column;
-  min-height: 75svh;
   text-align: center;
   background: var(--background);
 }
 .contact-team-content {
   display: flex;
-  flex: 1;
+  flex: 1 0 auto;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -1611,15 +1653,25 @@ summary:focus-visible {
   .combined-branches > .container {
     width: calc(100% - 32px);
   }
-  .branch-pair {
+  .warehouse-card,
+  .warehouse-card-reverse {
     grid-template-columns: 1fr;
-    gap: 48px;
+    gap: 20px;
+  }
+  .warehouse-card-reverse > img,
+  .warehouse-card-reverse .warehouse-details {
+    grid-column: auto;
+    grid-row: auto;
   }
   .warehouse-details {
     padding-inline: 8px;
-    padding-top: 20px;
   }
   .contact-next {
     padding-inline: 20px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .contact-panel-track {
+    transition: none;
   }
 }
