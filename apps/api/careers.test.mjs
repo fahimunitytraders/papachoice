@@ -9,6 +9,7 @@ const names = [
   'GMAIL_FROM',
   'GMAIL_TO',
   'GMAIL_CAREERS_TO',
+  'CONTENT_SITE_URL',
 ];
 const original = Object.fromEntries(names.map((k) => [k, process.env[k]]));
 afterEach(() => {
@@ -19,7 +20,7 @@ afterEach(() => {
   }
 });
 function configured() {
-  for (const k of names) process.env[k] = 'fixture';
+  for (const k of names.filter((k) => k !== 'CONTENT_SITE_URL')) process.env[k] = 'fixture';
 }
 function event(change = {}) {
   return {
@@ -140,4 +141,39 @@ test('rejects invalid registration and unknown submission types without sending'
       400,
     );
   }
+});
+
+test('accepts new careers from the configured content endpoint', async () => {
+  configured();
+  process.env.CONTENT_SITE_URL = 'https://content.example.com/site.json';
+  const calls = [];
+  globalThis.fetch = async (url) => {
+    url = String(url);
+    calls.push(url);
+    return {
+      ok: true,
+      json: async () =>
+        url === process.env.CONTENT_SITE_URL
+          ? { jobs: [{ id: 'delivery-driver', title: 'Delivery Driver' }] }
+          : url.includes('oauth2')
+            ? { access_token: 'fixture-token' }
+            : { id: 'message-id' },
+    };
+  };
+  const response = await handler(event({ jobId: 'delivery-driver' }));
+  assert.equal(response.statusCode, 200);
+  assert.equal(calls.length, 3);
+  assert.equal(calls[0], process.env.CONTENT_SITE_URL);
+});
+test('does not email when the configured careers feed fails', async () => {
+  configured();
+  process.env.CONTENT_SITE_URL = 'https://content.example.com/site.json';
+  const calls = [];
+  globalThis.fetch = async (url) => {
+    url = String(url);
+    calls.push(url);
+    return { ok: false, status: 503 };
+  };
+  assert.equal((await handler(event())).statusCode, 502);
+  assert.deepEqual(calls, [process.env.CONTENT_SITE_URL]);
 });

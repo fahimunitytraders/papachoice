@@ -1386,3 +1386,302 @@ summary:focus-visible {
     transform: none;
   }
 }
+
+.hero-slider {
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  aspect-ratio: 765 / 540;
+  border-radius: 18px;
+  background: #fff;
+  overflow: hidden;
+}
+.hero-slider-viewport {
+  position: absolute;
+  inset: 0 50px 40px;
+  overflow: hidden;
+}
+.hero-slider-track {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  transition: transform 0.6s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+.hero-slide {
+  flex: 0 0 100%;
+  min-width: 0;
+  height: 100%;
+  padding: 10px 4px;
+}
+.hero-slide > img,
+.hero-image .hero-slide > .product-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.hero-slider-arrow {
+  position: absolute;
+  top: calc(50% - 40px);
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgb(255 255 255 / 95%);
+  color: var(--brand);
+  border: 1px solid var(--line);
+  box-shadow: 0 3px 12px rgb(38 36 31 / 10%);
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+.hero-slider-arrow:hover {
+  background: var(--brand);
+  color: white;
+  box-shadow: 0 5px 16px rgb(38 36 31 / 16%);
+}
+.hero-slider-prev {
+  left: 2px;
+}
+.hero-slider-prev svg {
+  transform: rotate(180deg);
+}
+.hero-slider-next {
+  right: 2px;
+}
+.hero-slider-controls {
+  position: absolute;
+  bottom: 8px;
+  inset-inline: 0;
+  display: flex;
+  justify-content: center;
+}
+.hero-slider-dots {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.hero-slider-dots > button {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  color: var(--brand);
+  border-radius: 50%;
+}
+.hero-slider-dots > button::after {
+  content: '';
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--line);
+  transition:
+    background 0.2s ease,
+    width 0.2s ease;
+}
+.hero-slider-dots > button[aria-pressed='true']::after {
+  background: var(--brand);
+  width: 18px;
+  border-radius: 6px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-slider-track {
+    transition: none;
+  }
+}
+
+body:has(.contact-deck) {
+  overflow: hidden;
+}
+#root:has(.contact-deck) {
+  display: flex;
+  flex-direction: column;
+  height: 100dvh;
+  overflow: hidden;
+}
+#root:has(.contact-deck) > .site-header {
+  flex-shrink: 0;
+}
+#root:has(.contact-deck) > main {
+  flex: 1;
+  min-height: 0;
+}
+#root:has(.contact-deck) > .site-footer {
+  display: none;
+}
+.contact-deck {
+  height: 100%;
+  overflow: clip;
+}
+.contact-panel-track {
+  height: 100%;
+  transition: transform 650ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.contact-panel {
+  height: 100%;
+  overflow-y: auto;
+  overscroll-behavior-y: contain;
+  padding-block: clamp(28px, 4vw, 64px);
+}
+.warehouse-panel {
+  background: #faf9f6;
+}
+.combined-branches > .container {
+  width: calc(100% - 64px);
+  max-width: 1600px;
+}
+.contact-branches-heading {
+  margin: 0 0 clamp(28px, 4vw, 56px);
+  font-size: clamp(36px, 5vw, 64px);
+  letter-spacing: -1.5px;
+  text-align: center;
+}
+.branch-pair {
+  display: grid;
+  gap: clamp(48px, 6vw, 96px);
+}
+.warehouse-card {
+  display: grid;
+  grid-template-columns: minmax(0, 2.4fr) minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(28px, 4vw, 64px);
+  min-width: 0;
+}
+.warehouse-card-reverse {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2.4fr);
+}
+.warehouse-card-reverse > img {
+  grid-column: 2;
+  grid-row: 1;
+}
+.warehouse-card-reverse .warehouse-details {
+  grid-column: 1;
+  grid-row: 1;
+}
+.warehouse-card-reverse .warehouse-details > .text-link {
+  margin-left: 22px;
+}
+.warehouse-card > img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+.warehouse-details {
+  min-width: 0;
+}
+.warehouse-details h2 {
+  font-size: clamp(25px, 2.5vw, 36px);
+  margin-bottom: 16px;
+}
+.warehouse-details ul {
+  padding-left: 19px;
+  margin: 0 0 20px;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.7;
+}
+.warehouse-details li {
+  padding-left: 3px;
+  margin-bottom: 8px;
+}
+.warehouse-details li::marker {
+  color: var(--brand);
+}
+.warehouse-details address {
+  font-style: normal;
+}
+.warehouse-sunday {
+  display: block;
+}
+.contact-next {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  width: max-content;
+  margin: 36px auto 0;
+  padding: 14px 30px;
+  min-height: 54px;
+  border: 0;
+  background: transparent;
+  color: var(--brand);
+}
+.contact-next span {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+}
+.contact-next:hover {
+  color: var(--text);
+}
+.contact-next svg {
+  transform: rotate(90deg);
+}
+.contact-panel > .contact-back {
+  margin: 0 auto 40px;
+}
+.contact-back svg {
+  transform: rotate(-90deg);
+}
+.contact-branches-heading:focus,
+.warehouse-details h2:focus,
+.contact-team-content h2:focus {
+  outline: none;
+}
+.contact-team-panel {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  background: var(--background);
+}
+.contact-team-content {
+  display: flex;
+  flex: 1 0 auto;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 25px;
+}
+.contact-team-content h2 {
+  font-size: clamp(52px, 7vw, 100px);
+  letter-spacing: -3px;
+}
+.contact-team-content > p:not(.eyebrow) {
+  color: var(--muted);
+  max-width: 440px;
+}
+.contact-team-phone {
+  font-size: clamp(27px, 4vw, 55px);
+  letter-spacing: -1px;
+}
+.contact-team-phone:hover {
+  color: var(--brand);
+}
+@media (max-width: 760px) {
+  .combined-branches > .container {
+    width: calc(100% - 32px);
+  }
+  .warehouse-card,
+  .warehouse-card-reverse {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .warehouse-card-reverse > img,
+  .warehouse-card-reverse .warehouse-details {
+    grid-column: auto;
+    grid-row: auto;
+  }
+  .warehouse-details {
+    padding-inline: 8px;
+  }
+  .contact-next {
+    padding-inline: 20px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .contact-panel-track {
+    transition: none;
+  }
+}

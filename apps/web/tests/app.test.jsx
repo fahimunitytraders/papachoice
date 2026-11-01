@@ -1,3 +1,4 @@
+import { defaultContent } from '@papas-choice/content';
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen, within, waitFor, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -12,7 +13,7 @@ vi.mock('../src/api/registration.js', () => ({ submitRegistration: vi.fn() }));
 function mount(path = '/') {
   return render(
     <MemoryRouter initialEntries={[path]}>
-      <ContentProvider>
+      <ContentProvider content={defaultContent}>
         <App />
       </ContentProvider>
     </MemoryRouter>,
@@ -81,8 +82,8 @@ describe('Papa’s Choice catalogue', () => {
     expect(screen.queryByText('03 / OUR VALUES')).toBeNull();
     expect(container.querySelector('.chapter-number')).toBeNull();
     expect(screen.getAllByRole('img')).toHaveLength(3);
-    expect(screen.getByRole('link', { name: '+44 20 4618 8640' }).getAttribute('href')).toBe(
-      'tel:+442046188640',
+    expect(screen.getByRole('link', { name: '+44 7398477274' }).getAttribute('href')).toBe(
+      'tel:+447398477274',
     );
   });
   it('retains the two roles without salary and opens an application', async () => {
@@ -208,4 +209,51 @@ describe('career applications', () => {
     expect(dialog.getByLabelText('Full name *').value).toBe('Applicant');
     expect(screen.queryByText('Application submitted')).toBeNull();
   });
+});
+
+it('shows both branches together with photos, details and directions', () => {
+  mount('/contact');
+  for (const [name, image] of [
+    ['London branch', 'london.jpg'],
+    ['Thrapston branch', 'thrapston.jpg'],
+  ]) {
+    const card = screen.getByRole('heading', { name }).closest('.warehouse-card');
+    expect(within(card).getByRole('img').getAttribute('src')).toContain(image);
+    expect(within(card).getByRole('link', { name: `Get directions to ${name}` })).toBeTruthy();
+  }
+  expect(screen.queryByText('COME SAY HELLO')).toBeNull();
+});
+it('switches contact sections only through the buttons and focuses the active section', async () => {
+  const user = userEvent.setup();
+  mount('/contact');
+  const branches = screen.getByRole('region', { name: 'Where to find us' });
+  expect(screen.queryByRole('region', { name: 'Let’s talk.' })).toBeNull();
+  branches.scrollTop = 500;
+  fireEvent.scroll(branches);
+  fireEvent.wheel(branches, { deltaY: 1000 });
+  expect(screen.queryByRole('region', { name: 'Let’s talk.' })).toBeNull();
+  await user.click(screen.getByRole('button', { name: 'TALK TO US' }));
+  const team = screen.getByRole('region', { name: 'Let’s talk.' });
+  expect(within(team).getByRole('link', { name: '+44 7398477274' }).getAttribute('href')).toBe(
+    'tel:+447398477274',
+  );
+  expect(screen.queryByRole('region', { name: 'Where to find us' })).toBeNull();
+  expect(branches.hasAttribute('inert')).toBe(true);
+  expect(within(team).getByRole('heading', { name: 'Let’s talk.' })).toBe(document.activeElement);
+  await user.click(screen.getByRole('button', { name: 'Find us' }));
+  expect(screen.getByRole('region', { name: 'Where to find us' })).toBeTruthy();
+  expect(screen.queryByRole('region', { name: 'Let’s talk.' })).toBeNull();
+  expect(team.hasAttribute('inert')).toBe(true);
+  expect(branches.hasAttribute('inert')).toBe(false);
+  expect(branches.scrollTop).toBe(0);
+  expect(screen.getByRole('heading', { name: 'Where to find us' })).toBe(document.activeElement);
+});
+it('shows the family feast artwork with More than wholesale on the homepage', () => {
+  mount();
+  expect(
+    screen
+      .getByRole('img', { name: 'Sharing African food around a family table' })
+      .getAttribute('src'),
+  ).toContain('/assets/stories/family-feast.jpg');
+  expect(screen.getByRole('heading', { name: /More than wholesale/ })).toBeTruthy();
 });

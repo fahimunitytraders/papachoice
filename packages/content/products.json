@@ -1,152 +1,4 @@
 {
-  "schemaVersion": 1,
-  "theme": {
-    "accent": "#D7B99A",
-    "accentHover": "#C7A17D",
-    "background": "#FFFFFF",
-    "surface": "#F5F0E9",
-    "text": "#26241F",
-    "muted": "#716B63",
-    "brand": "#8B2523"
-  },
-  "brand": {
-    "name": "Papa's Choice",
-    "tagline": "African flavours. London roots.",
-    "logo": "/assets/logo.png"
-  },
-  "navigation": {
-    "home": "Home",
-    "about": "About us",
-    "products": "Products",
-    "partners": "Partners",
-    "careers": "Careers",
-    "register": "Register",
-    "search": "Search products…"
-  },
-  "home": {
-    "eyebrow": "UNITY TRADERS LTD",
-    "title": "You deserve better food",
-    "description": "Stock your shelves with authentic favourites.",
-    "primaryButton": "Explore our products",
-    "primaryTarget": "/products",
-    "secondaryButton": "Register with us",
-    "secondaryTarget": "/register",
-    "collectionEyebrow": "THE EVERYDAY FAVOURITES",
-    "collectionTitle": "Best sellers",
-    "collectionDescription": "Flavours you know. Brands you love.",
-    "allProductsButton": "View all products",
-    "storyEyebrow": "FOOD THAT FEELS LIKE HOME",
-    "storyTitle": "More than wholesale.\nPart of the community.",
-    "storyText": "For 12 years, we have brought authentic African and international foods to families, restaurants and retailers across London.",
-    "storyButton": "Our story",
-    "visitTitle": "Come in. Feel at home.",
-    "visitText": "Explore our range in person or speak to our team about your wholesale needs.",
-    "visitButton": "Plan your visit"
-  },
-  "catalogue": {
-    "eyebrow": "OUR WHOLESALE RANGE",
-    "title": "A taste of home.\nA world of choice.",
-    "description": "Discover authentic essentials for your kitchen, restaurant or shop.",
-    "priceNotice": "Displayed prices are illustrative preview values. New catalogue items are priced on enquiry. Please confirm current prices, pack sizes and availability with our team.",
-    "detailButton": "View product",
-    "enquiryButton": "Enquire on WhatsApp",
-    "callButton": "Call our team",
-    "priceLabel": "Sample price",
-    "searchPlaceholder": "Search products, brands or SKU",
-    "allLabel": "All products"
-  },
-  "about": {
-    "eyebrow": "ROOTED IN COMMUNITY",
-    "title": "Welcome to Papa’s Choice",
-    "intro": "Welcome to Papa’s Choice, your trusted African wholesale cash and carry in London. For the past 12 years, we have proudly dedicated ourselves to serving our community with authentic African and international foods, offering a wide range of quality products at competitive wholesale prices.",
-    "journeyTitle": "From Humble Beginnings to a Growing Business",
-    "journeyText": "Every great journey starts somewhere, and for Papa's Choice, our journey began in a small unit beneath the railway arches in Deptford, southeast London.\n\nWhat started as a small business was built on a vision, determination and a passion for bringing quality African food products to the community. Our beginnings were modest, but our ambitions were strong. With hard work, dedication, and the support of our customers, we began laying the foundations for what Papa's Choice would become.",
-    "communityTitle": "More than just wholesale",
-    "communityText": "At Papa's Choice, we believe food is more than what we put on our plates. It connects us to our roots, brings families together and keeps our traditions alive.\n\nFrom our humble beginnings in the railway arches of Deptford, we have been driven by a passion for bringing the flavours of home closer to our community. We understand the importance of finding the ingredients you know, the products you trust and the familiar tastes that make every meal special.\n\nWhether you are shopping for your family, stocking your store or supplying your restaurant, we're proud to be part of your journey.\n\nFor us, it's not just about wholesale. It's about our roots, our relationships and the communities we serve.",
-    "sections": [
-      {
-        "id": "mission",
-        "eyebrow": "Food that feels like home",
-        "title": "Bringing Communities Together Through Food",
-        "text": "At Unity Traders Ltd, we believe that food brings people together. It connects us to our cultures, traditions and the flavours that make us feel at home.",
-        "image": "/assets/mission.png",
-        "alt": "Hands sharing a bowl of jollof rice and plantain around a table"
-      },
-      {
-        "id": "quality",
-        "eyebrow": "02 / QUALITY",
-        "title": "Good ingredients.\nNo small detail.",
-        "text": "We care about the products we choose and the people who use them. Our focus is a thoughtful range, trusted brands and straightforward wholesale value.",
-        "image": "/assets/quality.png",
-        "alt": "An assortment of peppers, ginger, beans and spices on a stone surface"
-      },
-      {
-        "id": "values",
-        "eyebrow": "03 / OUR VALUES",
-        "title": "People first.\nAlways.",
-        "text": "Community, respect and reliability are at the heart of how we work. We listen, build lasting relationships and take pride in helping our customers thrive.",
-        "image": "/assets/values.png",
-        "alt": "Two people exchanging a carton over a neighbourhood shop counter"
-      }
-    ],
-    "button": "Discover our products"
-  },
-  "partnersPage": {
-    "eyebrow": "OUR BRAND FAMILY",
-    "title": "Our Brands & Partners",
-    "description": "Meet the brands featured across our wholesale network.",
-    "sliderTitle": "Good company.",
-    "sliderDescription": "A few familiar faces from our shelves.",
-    "allButton": "Meet our partners",
-    "contactTitle": "Let’s build something together.",
-    "contactText": "Interested in working with Papa’s Choice? We would love to hear from you.",
-    "contactButton": "Talk to our team"
-  },
-  "careersCopy": {
-    "eyebrow": "PEOPLE MAKE THE DIFFERENCE",
-    "title": "Good people.\nGreat things ahead.",
-    "description": "We’re building something thoughtful. Bring your skills, your ideas and a little everyday care.",
-    "button": "Explore open roles",
-    "rolesTitle": "Open roles",
-    "applyButton": "Apply for this role"
-  },
-  "registerCopy": {
-    "eyebrow": "A GOOD PARTNERSHIP STARTS HERE",
-    "title": "Let’s talk trade.",
-    "description": "Tell us a little about your business to get started."
-  },
-  "contact": {
-    "phone": "+44 20 4618 8640",
-    "whatsapp": "+44 7398 477274",
-    "address": "310-326 St James Road, London, SE1 5JX",
-    "hours": "Monday to Saturday: 8:30am to 6:30pm",
-    "sunday": "Sunday: Closed",
-    "email": "",
-    "legalName": "",
-    "companyNumber": "",
-    "vatNumber": ""
-  },
-  "footer": {
-    "description": "Authentic African and international foods, with a personal touch.",
-    "contactHeading": "Come say hello",
-    "linksHeading": "Explore",
-    "hoursHeading": "Opening hours",
-    "copyright": "Papa's Choice",
-    "note": "Browse online. Speak to us to order."
-  },
-  "categories": [
-    "Oils & staples",
-    "Flour & mixes",
-    "Seasonings",
-    "Beans & peas",
-    "Gari",
-    "Rice & grains",
-    "Nuts & seeds",
-    "Salts",
-    "Spreads",
-    "Sauces & pastes",
-    "Doughs"
-  ],
   "products": [
     {
       "id": "palm-oil",
@@ -1171,48 +1023,17 @@
       "crop": []
     }
   ],
-  "partners": [
-    {
-      "id": "rajah",
-      "name": "Rajah",
-      "logo": "/assets/partners/rajah.png",
-      "website": ""
-    },
-    {
-      "id": "dunns-river",
-      "name": "Dunn’s River",
-      "logo": "/assets/partners/dunns-river.png",
-      "website": ""
-    },
-    {
-      "id": "osupa",
-      "name": "Osupa",
-      "logo": "/assets/partners/osupa.png",
-      "website": ""
-    },
-    {
-      "id": "flying-eagle",
-      "name": "Flying Eagle",
-      "logo": "/assets/partners/flying-eagle.png",
-      "website": ""
-    },
-    {
-      "id": "lion",
-      "name": "Lion",
-      "logo": "/assets/partners/lion.png",
-      "website": ""
-    },
-    {
-      "id": "saxa",
-      "name": "Saxa",
-      "logo": "/assets/partners/saxa.png",
-      "website": ""
-    },
-    {
-      "id": "maggi",
-      "name": "Maggi",
-      "logo": "/assets/partners/maggi.png",
-      "website": ""
-    }
+  "categories": [
+    "Oils & staples",
+    "Flour & mixes",
+    "Seasonings",
+    "Beans & peas",
+    "Gari",
+    "Rice & grains",
+    "Nuts & seeds",
+    "Salts",
+    "Spreads",
+    "Sauces & pastes",
+    "Doughs"
   ]
 }

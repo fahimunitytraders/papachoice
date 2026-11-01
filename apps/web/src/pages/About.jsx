@@ -1,3 +1,4 @@
+import { text } from '@papas-choice/content';
 import { Link } from 'react-router-dom';
 import { localAsset } from '@papas-choice/content';
 import { useContent } from '../context/ContentContext.jsx';
@@ -16,18 +17,18 @@ export default function About() {
           <p className="about-lead">{a.intro}</p>
         </Reveal>
         <div className="about-scroll-cue">
-          <span>Our story, in good company</span>
+          <span>{text('About.our_story_in_good_company')}</span>
           <span>↓</span>
         </div>
       </section>
       <div className="container journey-grid">
         <Reveal>
-          <p className="eyebrow">LONDON ROOTS</p>
+          <p className="eyebrow">{text('About.london_roots')}</p>
           <h2>{a.journeyTitle}</h2>
           <p className="preserve-lines">{a.journeyText}</p>
         </Reveal>
         <Reveal delay={150}>
-          <p className="eyebrow">A SHARED TABLE</p>
+          <p className="eyebrow">{text('About.a_shared_table')}</p>
           <h2>{a.communityTitle}</h2>
           <p className="preserve-lines">{a.communityText}</p>
         </Reveal>
@@ -51,8 +52,8 @@ export default function About() {
         ))}
       </div>
       <Reveal className="container about-end">
-        <p className="eyebrow">THE NEXT CHAPTER IS YOURS</p>
-        <h2>Good food brings us together.</h2>
+        <p className="eyebrow">{text('About.the_next_chapter_is_yours')}</p>
+        <h2>{text('About.good_food_brings_us_together')}</h2>
         <Link to="/products" className="button">
           {a.button}
           <Icon name="arrow" />

@@ -1,8 +1,9 @@
+import { text } from '@papas-choice/content';
 import { Link } from 'react-router-dom';
 import { useContent } from '../context/ContentContext.jsx';
 import { localAsset } from '@papas-choice/content';
 import ProductCard from '../components/ProductCard.jsx';
-import ProductImage from '../components/ProductImage.jsx';
+import HeroSlider from '../components/HeroSlider.jsx';
 import PartnerSlider from '../components/PartnerSlider.jsx';
 import Reveal from '../components/Reveal.jsx';
 import Icon from '../components/Icon.jsx';
@@ -13,10 +14,7 @@ export default function Home({ onDetails }) {
     <>
       <section className="hero container">
         <Reveal className="hero-image">
-          <ProductImage
-            crop={[80, 76, 765, 465]}
-            label="Papa’s Choice Nigerian Palm Oil, Cocoyam Fufu Flour and Pepper Soup Mix"
-          />
+          <HeroSlider />
         </Reveal>
         <Reveal className="hero-copy" delay={120}>
           <p className="eyebrow">{h.eyebrow}</p>
@@ -33,9 +31,9 @@ export default function Home({ onDetails }) {
         </Reveal>
       </section>
       <section className="container collection-section">
-        <nav className="category-tabs" aria-label="Shop categories">
+        <nav className="category-tabs" aria-label={text('Home.shop_categories')}>
           <Link className="active" to="/products">
-            All products
+            {text('Home.all_products')}
           </Link>
           {c.categories.map((category) => (
             <Link key={category} to={`/products?category=${encodeURIComponent(category)}`}>
@@ -68,11 +66,7 @@ export default function Home({ onDetails }) {
       <PartnerSlider />
       <section className="container home-story">
         <Reveal className="home-story-image">
-          <img
-            src={localAsset('/assets/mission.png')}
-            alt="Sharing African food around a family table"
-            loading="lazy"
-          />
+          <img src={localAsset(h.storyImage)} alt={h.storyAlt} loading="lazy" />
         </Reveal>
         <Reveal className="home-story-copy">
           <p className="eyebrow">{h.storyEyebrow}</p>
@@ -86,7 +80,7 @@ export default function Home({ onDetails }) {
       </section>
       <Reveal className="container visit-banner">
         <div>
-          <p className="eyebrow">YOUR LOCAL CASH & CARRY</p>
+          <p className="eyebrow">{text('Home.your_local_cash_carry')}</p>
           <h2>{h.visitTitle}</h2>
           <p>{h.visitText}</p>
         </div>

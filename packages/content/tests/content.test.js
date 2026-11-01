@@ -1,3 +1,5 @@
+import { configureSiteContent, defaultInterface } from '../index.js';
+configureSiteContent(defaultInterface, 'https://d22teg2omtu6om.cloudfront.net/site-content/v1/');
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { defaultContent, cloneContent, validateContent, filterProducts, money } from '../index.js';
@@ -79,4 +81,17 @@ test('unpriced products survive editing and sort after known prices in both dire
   );
   data.products[0].price = '';
   assert.throws(() => validateContent(data), /valid non-negative/);
+});
+
+test('legacy remote content gains editable media fields and new job IDs validate', () => {
+  const data = fresh();
+  delete data.home.heroSlides;
+  delete data.home.storyImage;
+  delete data.home.storyAlt;
+  data.jobs.push({ ...data.jobs[0], id: 'delivery-driver', title: 'Delivery driver' });
+  const result = validateContent(data);
+  assert.equal(result.home.heroSlides.length, 2);
+  assert.equal(result.jobs.at(-1).id, 'delivery-driver');
+  data.home.heroSlides = [{ image: 'javascript:alert(1)', alt: 'Bad', crop: [] }];
+  assert.throws(() => validateContent(data), /slide image/);
 });

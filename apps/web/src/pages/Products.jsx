@@ -1,3 +1,4 @@
+import { text } from '@papas-choice/content';
 import { useSearchParams } from 'react-router-dom';
 import { filterProducts } from '@papas-choice/content';
 import { useContent } from '../context/ContentContext.jsx';
@@ -33,16 +34,16 @@ export default function Products({ onDetails }) {
       </Reveal>
       <div className="catalogue-layout">
         <aside className="catalogue-sidebar">
-          <h2>Browse categories</h2>
+          <h2>{text('Products.browse_categories')}</h2>
           {categories.map((cat) => (
             <button
-              key={cat}
-              aria-label={cat}
+              key={cat === 'All products' ? text('Products.all_products') : cat}
+              aria-label={cat === 'All products' ? text('Products.all_products') : cat}
               className={category === cat ? 'active' : ''}
               aria-pressed={category === cat}
               onClick={() => change('category', cat)}
             >
-              {cat}
+              {cat === 'All products' ? text('Products.all_products') : cat}
               <span>
                 {cat === 'All products'
                   ? c.products.length
@@ -52,8 +53,8 @@ export default function Products({ onDetails }) {
           ))}
           <div className="sidebar-note">
             <Icon name="box" />
-            <h3>Personal service.</h3>
-            <p>Browse our range, then call or message us to discuss your order.</p>
+            <h3>{text('Products.personal_service')}</h3>
+            <p>{text('Products.browse_our_range_then_call_or_message_us_to_discuss_your_order')}</p>
           </div>
         </aside>
         <div className="catalogue-main">
@@ -61,25 +62,28 @@ export default function Products({ onDetails }) {
             <label className="search-field">
               <Icon name="search" size={18} />
               <input
-                aria-label="Search catalogue"
+                aria-label={text('Products.search_catalogue')}
                 value={query}
                 placeholder={c.catalogue.searchPlaceholder}
                 onChange={(e) => change('q', e.target.value)}
               />
             </label>
             <select
-              aria-label="Sort products"
+              aria-label={text('Products.sort_products')}
               value={sort}
               onChange={(e) => change('sort', e.target.value)}
             >
-              <option value="featured">Featured</option>
-              <option value="price-low">Price: low to high</option>
-              <option value="price-high">Price: high to low</option>
-              <option value="name">Name: A to Z</option>
+              <option value="featured">{text('Products.featured')}</option>
+              <option value="price-low">{text('Products.price_low_to_high')}</option>
+              <option value="price-high">{text('Products.price_high_to_low')}</option>
+              <option value="name">{text('Products.name_a_to_z')}</option>
             </select>
           </div>
           <p className="result-count" aria-live="polite">
-            {shown.length} {shown.length === 1 ? 'product' : 'products'}
+            {shown.length}{' '}
+            {shown.length === 1
+              ? text('Products.product_singular')
+              : text('Products.product_plural')}
           </p>
           {shown.length ? (
             <div className="product-grid catalogue-grid">
@@ -90,10 +94,10 @@ export default function Products({ onDetails }) {
           ) : (
             <div className="empty-state">
               <Icon name="search" size={38} />
-              <h2>No products found</h2>
-              <p>Try a different search or browse all categories.</p>
+              <h2>{text('Products.no_products_found')}</h2>
+              <p>{text('Products.try_a_different_search_or_browse_all_categories')}</p>
               <button className="button" onClick={() => setParams({})}>
-                Clear filters
+                {text('Products.clear_filters')}
               </button>
             </div>
           )}

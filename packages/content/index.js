@@ -1,12 +1,34 @@
-import defaults from './defaults.json' with { type: 'json' };
+import site from './site.json' with { type: 'json' };
+import products from './products.json' with { type: 'json' };
+import interfaceCopy from './interface.json' with { type: 'json' };
+const defaults = { ...site, ...products };
+export const defaultSite = site;
+export const defaultInterface = interfaceCopy;
+let activeInterface = null;
+let assetBase = '';
+export function configureSiteContent(copy = null, base = '') {
+  activeInterface = copy;
+  assetBase = base;
+}
+export function text(key, values = []) {
+  const [section, name] = key.split('.');
+  const value = activeInterface?.[section]?.[name];
+  if (typeof value !== 'string') throw new Error(`Site copy is not loaded: ${key}`);
+  return value.replace(/\{(\d+)\}/g, (match, index) => String(values[index] ?? match));
+}
 export const defaultContent = defaults;
 export const cloneContent = (value) => JSON.parse(JSON.stringify(value));
 export const money = (value) =>
   value === null
-    ? 'Price on enquiry'
+    ? text('common.price_on_enquiry')
     : new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'GBP' }).format(value);
-export const localAsset = (path) =>
-  path.startsWith('/assets/') ? `${import.meta.env?.BASE_URL || './'}${path.slice(1)}` : path;
+export function localAsset(path) {
+  if (!path.startsWith('/assets/') && path !== '/favicon.svg') return path;
+  if (path.startsWith('/assets/products/'))
+    return `${import.meta.env?.BASE_URL || './'}${path.slice(1)}`;
+  if (!assetBase) throw new Error('Site assets require loaded remote content.');
+  return `${assetBase}${path.slice(1)}`;
+}
 export const allowedTargets = [
   '/',
   '/about',
@@ -55,7 +77,20 @@ export function validateContent(input) {
       Object.entries(template).map(([key, t]) => [key, shape(value[key], t, `${path}.${key}`)]),
     );
   }
+  if (!input.home || typeof input.home !== 'object' || Array.isArray(input.home))
+    throw new Error('content.home is missing.');
+  input = { ...input, home: { ...input.home } };
+  for (const key of ['heroSlides', 'storyImage', 'storyAlt'])
+    if (!Object.hasOwn(input.home, key)) input.home[key] = cloneContent(defaults.home[key]);
   const result = shape(input, defaults, 'content');
+  if (!result.home.heroSlides.length || result.home.heroSlides.length > 10)
+    throw new Error('Use 1 to 10 hero slides.');
+  if (!validAsset(result.home.storyImage)) throw new Error('Use a valid story image.');
+  for (const slide of result.home.heroSlides) {
+    if (!slide.image || !validAsset(slide.image)) throw new Error('Use a valid slide image.');
+    if (slide.crop.length && (slide.crop.length !== 4 || slide.crop[2] <= 0 || slide.crop[3] <= 0))
+      throw new Error('Invalid slide crop.');
+  }
   for (const [key, value] of Object.entries(result.theme))
     if (!isHex(value)) throw new Error(`Use a six digit hex colour for ${key}, such as #D7B99A.`);
   for (const key of ['primaryTarget', 'secondaryTarget'])
@@ -70,7 +105,7 @@ export function validateContent(input) {
     new Set(result.categories).size !== result.categories.length
   )
     throw new Error('Use unique, non-empty categories.');
-  for (const list of [result.products, result.partners, result.about.sections]) {
+  for (const list of [result.products, result.partners, result.about.sections, result.jobs]) {
     const ids = new Set();
     for (const item of list) {
       if (!/^[a-z0-9-]+$/.test(item.id) || ids.has(item.id))

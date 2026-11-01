@@ -1,3 +1,4 @@
+import { text } from '@papas-choice/content';
 import { useEffect, useState } from 'react';
 import { Link, NavLink, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import { localAsset, money } from '@papas-choice/content';
@@ -26,7 +27,7 @@ export default function App() {
     setModal(null);
     window.scrollTo({ top: 0, behavior: 'instant' });
     const pagePath = location.pathname.replace(/\/+$/, '').toLowerCase() || '/';
-    document.title = `${{ '/': 'African wholesale in London', '/about': 'About us', '/products': 'Products', '/partners': 'Our partners', '/careers': 'Careers', '/register': 'Register', '/contact': 'Contact us' }[pagePath] || 'Page not found'} | ${c.brand.name}`;
+    document.title = `${{ '/': text('App.african_wholesale_in_london'), '/about': text('App.about_us'), '/products': text('App.products'), '/partners': text('App.our_partners'), '/careers': text('App.careers'), '/register': text('App.register'), '/contact': text('App.contact_us') }[pagePath] || text('App.page_not_found')} | ${c.brand.name}`;
   }, [location.pathname, c.brand.name]);
   function searchSubmit(e) {
     e.preventDefault();
@@ -52,15 +53,15 @@ export default function App() {
           document.getElementById('main')?.focus();
         }}
       >
-        Skip to content
+        {text('App.skip_to_content')}
       </a>
       <header className="site-header">
         <div className="container header-inner">
-          <Link className="brand-link" to="/" aria-label={`${c.brand.name} home`}>
+          <Link className="brand-link" to="/" aria-label={text('App.brand_home', [c.brand.name])}>
             <img src={localAsset(c.brand.logo)} alt="" />
             <span>{c.brand.name}</span>
           </Link>
-          <nav className="desktop-nav" aria-label="Main navigation">
+          <nav className="desktop-nav" aria-label={text('App.main_navigation')}>
             {nav.map(([path, label]) => (
               <NavLink key={path} to={path} end={path === '/'}>
                 {label}
@@ -70,7 +71,7 @@ export default function App() {
           <form className="search-field header-search" onSubmit={searchSubmit}>
             <Icon name="search" size={17} />
             <input
-              aria-label="Search products"
+              aria-label={text('App.search_products')}
               placeholder={c.navigation.search}
               value={search}
               onChange={(e) => setSearch(e.target.value)}
@@ -82,7 +83,7 @@ export default function App() {
           </Link>
           <button
             className="icon-button menu-toggle"
-            aria-label={menu ? 'Close navigation' : 'Open navigation'}
+            aria-label={menu ? text('App.close_navigation') : text('App.open_navigation')}
             aria-expanded={menu}
             aria-controls="mobile-nav"
             onClick={() => setMenu(!menu)}
@@ -91,22 +92,22 @@ export default function App() {
           </button>
         </div>
         {menu && (
-          <nav className="mobile-nav" id="mobile-nav" aria-label="Mobile navigation">
+          <nav className="mobile-nav" id="mobile-nav" aria-label={text('App.mobile_navigation')}>
             {nav.map(([path, label]) => (
               <NavLink key={path} to={path} end={path === '/'}>
                 {label}
               </NavLink>
             ))}
-            <Link to="/contact">Contact us</Link>
+            <Link to="/contact">{text('App.contact_us')}</Link>
             <form className="search-field" onSubmit={searchSubmit}>
               <Icon name="search" size={18} />
               <input
-                aria-label="Search products on mobile"
+                aria-label={text('App.search_products_on_mobile')}
                 placeholder={c.navigation.search}
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
               />
-              <button className="icon-button" aria-label="Submit search">
+              <button className="icon-button" aria-label={text('App.submit_search')}>
                 <Icon name="arrow" />
               </button>
             </form>
@@ -130,10 +131,10 @@ export default function App() {
             element={
               <section className="container page-section empty-state">
                 <p className="eyebrow">404</p>
-                <h1>Page not found</h1>
-                <p>The page you’re looking for does not exist.</p>
+                <h1>{text('App.page_not_found')}</h1>
+                <p>{text('App.the_page_you_re_looking_for_does_not_exist')}</p>
                 <Link className="button" to="/">
-                  Back to home
+                  {text('App.back_to_home')}
                 </Link>
               </section>
             }
@@ -165,7 +166,7 @@ export default function App() {
             <div className="detail-actions">
               <a
                 className="button"
-                href={`https://wa.me/${c.contact.whatsapp.replace(/\D/g, '')}?text=${encodeURIComponent(`Hello, I would like to enquire about ${modal.product.name} (${modal.product.size}), ${modal.product.sku}.`)}`}
+                href={`https://wa.me/${c.contact.whatsapp.replace(/\D/g, '')}?text=${encodeURIComponent(text('App.product_enquiry', [modal.product.name, modal.product.size, modal.product.sku]))}`}
                 target="_blank"
                 rel="noreferrer"
               >
@@ -180,42 +181,31 @@ export default function App() {
         </Modal>
       )}
       {modal?.type === 'application' && (
-        <Modal title={`Apply: ${modal.job.title}`} onClose={close} wide>
+        <Modal title={text('App.apply_0', [modal.job.title])} onClose={close} wide>
           <ApplicationForm job={modal.job} />
         </Modal>
       )}
       {modal?.type === 'privacy' && (
-        <Modal title="Privacy & cookies" onClose={close}>
+        <Modal title={text('App.privacy_cookies')} onClose={close}>
           <div className="info-copy">
+            <p>{text('App.registration_details_and_supporting_documents_are_emailed_to_our_')}</p>
+            <p>{text('App.no_analytics_or_advertising_cookies_are_installed_fonts_are_reque')}</p>
             <p>
-              Registration details and supporting documents are emailed to our team for review.
-              Career applications and CVs are emailed to our recruitment team for review.
+              {text('App.for_questions_about_your_information_call')}
+              {c.contact.phone}.
             </p>
-            <p>
-              No analytics or advertising cookies are installed. Fonts are requested from Google
-              Fonts. Links to WhatsApp, Maps and partner sites open external services with their own
-              privacy practices.
-            </p>
-            <p>For questions about your information, call {c.contact.phone}.</p>
           </div>
         </Modal>
       )}
       {modal?.type === 'website' && (
-        <Modal title="Website information" onClose={close}>
+        <Modal title={text('App.website_information')} onClose={close}>
           <div className="info-copy">
-            <p>
-              This website is a product catalogue. Online checkout and payment processing are not
-              available. Speak to our team to confirm products, pricing, availability and ordering
-              arrangements.
-            </p>
+            <p>{text('App.this_website_is_a_product_catalogue_online_checkout_and_payment_p')}</p>
             <p>{c.catalogue.priceNotice}</p>
+            <p>{text('App.product_photography_is_illustrative_please_check_the_physical_pac')}</p>
             <p>
-              Product photography is illustrative. Please check the physical packaging for current
-              ingredients, allergens and preparation guidance.
-            </p>
-            <p>
-              Register online to send your business details for review. For career enquiries or help
-              using this website, call {c.contact.phone}.
+              {text('App.register_online_to_send_your_business_details_for_review_for_care')}
+              {c.contact.phone}.
             </p>
           </div>
         </Modal>
