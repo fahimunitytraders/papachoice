@@ -33,9 +33,6 @@ export async function loadSiteContent(base = CONTENT_BASE_URL, fetcher = fetch) 
     products: defaultContent.products,
     categories: defaultContent.categories,
   });
-  // The deployed Lambda has an allowlist of role IDs. Keep it in sync before adding roles.
-  if (content.jobs.some((job) => !defaultContent.jobs.some((known) => known.id === job.id)))
-    throw new Error('Unknown career role ID.');
   for (const [section, entries] of Object.entries(defaultInterface)) {
     for (const [key, fallback] of Object.entries(entries)) {
       const value = copy?.[section]?.[key];

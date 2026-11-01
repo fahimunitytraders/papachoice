@@ -77,7 +77,20 @@ export function validateContent(input) {
       Object.entries(template).map(([key, t]) => [key, shape(value[key], t, `${path}.${key}`)]),
     );
   }
+  if (!input.home || typeof input.home !== 'object' || Array.isArray(input.home))
+    throw new Error('content.home is missing.');
+  input = { ...input, home: { ...input.home } };
+  for (const key of ['heroSlides', 'storyImage', 'storyAlt'])
+    if (!Object.hasOwn(input.home, key)) input.home[key] = cloneContent(defaults.home[key]);
   const result = shape(input, defaults, 'content');
+  if (!result.home.heroSlides.length || result.home.heroSlides.length > 10)
+    throw new Error('Use 1 to 10 hero slides.');
+  if (!validAsset(result.home.storyImage)) throw new Error('Use a valid story image.');
+  for (const slide of result.home.heroSlides) {
+    if (!slide.image || !validAsset(slide.image)) throw new Error('Use a valid slide image.');
+    if (slide.crop.length && (slide.crop.length !== 4 || slide.crop[2] <= 0 || slide.crop[3] <= 0))
+      throw new Error('Invalid slide crop.');
+  }
   for (const [key, value] of Object.entries(result.theme))
     if (!isHex(value)) throw new Error(`Use a six digit hex colour for ${key}, such as #D7B99A.`);
   for (const key of ['primaryTarget', 'secondaryTarget'])
@@ -92,7 +105,7 @@ export function validateContent(input) {
     new Set(result.categories).size !== result.categories.length
   )
     throw new Error('Use unique, non-empty categories.');
-  for (const list of [result.products, result.partners, result.about.sections]) {
+  for (const list of [result.products, result.partners, result.about.sections, result.jobs]) {
     const ids = new Set();
     for (const item of list) {
       if (!/^[a-z0-9-]+$/.test(item.id) || ids.has(item.id))

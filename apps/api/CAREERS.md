@@ -16,3 +16,7 @@ Both forms use the same Function URL, Gmail settings and recipient (`GMAIL_TO`).
 Career applications send `type: "careers"`; requests without a type remain registrations. The shared handler validates each form separately and reuses the same file validation, MIME generation, OAuth exchange and Gmail sender. CVs must be PDFs no larger than 3 MB.
 
 Local checks: `node --test --test-isolation=none apps/api/careers.test.mjs`, `npm test`, `npm run build`. Tests mock Gmail and do not prove live delivery. The public endpoint should retain appropriate abuse protection; CORS alone is not rate limiting. File-header validation does not replace malware scanning.
+
+## Admin-managed career listings
+
+The PapaChoice admin app can create new role IDs. Deploy the updated handler and set `CONTENT_SITE_URL=https://d22teg2omtu6om.cloudfront.net/site-content/v1/site.json` on this Lambda to validate applications against published career listings. Existing Gmail settings remain unchanged. When the variable is configured, content-loading failures stop the submission; the handler does not silently use old roles. If unset, the original packaged role list remains in use for backward compatibility.

@@ -41,7 +41,21 @@
     "storyButton": "Our story",
     "visitTitle": "Come in. Feel at home.",
     "visitText": "Explore our range in person or speak to our team about your wholesale needs.",
-    "visitButton": "Plan your visit"
+    "visitButton": "Plan your visit",
+    "heroSlides": [
+      {
+        "image": "/assets/food-concept.png",
+        "alt": "Papa’s Choice Nigerian Palm Oil, Cocoyam Fufu Flour and Pepper Soup Mix",
+        "crop": [80, 76, 765, 465]
+      },
+      {
+        "image": "/assets/hero/papas-choice-range.jpg",
+        "alt": "Papa’s Choice Golden Sella Basmati Rice, Nigerian Palm Oil and Plantain Fufu Flour",
+        "crop": []
+      }
+    ],
+    "storyImage": "/assets/stories/family-feast.jpg",
+    "storyAlt": "Sharing African food around a family table"
   },
   "catalogue": {
     "eyebrow": "OUR WHOLESALE RANGE",

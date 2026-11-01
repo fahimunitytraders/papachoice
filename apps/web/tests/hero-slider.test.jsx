@@ -1,3 +1,5 @@
+import { ContentProvider } from '../src/context/ContentContext.jsx';
+import { defaultContent } from '@papas-choice/content';
 import { it, expect, vi, afterEach } from 'vitest';
 import { render, screen, fireEvent, act, cleanup } from '@testing-library/react';
 import HeroSlider from '../src/components/HeroSlider.jsx';
@@ -7,7 +9,11 @@ afterEach(() => {
 });
 it('advances every three seconds and wraps back to the first image', () => {
   vi.useFakeTimers();
-  render(<HeroSlider />);
+  render(
+    <ContentProvider content={defaultContent}>
+      <HeroSlider />
+    </ContentProvider>,
+  );
   expect(screen.getByRole('group', { name: '1 of 2' })).toBeTruthy();
   act(() => vi.advanceTimersByTime(3000));
   expect(screen.getByRole('group', { name: '2 of 2' })).toBeTruthy();
@@ -16,7 +22,11 @@ it('advances every three seconds and wraps back to the first image', () => {
 });
 it('supports both arrows and keeps rotating while hovered', () => {
   vi.useFakeTimers();
-  render(<HeroSlider />);
+  render(
+    <ContentProvider content={defaultContent}>
+      <HeroSlider />
+    </ContentProvider>,
+  );
   fireEvent.click(screen.getByRole('button', { name: 'Next product image' }));
   expect(screen.getByRole('group', { name: '2 of 2' })).toBeTruthy();
   fireEvent.click(screen.getByRole('button', { name: 'Previous product image' }));
@@ -38,10 +48,30 @@ it('leaves navigation manual for reduced motion', () => {
     addEventListener: vi.fn(),
     removeEventListener: vi.fn(),
   });
-  render(<HeroSlider />);
+  render(
+    <ContentProvider content={defaultContent}>
+      <HeroSlider />
+    </ContentProvider>,
+  );
   act(() => vi.advanceTimersByTime(9000));
   expect(screen.getByRole('group', { name: '1 of 2' })).toBeTruthy();
   expect(screen.queryByRole('button', { name: 'Pause product slideshow' })).toBeNull();
   fireEvent.click(screen.getByRole('button', { name: 'Next product image' }));
   expect(screen.getByRole('group', { name: '2 of 2' })).toBeTruthy();
+});
+
+it('renders slides configured by the website manager', () => {
+  const content = structuredClone(defaultContent);
+  content.home.heroSlides = [
+    { image: '/assets/uploads/new-banner.png', alt: 'New campaign', crop: [] },
+  ];
+  render(
+    <ContentProvider content={content}>
+      <HeroSlider />
+    </ContentProvider>,
+  );
+  expect(screen.getByRole('img', { name: 'New campaign' }).getAttribute('src')).toContain(
+    '/assets/uploads/new-banner.png',
+  );
+  expect(screen.getByRole('group', { name: '1 of 1' })).toBeTruthy();
 });

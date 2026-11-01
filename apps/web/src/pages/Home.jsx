@@ -66,11 +66,7 @@ export default function Home({ onDetails }) {
       <PartnerSlider />
       <section className="container home-story">
         <Reveal className="home-story-image">
-          <img
-            src={localAsset('/assets/stories/family-feast.jpg')}
-            alt={text('Home.sharing_african_food_around_a_family_table')}
-            loading="lazy"
-          />
+          <img src={localAsset(h.storyImage)} alt={h.storyAlt} loading="lazy" />
         </Reveal>
         <Reveal className="home-story-copy">
           <p className="eyebrow">{h.storyEyebrow}</p>

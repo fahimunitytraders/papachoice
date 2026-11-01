@@ -1,10 +1,12 @@
 import { text } from '@papas-choice/content';
 import { useEffect, useState } from 'react';
-import { localAsset } from '@papas-choice/content';
+import { useContent } from '../context/ContentContext.jsx';
 import ProductImage from './ProductImage.jsx';
 import Icon from './Icon.jsx';
 
 export default function HeroSlider() {
+  const { content } = useContent();
+  const slides = content.home.heroSlides;
   const [active, setActive] = useState(0);
   const [focused, setFocused] = useState(false);
   const [reduced, setReduced] = useState(
@@ -24,9 +26,9 @@ export default function HeroSlider() {
   }, []);
   useEffect(() => {
     if (focused || reduced || !visible) return;
-    const timer = window.setTimeout(() => setActive((value) => (value + 1) % 2), 3000);
+    const timer = window.setTimeout(() => setActive((value) => (value + 1) % slides.length), 3000);
     return () => window.clearTimeout(timer);
-  }, [active, focused, reduced, visible]);
+  }, [active, focused, reduced, visible, slides.length]);
   return (
     <section
       className="hero-slider"
@@ -39,42 +41,25 @@ export default function HeroSlider() {
     >
       <div className="hero-slider-viewport">
         <div className="hero-slider-track" style={{ transform: `translateX(-${active * 100}%)` }}>
-          <div
-            className={`hero-slide ${active === 0 ? 'is-active' : ''}`}
-            role="group"
-            aria-roledescription="slide"
-            aria-label={text('HeroSlider.1_of_2')}
-            aria-hidden={active !== 0}
-          >
-            <ProductImage
-              crop={[80, 76, 765, 465]}
-              label={text(
-                'HeroSlider.papa_s_choice_nigerian_palm_oil_cocoyam_fufu_flour_and_pepper_sou',
-              )}
-            />
-          </div>
-          <div
-            className={`hero-slide ${active === 1 ? 'is-active' : ''}`}
-            role="group"
-            aria-roledescription="slide"
-            aria-label={text('HeroSlider.2_of_2')}
-            aria-hidden={active !== 1}
-          >
-            <img
-              src={localAsset('/assets/hero/papas-choice-range.jpg')}
-              alt={text(
-                'HeroSlider.papa_s_choice_golden_sella_basmati_rice_nigerian_palm_oil_and_pla',
-              )}
-              decoding="async"
-            />
-          </div>
+          {slides.map((slide, index) => (
+            <div
+              key={index}
+              className={`hero-slide ${active === index ? 'is-active' : ''}`}
+              role="group"
+              aria-roledescription="slide"
+              aria-label={`${index + 1} of ${slides.length}`}
+              aria-hidden={active !== index}
+            >
+              <ProductImage src={slide.image} crop={slide.crop} label={slide.alt} />
+            </div>
+          ))}
         </div>
       </div>
       <button
         type="button"
         className="hero-slider-arrow hero-slider-prev"
         aria-label={text('HeroSlider.previous_product_image')}
-        onClick={() => setActive((value) => (value + 1) % 2)}
+        onClick={() => setActive((value) => (value - 1 + slides.length) % slides.length)}
       >
         <Icon name="arrow" />
       </button>
@@ -82,13 +67,13 @@ export default function HeroSlider() {
         type="button"
         className="hero-slider-arrow hero-slider-next"
         aria-label={text('HeroSlider.next_product_image')}
-        onClick={() => setActive((value) => (value + 1) % 2)}
+        onClick={() => setActive((value) => (value + 1) % slides.length)}
       >
         <Icon name="arrow" />
       </button>
       <div className="hero-slider-controls">
         <div className="hero-slider-dots" aria-label={text('HeroSlider.choose_product_image')}>
-          {[0, 1].map((index) => (
+          {slides.map((_, index) => (
             <button
               key={index}
               type="button"

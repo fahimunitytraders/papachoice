@@ -69,7 +69,7 @@ describe('remote site content', () => {
     expect(screen.getByRole('button', { name: 'Entire range' })).toBeTruthy();
     expect(screen.getByText('73 products')).toBeTruthy();
   });
-  it.each(['http', 'json', 'network', 'schema', 'products', 'copy', 'placeholders', 'roles'])(
+  it.each(['http', 'json', 'network', 'schema', 'products', 'copy', 'placeholders'])(
     'rejects %s failure without displaying bundled content',
     async (kind) => {
       vi.spyOn(console, 'warn').mockImplementation(() => {});
@@ -79,7 +79,6 @@ describe('remote site content', () => {
       if (kind === 'products') site.products = [];
       if (kind === 'copy') delete copy.App;
       if (kind === 'placeholders') copy.App.apply_0 = 'Apply';
-      if (kind === 'roles') site.jobs[0].id = 'unknown-role';
       let fetcher = source(site, copy);
       if (kind === 'http') fetcher = async () => ({ ok: false, status: 403 });
       if (kind === 'json')

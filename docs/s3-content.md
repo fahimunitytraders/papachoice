@@ -23,7 +23,7 @@ Serve JSON as `application/json` and images with their correct image MIME types.
 
 Edit the existing S3 JSON values, preserving keys, types, schemaVersion and `{0}` placeholders. Upload images before JSON that references them. The app requests JSON with browser cache revalidation on each page load, but CloudFront may still serve cached objects. Configure short JSON cache lifetimes; invalidate `/site-content/v1/*` for immediate replacements or use new image filenames and update JSON. Removing the local fallback does not disable CloudFront caching. Open pages still need a refresh.
 
-Career IDs must match the Lambda allowlist in `apps/web/src/data/jobs.js`; adding a new role requires updating and deploying that handler. Form field names and submitted country values remain application logic.
+The admin app can publish new career IDs. Deploy the updated email handler and set its CONTENT_SITE_URL to the CloudFront site.json URL to validate applications against current listings. Without that setting, the handler retains its original role allowlist. Form field names and submitted country values remain application logic.
 
 ## Repository and development
 
@@ -40,3 +40,7 @@ python3 scripts/package-content.py /tmp/papachoice-content.zip /path/to/external
 The script combines the reference JSON with those external assets and rejects missing images. It does not fetch or overwrite S3. Do not upload reference JSON over intentional S3 edits without reconciling them first.
 
 Google Fonts remains external. Backend validation responses and email formatting remain in the Lambda. AWS configuration and deployment are managed separately.
+
+## Website manager
+
+The separate `fahimunitytraders/papachoice-admin` app manages these documents through an authenticated API. Homepage `heroSlides` (image, alt, crop), `storyImage` and `storyAlt` are editable. Legacy documents without those fields remain compatible using the original remote image paths; publishing from the admin writes the new fields. No local image or text fallback has been restored.

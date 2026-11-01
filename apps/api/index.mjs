@@ -173,7 +173,28 @@ export const handler = async (event) => {
     if (!['registration', 'careers'].includes(type)) return reply(400, 'Unknown submission type.');
     let subject, body;
     if (type === 'careers') {
-      const job = jobs.find((job) => job.id === fields.jobId);
+      let openJobs = jobs;
+      if (process.env.CONTENT_SITE_URL) {
+        const url = new URL(process.env.CONTENT_SITE_URL);
+        if (url.protocol !== 'https:') throw new Error('Content URL must use HTTPS.');
+        const response = await fetch(url, { signal: AbortSignal.timeout(5000) });
+        if (!response.ok) throw new Error('Career content is unavailable.');
+        const content = await response.json();
+        if (
+          !Array.isArray(content.jobs) ||
+          content.jobs.length > 200 ||
+          content.jobs.some(
+            (job) =>
+              !/^[a-z0-9-]+$/.test(job.id) ||
+              typeof job.title !== 'string' ||
+              !job.title.trim() ||
+              job.title.length > 12000,
+          )
+        )
+          throw new Error('Invalid career content.');
+        openJobs = content.jobs;
+      }
+      const job = openJobs.find((job) => job.id === fields.jobId);
       if (
         !job ||
         fields.consent !== true ||
