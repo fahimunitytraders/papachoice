@@ -1,4 +1,8 @@
-import { it, expect, vi, afterEach } from 'vitest';
+import { it, expect, vi, afterEach, beforeEach } from 'vitest';
+beforeEach(async () => {
+  const { configureSiteContent, defaultInterface } = await import('@papas-choice/content');
+  configureSiteContent(defaultInterface, 'https://d22teg2omtu6om.cloudfront.net/site-content/v1/');
+});
 afterEach(() => {
   vi.unstubAllEnvs();
   vi.unstubAllGlobals();

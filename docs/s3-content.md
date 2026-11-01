@@ -1,39 +1,42 @@
-# PapaChoice S3 content
+# PapaChoice remote content
 
-Upload target: `https://d22teg2omtu6om.cloudfront.net/site-content/v1/`.
+The website requires content from `https://d22teg2omtu6om.cloudfront.net/site-content/v1/`. This is the default URL; `VITE_CONTENT_BASE_URL` can override it at build time. An explicitly empty URL is an error.
 
-The ZIP contains:
+There is no local fallback for non-product text or images. On a network, CORS, HTTP, timeout or validation error, the app displays a loading error with a retry button instead of showing old content. Failed requests are logged in the browser console. A missing remote image cannot fall back to a repository image.
+
+## S3 structure
+
+Keep the already uploaded objects under these keys:
 
 ```
-site-content/v1/
-  site.json          # page copy, theme, contact details, partners, career listings
-  interface.json     # component/form labels, accessibility text, messages, legal copy
-  manifest.json      # inventory with SHA-256 checksums
-  favicon.svg
-  assets/            # brand, partner, hero, story and warehouse images; source logo PDF
-README.md
+site-content/v1/site.json
+site-content/v1/interface.json
+site-content/v1/favicon.svg
+site-content/v1/assets/...
 ```
 
-Product records, product categories and `assets/products/` are excluded. The existing catalogue stays in `packages/content/products.json` and local product images until the database integration is built. Marketing hero artwork showing products is included because it is part of the page design.
+Warehouse images are `assets/warehouses/london.jpg` and `assets/warehouses/thrapston.jpg`. Paths and extensions are case-sensitive. Product records and `assets/products/` remain separate in the repository until the database integration is built. Marketing hero artwork is remote site content even when it depicts products.
 
-## Upload and activate
+Serve JSON as `application/json` and images with their correct image MIME types. The S3 origin and CloudFront response headers must permit GET/HEAD from the frontend's origin through CORS. Keep the bucket private using CloudFront origin access control. The JSON endpoints must return JSON, not an SPA error document.
 
-1. Extract the ZIP. Upload the `site-content/` directory to the root of the S3 origin used by this CloudFront distribution, preserving all object keys. If CloudFront has an origin path, upload beneath that prefix. Do not upload the ZIP itself as the content endpoint.
-2. Keep the bucket private and allow CloudFront read access through its existing origin access control. Do not place secrets or customer submissions in this content folder.
-3. Serve JSON as `application/json`, SVG as `image/svg+xml`, PNG as `image/png`, JPEG as `image/jpeg`, and PDF as `application/pdf`. Use short cache lifetimes for JSON (for example `public,max-age=60`) and suitable image caching. Invalidate `/site-content/v1/*` after replacing existing objects, or create a new version directory and change the configured base URL.
-4. For a website hosted on another origin, configure S3 CORS and the CloudFront response headers policy to allow that site's origin for GET/HEAD. JSON requests must return JSON, not an SPA HTML error page. Example S3 CORS (replace the origin):
+## Updating content
 
-   ```json
-   [{"AllowedOrigins":["https://YOUR-WEBSITE-DOMAIN"],"AllowedMethods":["GET","HEAD"],"AllowedHeaders":["*"],"MaxAgeSeconds":3600}]
-   ```
+Edit the existing S3 JSON values, preserving keys, types, schemaVersion and `{0}` placeholders. Upload images before JSON that references them. The app requests JSON with browser cache revalidation on each page load, but CloudFront may still serve cached objects. Configure short JSON cache lifetimes; invalidate `/site-content/v1/*` for immediate replacements or use new image filenames and update JSON. Removing the local fallback does not disable CloudFront caching. Open pages still need a refresh.
 
-5. Set `VITE_CONTENT_BASE_URL=https://d22teg2omtu6om.cloudfront.net/site-content/v1/` in the frontend build environment, then rebuild/redeploy. For local use, copy `apps/web/.env.example` to `apps/web/.env.local`, retaining your existing form endpoint. An empty content URL uses bundled defaults.
-6. Check `site.json`, `interface.json` and an image at the CloudFront prefix. The app fetches and validates both JSON files before rendering with a five-second timeout. Network errors, invalid JSON or schema errors use the complete bundled fallback and log a warning. Upload all assets before activating the JSON; individual missing remote images do not trigger a release fallback.
+Career IDs must match the Lambda allowlist in `apps/web/src/data/jobs.js`; adding a new role requires updating and deploying that handler. Form field names and submitted country values remain application logic.
 
-## Editing content
+## Repository and development
 
-Edit values in `site.json` and `interface.json`, preserving field names, schemaVersion, data types and `{0}` placeholders. HTML is rendered as text. Contact/page image paths beginning `/assets/` resolve under the content prefix; product images continue to use the app origin. Existing HTTPS image URLs are retained. Keep career IDs unchanged: adding a new role also requires updating the Lambda's job allowlist in `apps/web/src/data/jobs.js` and deploying the handler. Country codes/values and submission field names remain application logic.
+Non-product images and the downloadable ZIP have been removed from the current branch. The earlier ZIP remains recoverable from Git history. `packages/content/site.json` and `interface.json` are schema/reference content used by validation and tests; the running website never substitutes them for a failed remote request. Product data remains in `packages/content/products.json`.
 
-Bundled source: `packages/content/site.json` and `packages/content/interface.json`. Regenerate the archive with `python3 scripts/package-content.py` (optional output path as first argument). Run `npm test`, `node --test --test-isolation=none apps/api/careers.test.mjs` and `npm run build` after code changes.
+Tests explicitly supply fixtures. Run `npm test`, `node --test --test-isolation=none apps/api/careers.test.mjs`, and `npm run build`. Local development also loads CloudFront; configure an alternate HTTP localhost content server with `VITE_CONTENT_BASE_URL` when necessary.
 
-This archive contains the site's existing local images and text. Google Fonts remains an external font service. Backend validation responses and email formatting remain in the Lambda source. This package does not deploy AWS resources or configure the future product database.
+To create a complete archive again, obtain the remote assets in an external directory containing `assets/` and `favicon.svg`, then run:
+
+```
+python3 scripts/package-content.py /tmp/papachoice-content.zip /path/to/external/site-content/v1
+```
+
+The script combines the reference JSON with those external assets and rejects missing images. It does not fetch or overwrite S3. Do not upload reference JSON over intentional S3 edits without reconciling them first.
+
+Google Fonts remains external. Backend validation responses and email formatting remain in the Lambda. AWS configuration and deployment are managed separately.

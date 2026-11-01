@@ -70,7 +70,7 @@ describe('remote site content', () => {
     expect(screen.getByText('73 products')).toBeTruthy();
   });
   it.each(['http', 'json', 'network', 'schema', 'products', 'copy', 'placeholders', 'roles'])(
-    'falls back atomically on %s failure',
+    'rejects %s failure without displaying bundled content',
     async (kind) => {
       vi.spyOn(console, 'warn').mockImplementation(() => {});
       const site = clone(defaultSite),
@@ -93,14 +93,14 @@ describe('remote site content', () => {
         fetcher = async () => {
           throw new Error('offline');
         };
-      expect(await loadSiteContent(base, fetcher)).toBe(defaultContent);
-      expect(text('App.apply_0', ['Role'])).toBe('Apply: Role');
-      expect(localAsset('/assets/logo.png')).toBe('/assets/logo.png');
+      await expect(loadSiteContent(base, fetcher)).rejects.toThrow();
+      expect(() => text('App.apply_0', ['Role'])).toThrow('Site copy is not loaded');
+      expect(() => localAsset('/assets/logo.png')).toThrow('Site assets require');
     },
   );
   it('does not fetch when no content URL is configured', async () => {
     const fetcher = vi.fn();
-    expect(await loadSiteContent('', fetcher)).toBe(defaultContent);
+    await expect(loadSiteContent('', fetcher)).rejects.toThrow('Content URL is not configured');
     expect(fetcher).not.toHaveBeenCalled();
   });
 });

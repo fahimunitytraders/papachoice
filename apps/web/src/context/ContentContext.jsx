@@ -1,8 +1,7 @@
 import { createContext, useContext, useEffect } from 'react';
-import { defaultContent } from '@papas-choice/content';
 
 const ContentContext = createContext(null);
-export function ContentProvider({ children, content = defaultContent }) {
+export function ContentProvider({ children, content }) {
   useEffect(() => {
     for (const [key, value] of Object.entries(content.theme))
       document.documentElement.style.setProperty(

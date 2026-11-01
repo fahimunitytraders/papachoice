@@ -1,3 +1,5 @@
+import { configureSiteContent, defaultInterface } from '../index.js';
+configureSiteContent(defaultInterface, 'https://d22teg2omtu6om.cloudfront.net/site-content/v1/');
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { defaultContent, cloneContent, validateContent, filterProducts, money } from '../index.js';

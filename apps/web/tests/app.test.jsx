@@ -1,3 +1,4 @@
+import { defaultContent } from '@papas-choice/content';
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen, within, waitFor, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -12,7 +13,7 @@ vi.mock('../src/api/registration.js', () => ({ submitRegistration: vi.fn() }));
 function mount(path = '/') {
   return render(
     <MemoryRouter initialEntries={[path]}>
-      <ContentProvider>
+      <ContentProvider content={defaultContent}>
         <App />
       </ContentProvider>
     </MemoryRouter>,

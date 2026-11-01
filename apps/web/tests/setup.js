@@ -1,4 +1,5 @@
-import { afterEach, vi } from 'vitest';
+import { configureSiteContent, defaultInterface } from '@papas-choice/content';
+import { afterEach, beforeEach, vi } from 'vitest';
 import { cleanup } from '@testing-library/react';
 afterEach(() => {
   cleanup();
@@ -18,3 +19,7 @@ window.matchMedia = vi.fn((media) => ({
   addEventListener: vi.fn(),
   removeEventListener: vi.fn(),
 }));
+
+beforeEach(() =>
+  configureSiteContent(defaultInterface, 'https://d22teg2omtu6om.cloudfront.net/site-content/v1/'),
+);
