@@ -1,3 +1,4 @@
+import { text } from '@papas-choice/content';
 import { useEffect, useState } from 'react';
 import { localAsset } from '@papas-choice/content';
 import ProductImage from './ProductImage.jsx';
@@ -29,7 +30,7 @@ export default function HeroSlider() {
   return (
     <section
       className="hero-slider"
-      aria-label="Papa’s Choice product highlights"
+      aria-label={text('HeroSlider.papa_s_choice_product_highlights')}
       aria-roledescription="carousel"
       onFocusCapture={() => setFocused(true)}
       onBlurCapture={(event) => {
@@ -42,24 +43,28 @@ export default function HeroSlider() {
             className={`hero-slide ${active === 0 ? 'is-active' : ''}`}
             role="group"
             aria-roledescription="slide"
-            aria-label="1 of 2"
+            aria-label={text('HeroSlider.1_of_2')}
             aria-hidden={active !== 0}
           >
             <ProductImage
               crop={[80, 76, 765, 465]}
-              label="Papa’s Choice Nigerian Palm Oil, Cocoyam Fufu Flour and Pepper Soup Mix"
+              label={text(
+                'HeroSlider.papa_s_choice_nigerian_palm_oil_cocoyam_fufu_flour_and_pepper_sou',
+              )}
             />
           </div>
           <div
             className={`hero-slide ${active === 1 ? 'is-active' : ''}`}
             role="group"
             aria-roledescription="slide"
-            aria-label="2 of 2"
+            aria-label={text('HeroSlider.2_of_2')}
             aria-hidden={active !== 1}
           >
             <img
               src={localAsset('/assets/hero/papas-choice-range.jpg')}
-              alt="Papa’s Choice Golden Sella Basmati Rice, Nigerian Palm Oil and Plantain Fufu Flour"
+              alt={text(
+                'HeroSlider.papa_s_choice_golden_sella_basmati_rice_nigerian_palm_oil_and_pla',
+              )}
               decoding="async"
             />
           </div>
@@ -68,7 +73,7 @@ export default function HeroSlider() {
       <button
         type="button"
         className="hero-slider-arrow hero-slider-prev"
-        aria-label="Previous product image"
+        aria-label={text('HeroSlider.previous_product_image')}
         onClick={() => setActive((value) => (value + 1) % 2)}
       >
         <Icon name="arrow" />
@@ -76,18 +81,18 @@ export default function HeroSlider() {
       <button
         type="button"
         className="hero-slider-arrow hero-slider-next"
-        aria-label="Next product image"
+        aria-label={text('HeroSlider.next_product_image')}
         onClick={() => setActive((value) => (value + 1) % 2)}
       >
         <Icon name="arrow" />
       </button>
       <div className="hero-slider-controls">
-        <div className="hero-slider-dots" aria-label="Choose product image">
+        <div className="hero-slider-dots" aria-label={text('HeroSlider.choose_product_image')}>
           {[0, 1].map((index) => (
             <button
               key={index}
               type="button"
-              aria-label={`Show product image ${index + 1}`}
+              aria-label={text('HeroSlider.show_product_image_0', [index + 1])}
               aria-pressed={active === index}
               onClick={() => setActive(index)}
             />

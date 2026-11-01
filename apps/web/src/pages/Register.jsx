@@ -1,3 +1,4 @@
+import { text } from '@papas-choice/content';
 import { useState } from 'react';
 import { useContent } from '../context/ContentContext.jsx';
 import { Link } from 'react-router-dom';
@@ -19,30 +20,32 @@ export default function Register() {
         <aside className="registration-aside">
           <Icon name="box" size={32} />
           <h2>
-            Good things,
+            {text('Register.good_things')}
             <br />
-            by the case.
+            {text('Register.by_the_case')}
           </h2>
-          <p>A few simple steps to introduce your business.</p>
+          <p>{text('Register.a_few_simple_steps_to_introduce_your_business')}</p>
           <ul>
-            <li>Business and contact details</li>
-            <li>Delivery arrangements</li>
-            <li>Trade references</li>
-            <li>Your declaration</li>
+            <li>{text('Register.business_and_contact_details')}</li>
+            <li>{text('Register.delivery_arrangements')}</li>
+            <li>{text('Register.trade_references')}</li>
+            <li>{text('Register.your_declaration')}</li>
           </ul>
         </aside>
         <div className="registration-panel">
           {complete ? (
             <div className="empty-state success-state" role="status">
               <Icon name="check" size={44} />
-              <h2>Registration sent</h2>
-              <p>Our team will review your details and contact you about your account.</p>
+              <h2>{text('Register.registration_sent')}</h2>
+              <p>
+                {text('Register.our_team_will_review_your_details_and_contact_you_about_your_acco')}
+              </p>
               <Link to="/products" className="button">
-                Explore the collection
+                {text('Register.explore_the_collection')}
                 <Icon name="arrow" />
               </Link>
               <button className="text-button" onClick={() => setComplete(false)}>
-                Start again
+                {text('Register.start_again')}
               </button>
             </div>
           ) : (

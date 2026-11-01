@@ -1,3 +1,4 @@
+import { text } from '@papas-choice/content';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { localAsset } from '@papas-choice/content';
@@ -21,10 +22,10 @@ export default function PartnerSlider() {
   const [paused, setPaused] = useState(false);
   if (!content.partners.length) return null;
   return (
-    <section className="partner-section container" aria-label="Our partners">
+    <section className="partner-section container" aria-label={text('PartnerSlider.our_partners')}>
       <div className="section-heading">
         <div>
-          <p className="eyebrow">OUR PARTNERS</p>
+          <p className="eyebrow">{text('PartnerSlider.our_partners_2')}</p>
           <h2>{content.partnersPage.sliderTitle}</h2>
           <p className="muted small">{content.partnersPage.sliderDescription}</p>
         </div>
@@ -32,7 +33,11 @@ export default function PartnerSlider() {
           <button
             className="icon-button pause-button"
             onClick={() => setPaused(!paused)}
-            aria-label={paused ? 'Play partner animation' : 'Pause partner animation'}
+            aria-label={
+              paused
+                ? text('PartnerSlider.play_partner_animation')
+                : text('PartnerSlider.pause_partner_animation')
+            }
             aria-pressed={paused}
           >
             {paused ? '▶' : 'Ⅱ'}
@@ -51,7 +56,7 @@ export default function PartnerSlider() {
                 to={`/partners?q=${encodeURIComponent(p.name)}`}
                 key={p.id}
                 className="partner-logo"
-                aria-label={`View partner ${p.name}`}
+                aria-label={text('PartnerSlider.view_partner_0', [p.name])}
               >
                 <PartnerLogo partner={p} />
               </Link>

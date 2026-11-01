@@ -1,3 +1,4 @@
+import { text } from '@papas-choice/content';
 import { Link } from 'react-router-dom';
 import { useContent } from '../context/ContentContext.jsx';
 import { localAsset } from '@papas-choice/content';
@@ -30,9 +31,9 @@ export default function Home({ onDetails }) {
         </Reveal>
       </section>
       <section className="container collection-section">
-        <nav className="category-tabs" aria-label="Shop categories">
+        <nav className="category-tabs" aria-label={text('Home.shop_categories')}>
           <Link className="active" to="/products">
-            All products
+            {text('Home.all_products')}
           </Link>
           {c.categories.map((category) => (
             <Link key={category} to={`/products?category=${encodeURIComponent(category)}`}>
@@ -67,7 +68,7 @@ export default function Home({ onDetails }) {
         <Reveal className="home-story-image">
           <img
             src={localAsset('/assets/stories/family-feast.jpg')}
-            alt="Sharing African food around a family table"
+            alt={text('Home.sharing_african_food_around_a_family_table')}
             loading="lazy"
           />
         </Reveal>
@@ -83,7 +84,7 @@ export default function Home({ onDetails }) {
       </section>
       <Reveal className="container visit-banner">
         <div>
-          <p className="eyebrow">YOUR LOCAL CASH & CARRY</p>
+          <p className="eyebrow">{text('Home.your_local_cash_carry')}</p>
           <h2>{h.visitTitle}</h2>
           <p>{h.visitText}</p>
         </div>

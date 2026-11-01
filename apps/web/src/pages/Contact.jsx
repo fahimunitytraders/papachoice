@@ -1,3 +1,4 @@
+import { text } from '@papas-choice/content';
 import { useEffect, useRef, useState } from 'react';
 import { localAsset } from '@papas-choice/content';
 import { useContent } from '../context/ContentContext.jsx';
@@ -34,7 +35,7 @@ export default function Contact() {
         >
           <div className="container">
             <h1 id="contact-branches-heading" className="contact-branches-heading" tabIndex={-1}>
-              Where to find us
+              {text('Contact.where_to_find_us')}
             </h1>
             <div className="branch-pair">
               {c.warehouses.map((warehouse, index) => (
@@ -57,12 +58,13 @@ export default function Contact() {
                         <address>{warehouse.address}</address>
                       </li>
                       <li>
-                        {warehouse.hours || 'Contact us to confirm opening times.'}
+                        {warehouse.hours || text('Contact.contact_us_to_confirm_opening_times')}
                         {index === 0 && <span className="warehouse-sunday">{c.sunday}</span>}
                       </li>
-                      <li>Free parking</li>
+                      <li>{text('Contact.free_parking')}</li>
                       <li>
-                        Cash and carry {warehouse.cashAndCarry ? 'available' : 'not available'}
+                        {text('Contact.cash_and_carry')}
+                        {warehouse.cashAndCarry ? 'available' : 'not available'}
                       </li>
                     </ul>
                     <a
@@ -70,9 +72,9 @@ export default function Contact() {
                       href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(warehouse.address)}`}
                       target="_blank"
                       rel="noreferrer"
-                      aria-label={`Get directions to ${warehouse.name}`}
+                      aria-label={text('Contact.get_directions_to_0', [warehouse.name])}
                     >
-                      Get directions
+                      {text('Contact.get_directions')}
                       <Icon name="arrow" />
                     </a>
                   </div>
@@ -85,7 +87,7 @@ export default function Contact() {
               onClick={() => showSection(1)}
               aria-controls="contact-team"
             >
-              <span>TALK TO US</span>
+              <span>{text('Contact.talk_to_us')}</span>
               <Icon name="arrow" size={26} />
             </button>
           </div>
@@ -101,18 +103,20 @@ export default function Contact() {
             type="button"
             className="contact-next contact-back"
             onClick={() => showSection(0)}
-            aria-label="Find us"
+            aria-label={text('Contact.find_us')}
             aria-controls="contact-branches"
           >
-            <span>FIND US</span>
+            <span>{text('Contact.find_us_2')}</span>
             <Icon name="arrow" size={26} />
           </button>
           <Reveal className="container contact-team-content">
-            <p className="eyebrow">A GOOD CONVERSATION STARTS HERE</p>
+            <p className="eyebrow">{text('Contact.a_good_conversation_starts_here')}</p>
             <h2 id="contact-team-heading" tabIndex={-1}>
-              Let’s talk.
+              {text('Contact.let_s_talk')}
             </h2>
-            <p>Questions about our products or planning a visit? We’re here to help.</p>
+            <p>
+              {text('Contact.questions_about_our_products_or_planning_a_visit_we_re_here_to_he')}
+            </p>
             <a className="contact-team-phone" href={`tel:${c.phone.replace(/[^+\d]/g, '')}`}>
               {c.phone}
             </a>
@@ -122,7 +126,7 @@ export default function Contact() {
               target="_blank"
               rel="noreferrer"
             >
-              Message on WhatsApp
+              {text('Contact.message_on_whatsapp')}
               <Icon name="arrow" />
             </a>
             {c.email && (

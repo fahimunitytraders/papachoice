@@ -1,3 +1,4 @@
+import { text } from '@papas-choice/content';
 import { useSearchParams, Link } from 'react-router-dom';
 import { useContent } from '../context/ContentContext.jsx';
 import { PartnerLogo } from '../components/PartnerSlider.jsx';
@@ -17,13 +18,14 @@ export default function Partners() {
       </Reveal>
       <div className="partners-toolbar">
         <p className="small muted" aria-live="polite">
-          {partners.length} partners
+          {partners.length}
+          {text('Partners.partners')}
         </p>
         <label className="search-field">
           <Icon name="search" size={18} />
           <input
-            placeholder="Find a brand"
-            aria-label="Find a partner"
+            placeholder={text('Partners.find_a_brand')}
+            aria-label={text('Partners.find_a_partner')}
             value={query}
             onChange={(e) =>
               setParams(e.target.value ? { q: e.target.value } : {}, { replace: true })
@@ -39,12 +41,12 @@ export default function Partners() {
               <h2>{p.name}</h2>
               {p.website ? (
                 <a className="text-link" href={p.website} target="_blank" rel="noreferrer">
-                  Visit brand website
+                  {text('Partners.visit_brand_website')}
                   <Icon name="arrow" size={16} />
                 </a>
               ) : (
                 <Link className="text-link" to="/contact">
-                  Ask about this brand
+                  {text('Partners.ask_about_this_brand')}
                   <Icon name="arrow" size={16} />
                 </Link>
               )}
@@ -54,15 +56,15 @@ export default function Partners() {
       </div>
       {!partners.length && (
         <div className="empty-state">
-          <h2>No matching partners</h2>
+          <h2>{text('Partners.no_matching_partners')}</h2>
           <button className="button" onClick={() => setParams({})}>
-            Show all partners
+            {text('Partners.show_all_partners')}
           </button>
         </div>
       )}
       <Reveal className="visit-banner">
         <div>
-          <p className="eyebrow">PARTNERSHIPS THAT LAST</p>
+          <p className="eyebrow">{text('Partners.partnerships_that_last')}</p>
           <h2>{c.partnersPage.contactTitle}</h2>
           <p>{c.partnersPage.contactText}</p>
         </div>

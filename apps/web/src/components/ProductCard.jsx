@@ -1,3 +1,4 @@
+import { text } from '@papas-choice/content';
 import { money } from '@papas-choice/content';
 import { useContent } from '../context/ContentContext.jsx';
 import ProductImage from './ProductImage.jsx';
@@ -9,11 +10,12 @@ export default function ProductCard({ product, onDetails }) {
       <button
         className="image-button"
         onClick={() => onDetails(product)}
-        aria-label={`View ${product.name}`}
+        aria-label={text('ProductCard.view_0', [product.name])}
       >
         <ProductImage src={product.image} crop={product.crop} label={product.name} />
         <span className="quick-view">
-          Explore <Icon name="arrow" size={16} />
+          {text('ProductCard.explore')}
+          <Icon name="arrow" size={16} />
         </span>
       </button>
       <p className="product-brand">{product.brand}</p>
@@ -28,7 +30,7 @@ export default function ProductCard({ product, onDetails }) {
           {money(product.price)}
           <span>
             {product.price === null
-              ? 'Contact us for wholesale pricing'
+              ? text('ProductCard.contact_us_for_wholesale_pricing')
               : `${content.catalogue.priceLabel} · ${product.priceBasis}`}
           </span>
         </div>

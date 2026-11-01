@@ -1,3 +1,4 @@
+import { text } from '@papas-choice/content';
 import { useRef, useState } from 'react';
 import Icon from './Icon.jsx';
 import { submitRegistration } from '../api/registration.js';
@@ -47,7 +48,9 @@ function Signature({ onChange, onImageChange }) {
   }
   return (
     <div className="signature">
-      <span className="field-label">Draw signature (optional if typed below)</span>
+      <span className="field-label">
+        {text('RegistrationForm.draw_signature_optional_if_typed_below')}
+      </span>
       <canvas
         width="800"
         height="180"
@@ -60,7 +63,9 @@ function Signature({ onChange, onImageChange }) {
         onPointerCancel={() => {
           drawing.current = false;
         }}
-        aria-label="Signature drawing area. Alternatively use the typed signature field below."
+        aria-label={text(
+          'RegistrationForm.signature_drawing_area_alternatively_use_the_typed_signature_fiel',
+        )}
       />
       <button
         className="text-button"
@@ -71,14 +76,20 @@ function Signature({ onChange, onImageChange }) {
           onImageChange?.(null);
         }}
       >
-        Clear signature
+        {text('RegistrationForm.clear_signature')}
       </button>
     </div>
   );
 }
-const steps = ['Your business', 'Delivery', 'References', 'Declaration'];
+
 const countries = ['United Kingdom', 'Ireland', 'France', 'Germany', 'Netherlands', 'Other'];
 export default function RegistrationForm({ onDone }) {
+  const steps = [
+    text('RegistrationForm.your_business'),
+    text('RegistrationForm.delivery'),
+    text('RegistrationForm.references'),
+    text('RegistrationForm.declaration'),
+  ];
   const [step, setStep] = useState(0);
   const [values, setValues] = useState({
     accountCountry: 'United Kingdom',
@@ -111,26 +122,28 @@ export default function RegistrationForm({ onDone }) {
   const country = (prefix) => (
     <div className="field">
       <label className="field">
-        <span>Country *</span>
+        <span>{text('RegistrationForm.country')}</span>
         <select
           required
           value={values[`${prefix}Country`] || 'United Kingdom'}
           onChange={(e) => update(`${prefix}Country`, e.target.value)}
         >
           {countries.map((c) => (
-            <option key={c}>{c}</option>
+            <option key={c} value={c}>
+              {text('RegistrationForm.country_' + c.toLowerCase().replaceAll(' ', '_'))}
+            </option>
           ))}
         </select>
       </label>
       {values[`${prefix}Country`] === 'Other' &&
-        field('Country name', `${prefix}OtherCountry`, 'text', true)}
+        field(text('RegistrationForm.country_name'), `${prefix}OtherCountry`, 'text', true)}
     </div>
   );
   const address = (prefix) => (
     <>
-      {field('Street address', `${prefix}Address`, 'text', true)}
-      {field('Town / city', `${prefix}City`, 'text', true)}
-      {field('Postcode', `${prefix}Postcode`, 'text', true)}
+      {field(text('RegistrationForm.street_address'), `${prefix}Address`, 'text', true)}
+      {field(text('RegistrationForm.town_city'), `${prefix}City`, 'text', true)}
+      {field(text('RegistrationForm.postcode'), `${prefix}Postcode`, 'text', true)}
       {country(prefix)}
     </>
   );
@@ -144,7 +157,7 @@ export default function RegistrationForm({ onDone }) {
     e.preventDefault();
     if (loading) return;
     if (step === 2 && !proof) {
-      setError('Please choose proof of your business address.');
+      setError(text('RegistrationForm.please_choose_proof_of_your_business_address'));
       return;
     }
     if (step < 3) {
@@ -152,15 +165,15 @@ export default function RegistrationForm({ onDone }) {
       return;
     }
     if (!proof) {
-      setError('Please choose proof of your business address.');
+      setError(text('RegistrationForm.please_choose_proof_of_your_business_address'));
       return;
     }
     if (!signed && !values.typedSignature?.trim()) {
-      setError('Please draw or type your signature.');
+      setError(text('RegistrationForm.please_draw_or_type_your_signature'));
       return;
     }
     if (!accepted) {
-      setError('Please accept the declaration.');
+      setError(text('RegistrationForm.please_accept_the_declaration'));
       return;
     }
 
@@ -177,7 +190,9 @@ export default function RegistrationForm({ onDone }) {
       await submitRegistration(registrationData, proof, signed ? signatureImage : null);
       onDone();
     } catch (err) {
-      setError(err.message || 'Unable to submit registration. Please try again.');
+      setError(
+        err.message || text('RegistrationForm.unable_to_submit_registration_please_try_again'),
+      );
     } finally {
       setLoading(false);
     }
@@ -185,8 +200,8 @@ export default function RegistrationForm({ onDone }) {
   return (
     <form ref={form} onSubmit={submit}>
       <p className="form-note">
-        <Icon name="box" size={17} /> Your details and supporting document will be emailed to our
-        team.
+        <Icon name="box" size={17} />
+        {text('RegistrationForm.your_details_and_supporting_document_will_be_emailed_to_our_team')}
       </p>
       <ol className="form-steps">
         {steps.map((name, index) => (
@@ -201,31 +216,35 @@ export default function RegistrationForm({ onDone }) {
         ))}
       </ol>
       <div key={step} className="form-step">
-        <p className="eyebrow">Step {step + 1} of 4</p>
+        <p className="eyebrow">
+          {text('RegistrationForm.step')}
+          {step + 1}
+          {text('RegistrationForm.of_4')}
+        </p>
         <h3>{steps[step]}</h3>
         <p className="muted form-intro">
           {
             [
-              'Tell us about your business and the person we should contact.',
-              'Help us understand where and how to deliver your order.',
-              'Add two suppliers who know your business.',
-              'Confirm your details and submit your registration for review.',
+              text('RegistrationForm.tell_us_about_your_business_and_the_person_we_should_contact'),
+              text('RegistrationForm.help_us_understand_where_and_how_to_deliver_your_order'),
+              text('RegistrationForm.add_two_suppliers_who_know_your_business'),
+              text('RegistrationForm.confirm_your_details_and_submit_your_registration_for_review'),
             ][step]
           }
         </p>
         {step === 0 && (
           <div className="form-grid">
-            {field('Contact full name', 'contactName', 'text', true)}
-            {field('Business / applicant name', 'businessName', 'text', true)}
-            {field('Company registration number', 'companyNumber')}
-            {field('VAT registration number', 'vatNumber')}
-            {field('Email address', 'email', 'email', true)}
-            {field('Mobile number', 'mobile', 'tel', true)}
-            {field('Landline number', 'telephone', 'tel')}
-            {field('Business website', 'website', 'url', false, {
+            {field(text('RegistrationForm.contact_full_name'), 'contactName', 'text', true)}
+            {field(text('RegistrationForm.business_applicant_name'), 'businessName', 'text', true)}
+            {field(text('RegistrationForm.company_registration_number'), 'companyNumber')}
+            {field(text('RegistrationForm.vat_registration_number'), 'vatNumber')}
+            {field(text('RegistrationForm.email_address'), 'email', 'email', true)}
+            {field(text('RegistrationForm.mobile_number'), 'mobile', 'tel', true)}
+            {field(text('RegistrationForm.landline_number'), 'telephone', 'tel')}
+            {field(text('RegistrationForm.business_website'), 'website', 'url', false, {
               placeholder: 'https://',
             })}
-            <h4 className="full-width">Business address</h4>
+            <h4 className="full-width">{text('RegistrationForm.business_address')}</h4>
             {address('account')}
           </div>
         )}
@@ -237,13 +256,13 @@ export default function RegistrationForm({ onDone }) {
                 checked={different}
                 onChange={(e) => setDifferent(e.target.checked)}
               />
-              Use a different delivery address
+              {text('RegistrationForm.use_a_different_delivery_address')}
             </label>
             {different ? (
               <div className="form-grid">{address('delivery')}</div>
             ) : (
               <div className="address-summary">
-                We will use your business address.
+                {text('RegistrationForm.we_will_use_your_business_address')}
                 <br />
                 <strong>
                   {values.accountAddress}, {values.accountCity}, {values.accountPostcode}
@@ -251,35 +270,38 @@ export default function RegistrationForm({ onDone }) {
               </div>
             )}
             <div className="form-grid">
-              {field('Parking / unloading access', 'parking', 'text', true, {
-                placeholder: 'e.g. Loading bay at the rear',
+              {field(text('RegistrationForm.parking_unloading_access'), 'parking', 'text', true, {
+                placeholder: text('RegistrationForm.e_g_loading_bay_at_the_rear'),
               })}
               <label className="field">
-                <span>Forklift on site *</span>
+                <span>{text('RegistrationForm.forklift_on_site')}</span>
                 <select
                   required
                   value={values.forklift || ''}
                   onChange={(e) => update('forklift', e.target.value)}
                 >
-                  <option value="">Please select</option>
-                  <option>Yes</option>
-                  <option>No</option>
-                  <option>By arrangement</option>
+                  <option value="">{text('RegistrationForm.please_select')}</option>
+                  <option>{text('RegistrationForm.yes')}</option>
+                  <option>{text('RegistrationForm.no')}</option>
+                  <option>{text('RegistrationForm.by_arrangement')}</option>
                 </select>
               </label>
               <label className="field full-width">
-                <span>Delivery instructions and other notes</span>
+                <span>{text('RegistrationForm.delivery_instructions_and_other_notes')}</span>
                 <textarea
                   rows="4"
                   value={values.notes || ''}
                   onChange={(e) => update('notes', e.target.value)}
-                  placeholder="Opening hours, vehicle restrictions or anything else we should know."
+                  placeholder={text(
+                    'RegistrationForm.opening_hours_vehicle_restrictions_or_anything_else_we_should_kno',
+                  )}
                 />
               </label>
             </div>
             <p className="muted small">
-              Delivery arrangements and any special requirements would be agreed when your trade
-              account is approved.
+              {text(
+                'RegistrationForm.delivery_arrangements_and_any_special_requirements_would_be_agree',
+              )}
             </p>
           </>
         )}
@@ -287,20 +309,32 @@ export default function RegistrationForm({ onDone }) {
           <>
             {[1, 2].map((n) => (
               <fieldset key={n}>
-                <legend>Trade reference {n}</legend>
+                <legend>
+                  {text('RegistrationForm.trade_reference')}
+                  {n}
+                </legend>
                 <div className="form-grid">
-                  {field('Supplier / reference identifier', `ref${n}Identifier`)}
-                  {field('Contact person', `ref${n}Name`, 'text', true)}
-                  {field('Supplier business name', `ref${n}Company`, 'text', true)}
+                  {field(
+                    text('RegistrationForm.supplier_reference_identifier'),
+                    `ref${n}Identifier`,
+                  )}
+                  {field(text('RegistrationForm.contact_person'), `ref${n}Name`, 'text', true)}
+                  {field(
+                    text('RegistrationForm.supplier_business_name'),
+                    `ref${n}Company`,
+                    'text',
+                    true,
+                  )}
                   {address(`ref${n}`)}
                 </div>
               </fieldset>
             ))}
             <label className="field upload-field">
-              <span>Proof of business address *</span>
+              <span>{text('RegistrationForm.proof_of_business_address')}</span>
               <span className="muted small">
-                Choose a PDF, JPG or PNG, up to 3 MB. This document will be attached to the
-                registration email.
+                {text(
+                  'RegistrationForm.choose_a_pdf_jpg_or_png_up_to_3_mb_this_document_will_be_attached',
+                )}
               </span>
               <input
                 type="file"
@@ -311,7 +345,7 @@ export default function RegistrationForm({ onDone }) {
                     file &&
                     (file.size > 3 * 1024 * 1024 || !/\.(pdf|png|jpe?g)$/i.test(file.name))
                   ) {
-                    setError('Choose a PDF, JPG or PNG smaller than 3 MB.');
+                    setError(text('RegistrationForm.choose_a_pdf_jpg_or_png_smaller_than_3_mb'));
                     e.target.value = '';
                     setProof(null);
                   } else {
@@ -332,36 +366,65 @@ export default function RegistrationForm({ onDone }) {
                 checked={credit}
                 onChange={(e) => setCredit(e.target.checked)}
               />
-              Include a credit account guarantor
+              {text('RegistrationForm.include_a_credit_account_guarantor')}
             </label>
             <p className="muted small">
-              Submitting these details does not create a guarantee or credit agreement.
+              {text(
+                'RegistrationForm.submitting_these_details_does_not_create_a_guarantee_or_credit_ag',
+              )}
             </p>
             {credit && (
               <fieldset>
-                <legend>Guarantor information</legend>
+                <legend>{text('RegistrationForm.guarantor_information')}</legend>
                 <div className="form-grid">
-                  {field('Guarantor full name', 'guarantorName', 'text', true)}
-                  {field('Birth date', 'guarantorBirth', 'date', true, {
+                  {field(
+                    text('RegistrationForm.guarantor_full_name'),
+                    'guarantorName',
+                    'text',
+                    true,
+                  )}
+                  {field(text('RegistrationForm.birth_date'), 'guarantorBirth', 'date', true, {
                     max: new Date().toISOString().slice(0, 10),
                   })}
-                  {field('Residential address', 'guarantorAddress', 'text', true)}
-                  {field('Contact telephone', 'guarantorPhone', 'tel', true)}
-                  {field('Personal email', 'guarantorEmail', 'email', true)}
-                  {field('Company role', 'guarantorPosition', 'text', true)}
-                  {field('Guarantor signature (typed)', 'guarantorSignature', 'text', true)}
-                  {field('Guarantor signing date', 'guarantorDate', 'date', true)}
+                  {field(
+                    text('RegistrationForm.residential_address'),
+                    'guarantorAddress',
+                    'text',
+                    true,
+                  )}
+                  {field(text('RegistrationForm.contact_telephone'), 'guarantorPhone', 'tel', true)}
+                  {field(text('RegistrationForm.personal_email'), 'guarantorEmail', 'email', true)}
+                  {field(text('RegistrationForm.company_role'), 'guarantorPosition', 'text', true)}
+                  {field(
+                    text('RegistrationForm.guarantor_signature_typed'),
+                    'guarantorSignature',
+                    'text',
+                    true,
+                  )}
+                  {field(
+                    text('RegistrationForm.guarantor_signing_date'),
+                    'guarantorDate',
+                    'date',
+                    true,
+                  )}
                 </div>
               </fieldset>
             )}
             <div className="form-grid">
-              {field('Authorised signatory', 'signatoryName', 'text', true)}
-              {field('Job title / position', 'signatoryPosition', 'text', true)}
-              {field('Signing date', 'signatoryDate', 'date', true)}
+              {field(text('RegistrationForm.authorised_signatory'), 'signatoryName', 'text', true)}
+              {field(
+                text('RegistrationForm.job_title_position'),
+                'signatoryPosition',
+                'text',
+                true,
+              )}
+              {field(text('RegistrationForm.signing_date'), 'signatoryDate', 'date', true)}
             </div>
             <Signature onChange={setSigned} onImageChange={setSignatureImage} />
-            {field('Typed signature', 'typedSignature', 'text', false, {
-              placeholder: 'Type your full name as an alternative to drawing',
+            {field(text('RegistrationForm.typed_signature'), 'typedSignature', 'text', false, {
+              placeholder: text(
+                'RegistrationForm.type_your_full_name_as_an_alternative_to_drawing',
+              ),
             })}
             <label className="checkbox">
               <input
@@ -370,8 +433,9 @@ export default function RegistrationForm({ onDone }) {
                 onChange={(e) => setAccepted(e.target.checked)}
                 required
               />
-              I confirm that I am authorised to submit these registration details and the attached
-              document for review. No account is automatically created.
+              {text(
+                'RegistrationForm.i_confirm_that_i_am_authorised_to_submit_these_registration_detai',
+              )}
             </label>
           </>
         )}
@@ -388,13 +452,17 @@ export default function RegistrationForm({ onDone }) {
             className="button button-outline"
             onClick={() => navigate(step - 1)}
           >
-            Back
+            {text('RegistrationForm.back')}
           </button>
         ) : (
-          <span className="small muted">* Required fields</span>
+          <span className="small muted">{text('RegistrationForm.required_fields')}</span>
         )}
         <button className="button" type="submit" disabled={loading}>
-          {loading ? 'Submitting...' : step === 3 ? 'Submit registration' : 'Continue'}
+          {loading
+            ? text('RegistrationForm.submitting')
+            : step === 3
+              ? text('RegistrationForm.submit_registration')
+              : text('RegistrationForm.continue')}
           <Icon name="arrow" size={17} />
         </button>
       </div>

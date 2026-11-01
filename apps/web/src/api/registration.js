@@ -1,3 +1,4 @@
+import { text } from '@papas-choice/content';
 import { sendEmail } from './email.js';
 const LAMBDA_URL = import.meta.env.VITE_REGISTRATION_LAMBDA_URL;
 
@@ -15,31 +16,31 @@ const MIME_TYPES = {
 export function fileToBase64(file) {
   return new Promise((resolve, reject) => {
     if (typeof File === 'undefined' || !(file instanceof File)) {
-      reject(new Error('Please select a valid attachment.'));
+      reject(new Error(text('registration.please_select_a_valid_attachment')));
       return;
     }
 
     if (file.size === 0) {
-      reject(new Error('The selected file is empty.'));
+      reject(new Error(text('registration.the_selected_file_is_empty')));
       return;
     }
 
     if (file.size > MAX_FILE_SIZE) {
-      reject(new Error('The uploaded file must be 3 MB or smaller.'));
+      reject(new Error(text('registration.the_uploaded_file_must_be_3_mb_or_smaller')));
       return;
     }
 
     const extension = file.name.split('.').pop()?.toLowerCase();
 
     if (!ALLOWED_EXTENSIONS.includes(extension)) {
-      reject(new Error('Only PDF, PNG, JPG and JPEG files are allowed.'));
+      reject(new Error(text('registration.only_pdf_png_jpg_and_jpeg_files_are_allowed')));
       return;
     }
 
     const mimeType = MIME_TYPES[extension];
 
     if (file.type && file.type !== mimeType) {
-      reject(new Error('The file type does not match its extension.'));
+      reject(new Error(text('registration.the_file_type_does_not_match_its_extension')));
       return;
     }
 
@@ -47,21 +48,21 @@ export function fileToBase64(file) {
 
     reader.onload = () => {
       if (typeof reader.result !== 'string') {
-        reject(new Error('Unable to read the uploaded file.'));
+        reject(new Error(text('registration.unable_to_read_the_uploaded_file')));
         return;
       }
 
       const commaIndex = reader.result.indexOf(',');
 
       if (commaIndex === -1) {
-        reject(new Error('Invalid file encoding.'));
+        reject(new Error(text('registration.invalid_file_encoding')));
         return;
       }
 
       const base64 = reader.result.slice(commaIndex + 1);
 
       if (!base64) {
-        reject(new Error('The uploaded file could not be encoded.'));
+        reject(new Error(text('registration.the_uploaded_file_could_not_be_encoded')));
         return;
       }
 
@@ -73,7 +74,7 @@ export function fileToBase64(file) {
     };
 
     reader.onerror = () => {
-      reject(new Error('Unable to read the uploaded file.'));
+      reject(new Error(text('registration.unable_to_read_the_uploaded_file')));
     };
 
     reader.readAsDataURL(file);
@@ -110,7 +111,7 @@ async function prepareAttachment(value) {
 
   if (typeof value === 'object' && typeof value.base64 === 'string') {
     if (!value.base64.trim()) {
-      throw new Error('Attachment content is empty.');
+      throw new Error(text('registration.attachment_content_is_empty'));
     }
 
     return {
@@ -124,7 +125,7 @@ async function prepareAttachment(value) {
     return prepareAttachment(value.file);
   }
 
-  throw new Error('Invalid attachment format. Please upload the file again.');
+  throw new Error(text('registration.invalid_attachment_format_please_upload_the_file_again'));
 }
 
 function findProofFile(data) {
@@ -156,7 +157,7 @@ export async function prepareRegistrationPayload(registrationData) {
     typeof registrationData !== 'object' ||
     Array.isArray(registrationData)
   ) {
-    throw new Error('Registration information is missing.');
+    throw new Error(text('registration.registration_information_is_missing'));
   }
 
   const fields = { ...registrationData };
@@ -178,7 +179,7 @@ export async function prepareRegistrationPayload(registrationData) {
 
 export async function submitRegistration(registrationData, proof = null, signatureImage = null) {
   if (!LAMBDA_URL) {
-    throw new Error('Registration service URL is not configured.');
+    throw new Error(text('registration.registration_service_url_is_not_configured'));
   }
 
   if (
@@ -186,7 +187,7 @@ export async function submitRegistration(registrationData, proof = null, signatu
     typeof registrationData !== 'object' ||
     Array.isArray(registrationData)
   ) {
-    throw new Error('Registration information is missing.');
+    throw new Error(text('registration.registration_information_is_missing'));
   }
 
   const data = {
@@ -201,7 +202,7 @@ export async function submitRegistration(registrationData, proof = null, signatu
 
   const payload = await prepareRegistrationPayload(data);
   if (!payload.proofFile) {
-    throw new Error('Please upload proof of your business address.');
+    throw new Error(text('registration.please_upload_proof_of_your_business_address'));
   }
 
   return sendEmail(payload);

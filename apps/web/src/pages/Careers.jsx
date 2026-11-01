@@ -1,11 +1,11 @@
+import { text } from '@papas-choice/content';
 import { useState } from 'react';
 import { useContent } from '../context/ContentContext.jsx';
-import { jobs } from '../data/jobs.js';
 import Icon from '../components/Icon.jsx';
 export default function Careers({ onApply }) {
   const [expanded, setExpanded] = useState(null);
   const {
-    content: { careersCopy: copy },
+    content: { careersCopy: copy, jobs },
   } = useContent();
   return (
     <section className="container page-section">
@@ -31,46 +31,46 @@ export default function Careers({ onApply }) {
           </a>
         </div>
         <div className="careers-art" aria-hidden="true">
-          <span className="art-label">A little care goes a long way.</span>
+          <span className="art-label">{text('Careers.a_little_care_goes_a_long_way')}</span>
           <div className="art-box box-one">
-            good
+            {text('Careers.good')}
             <br />
-            people.
+            {text('Careers.people')}
           </div>
           <div className="art-box box-two">
-            good
+            {text('Careers.good')}
             <br />
-            things.
+            {text('Careers.things')}
           </div>
-          <span className="art-bottom">GROW WITH PAPA’S CHOICE</span>
+          <span className="art-bottom">{text('Careers.grow_with_papa_s_choice')}</span>
         </div>
       </header>
       <div className="culture-row">
         <div>
           <span>01</span>
-          <h3>Work together</h3>
-          <p>Good work starts with a team that supports one another.</p>
+          <h3>{text('Careers.work_together')}</h3>
+          <p>{text('Careers.good_work_starts_with_a_team_that_supports_one_another')}</p>
         </div>
         <div>
           <span>02</span>
-          <h3>Care about the detail</h3>
-          <p>From an account query to a packed order, the little things count.</p>
+          <h3>{text('Careers.care_about_the_detail')}</h3>
+          <p>{text('Careers.from_an_account_query_to_a_packed_order_the_little_things_count')}</p>
         </div>
         <div>
           <span>03</span>
-          <h3>Keep growing</h3>
-          <p>Bring your curiosity and build on what you do well.</p>
+          <h3>{text('Careers.keep_growing')}</h3>
+          <p>{text('Careers.bring_your_curiosity_and_build_on_what_you_do_well')}</p>
         </div>
       </div>
       <section id="open-roles" className="open-roles">
         <div className="section-heading">
           <div>
-            <p className="eyebrow">Find your place</p>
+            <p className="eyebrow">{text('Careers.find_your_place')}</p>
             <h2>
-              {copy.rolesTitle} <span className="count-badge">2</span>
+              {copy.rolesTitle} <span className="count-badge">{jobs.length}</span>
             </h2>
           </div>
-          <span className="muted small">Finance & operations</span>
+          <span className="muted small">{text('Careers.finance_operations')}</span>
         </div>
         {jobs.map((job) => (
           <article className={`job-card ${expanded === job.id ? 'expanded' : ''}`} key={job.id}>
@@ -85,7 +85,7 @@ export default function Careers({ onApply }) {
                 <h3>{job.title}</h3>
               </div>
               <span className="job-view">
-                View role
+                {text('Careers.view_role')}
                 <Icon name={expanded === job.id ? 'minus' : 'plus'} />
               </span>
             </button>
@@ -94,7 +94,7 @@ export default function Careers({ onApply }) {
                 <p>{job.intro}</p>
                 <div className="job-columns">
                   <div>
-                    <h4>What you’ll do</h4>
+                    <h4>{text('Careers.what_you_ll_do')}</h4>
                     <ul>
                       {job.tasks.map((t) => (
                         <li key={t}>{t}</li>
@@ -102,7 +102,7 @@ export default function Careers({ onApply }) {
                     </ul>
                   </div>
                   <div>
-                    <h4>What you’ll bring</h4>
+                    <h4>{text('Careers.what_you_ll_bring')}</h4>
                     <ul>
                       {job.skills.map((t) => (
                         <li key={t}>{t}</li>
@@ -120,8 +120,7 @@ export default function Careers({ onApply }) {
         ))}
       </section>
       <p className="careers-note">
-        A team with different perspectives is a stronger team. We welcome applications from people
-        with a wide range of backgrounds and experiences.
+        {text('Careers.a_team_with_different_perspectives_is_a_stronger_team_we_welcome_')}
       </p>
     </section>
   );

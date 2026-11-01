@@ -1,12 +1,30 @@
-import defaults from './defaults.json' with { type: 'json' };
+import site from './site.json' with { type: 'json' };
+import products from './products.json' with { type: 'json' };
+import interfaceCopy from './interface.json' with { type: 'json' };
+const defaults = { ...site, ...products };
+export const defaultSite = site;
+export const defaultInterface = interfaceCopy;
+let activeInterface = interfaceCopy;
+let assetBase = '';
+export function configureSiteContent(copy = interfaceCopy, base = '') {
+  activeInterface = copy;
+  assetBase = base;
+}
+export function text(key, values = []) {
+  const [section, name] = key.split('.');
+  const value = activeInterface[section]?.[name] ?? interfaceCopy[section]?.[name] ?? key;
+  return value.replace(/\{(\d+)\}/g, (match, index) => String(values[index] ?? match));
+}
 export const defaultContent = defaults;
 export const cloneContent = (value) => JSON.parse(JSON.stringify(value));
 export const money = (value) =>
   value === null
-    ? 'Price on enquiry'
+    ? text('common.price_on_enquiry')
     : new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'GBP' }).format(value);
 export const localAsset = (path) =>
-  path.startsWith('/assets/') ? `${import.meta.env?.BASE_URL || './'}${path.slice(1)}` : path;
+  path.startsWith('/assets/') || path === '/favicon.svg'
+    ? `${assetBase && !path.startsWith('/assets/products/') ? assetBase : import.meta.env?.BASE_URL || './'}${path.slice(1)}`
+    : path;
 export const allowedTargets = [
   '/',
   '/about',

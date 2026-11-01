@@ -1,3 +1,4 @@
+import { text } from '@papas-choice/content';
 import { useEffect, useRef } from 'react';
 import Icon from './Icon.jsx';
 export default function Modal({ title, children, onClose, wide = false }) {
@@ -38,7 +39,7 @@ export default function Modal({ title, children, onClose, wide = false }) {
     >
       <div className="modal-header">
         <h2 id="modal-title">{title}</h2>
-        <button className="icon-button" aria-label="Close dialog" onClick={onClose}>
+        <button className="icon-button" aria-label={text('Modal.close_dialog')} onClick={onClose}>
           <Icon name="close" />
         </button>
       </div>
