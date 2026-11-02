@@ -83,10 +83,10 @@ export default function Home({ onDetails }) {
           <p className="eyebrow">Delivery</p>
           <h2>Good food, delivered.</h2>
           <p>
-            Speak to our team about delivery for your business. We’ll help you arrange the
-            right option for your wholesale order.
+            Speak to our team about delivery for your business. We’ll help you arrange the right
+            option for your wholesale order.
           </p>
-          <Link className="button button-dark" to="/register">
+          <Link className="button button-dark" to="/delivery">
             Learn more
             <Icon name="arrow" />
           </Link>

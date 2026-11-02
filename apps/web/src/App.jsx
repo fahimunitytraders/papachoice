@@ -10,6 +10,7 @@ import Partners from './pages/Partners.jsx';
 import Contact from './pages/Contact.jsx';
 import Careers from './pages/Careers.jsx';
 import Register from './pages/Register.jsx';
+import Delivery from './pages/Delivery.jsx';
 import Modal from './components/Modal.jsx';
 import ApplicationForm from './components/ApplicationForm.jsx';
 import ProductImage from './components/ProductImage.jsx';
@@ -27,7 +28,7 @@ export default function App() {
     setModal(null);
     window.scrollTo({ top: 0, behavior: 'instant' });
     const pagePath = location.pathname.replace(/\/+$/, '').toLowerCase() || '/';
-    document.title = `${{ '/': text('App.african_wholesale_in_london'), '/about': text('App.about_us'), '/products': text('App.products'), '/partners': text('App.our_partners'), '/careers': text('App.careers'), '/register': text('App.register'), '/contact': text('App.contact_us') }[pagePath] || text('App.page_not_found')} | ${c.brand.name}`;
+    document.title = `${{ '/': text('App.african_wholesale_in_london'), '/about': text('App.about_us'), '/products': text('App.products'), '/partners': text('App.our_partners'), '/careers': text('App.careers'), '/delivery': 'UK delivery', '/register': text('App.register'), '/contact': text('App.contact_us') }[pagePath] || text('App.page_not_found')} | ${c.brand.name}`;
   }, [location.pathname, c.brand.name]);
   function searchSubmit(e) {
     e.preventDefault();
@@ -125,6 +126,7 @@ export default function App() {
             path="/careers"
             element={<Careers onApply={(job) => setModal({ type: 'application', job })} />}
           />
+          <Route path="/delivery" element={<Delivery />} />
           <Route path="/register" element={<Register />} />
           <Route
             path="*"
