@@ -1433,18 +1433,11 @@ summary:focus-visible {
   font-size: 19px;
 }
 .delivery-minimum {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 15px;
-  padding: 22px;
-  margin-block: 28px;
-  background: var(--surface);
-  border-radius: 5px;
+  font-size: 14px;
 }
 .delivery-minimum strong {
-  font-size: 34px;
+  font-size: inherit;
+  font-weight: 600;
 }
 .delivery-copy .button {
   margin-top: 12px;

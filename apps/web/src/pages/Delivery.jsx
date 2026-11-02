@@ -1,12 +1,9 @@
 import { Link } from 'react-router-dom';
-import { localAsset } from '@papas-choice/content';
-import { useContent } from '../context/ContentContext.jsx';
 import Reveal from '../components/Reveal.jsx';
 import Icon from '../components/Icon.jsx';
 
 export default function Delivery() {
-  const { content } = useContent();
-  const warehouses = content.contact.warehouses;
+  const imageBase = `${import.meta.env.BASE_URL}assets/delivery/`;
 
   return (
     <section className="container delivery-page">
@@ -18,10 +15,9 @@ export default function Delivery() {
             From our warehouses to your business, we deliver African and international foods across
             the whole UK.
           </p>
-          <div className="delivery-minimum">
-            <span>Minimum delivery order</span>
-            <strong>£1,000</strong>
-          </div>
+          <p className="delivery-minimum">
+            Minimum delivery order: <strong>£1,000</strong>.
+          </p>
           <p>
             Stock up on the flavours your customers love. Register your business to discuss your
             order and delivery arrangements with our team.
@@ -31,7 +27,10 @@ export default function Delivery() {
           </Link>
         </Reveal>
         <Reveal className="delivery-photo" delay={120}>
-          <img src={localAsset(warehouses[0].image)} alt={warehouses[0].alt} />
+          <img
+            src={`${imageBase}delivery-van.webp`}
+            alt="Illustration of a Papa’s Choice delivery van outside a warehouse"
+          />
           <p>From our warehouses to your business.</p>
         </Reveal>
       </div>
@@ -62,7 +61,11 @@ export default function Delivery() {
 
       <div className="delivery-details">
         <Reveal className="delivery-photo">
-          <img src={localAsset(warehouses[1].image)} alt={warehouses[1].alt} loading="lazy" />
+          <img
+            src={`${imageBase}shop-delivery.webp`}
+            alt="Illustration of a Papa’s Choice van delivering wholesale goods to a shop"
+            loading="lazy"
+          />
         </Reveal>
         <Reveal className="delivery-copy">
           <p className="eyebrow">Here to help</p>
