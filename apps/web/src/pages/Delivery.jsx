@@ -12,8 +12,7 @@ export default function Delivery() {
           <p className="eyebrow">Wholesale delivery</p>
           <h1>Good food. Across the UK.</h1>
           <p className="delivery-lead">
-            From our warehouses to your business, we deliver African and international foods across
-            the whole UK.
+            We deliver African and international foods directly to businesses across the whole UK.
           </p>
           <p className="delivery-minimum">
             Minimum delivery order: <strong>£1,000</strong>.
@@ -31,7 +30,6 @@ export default function Delivery() {
             src={`${imageBase}delivery-van.webp`}
             alt="Illustration of a Papa’s Choice delivery van outside a warehouse"
           />
-          <p>From our warehouses to your business.</p>
         </Reveal>
       </div>
 
