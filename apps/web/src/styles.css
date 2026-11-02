@@ -1409,8 +1409,7 @@ summary:focus-visible {
 .delivery-page {
   padding-block: 70px;
 }
-.delivery-intro,
-.delivery-details {
+.delivery-intro {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 65px;
@@ -1433,18 +1432,11 @@ summary:focus-visible {
   font-size: 19px;
 }
 .delivery-minimum {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 15px;
-  padding: 22px;
-  margin-block: 28px;
-  background: var(--surface);
-  border-radius: 5px;
+  font-size: 14px;
 }
 .delivery-minimum strong {
-  font-size: 34px;
+  font-size: inherit;
+  font-weight: 600;
 }
 .delivery-copy .button {
   margin-top: 12px;
@@ -1497,7 +1489,6 @@ summary:focus-visible {
     padding-block: 40px;
   }
   .delivery-intro,
-  .delivery-details,
   .delivery-steps ol {
     grid-template-columns: 1fr;
     gap: 30px;
