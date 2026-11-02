@@ -79,15 +79,27 @@ export default function Home({ onDetails }) {
         </Reveal>
       </section>
       <Reveal className="container visit-banner">
-        <div>
+        <div className="visit-option">
+          <p className="eyebrow">Delivery</p>
+          <h2>Good food, delivered.</h2>
+          <p>
+            Speak to our team about delivery for your business. We’ll help you arrange the right
+            option for your wholesale order.
+          </p>
+          <Link className="button button-dark" to="/delivery">
+            Learn more
+            <Icon name="arrow" />
+          </Link>
+        </div>
+        <div className="visit-option">
           <p className="eyebrow">{text('Home.your_local_cash_carry')}</p>
           <h2>{h.visitTitle}</h2>
           <p>{h.visitText}</p>
+          <Link className="button button-dark" to="/contact">
+            {h.visitButton}
+            <Icon name="arrow" />
+          </Link>
         </div>
-        <Link className="button button-dark" to="/contact">
-          {h.visitButton}
-          <Icon name="arrow" />
-        </Link>
       </Reveal>
     </>
   );
