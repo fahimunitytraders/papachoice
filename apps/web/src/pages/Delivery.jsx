@@ -27,8 +27,8 @@ export default function Delivery() {
         </Reveal>
         <Reveal className="delivery-photo" delay={120}>
           <img
-            src={`${imageBase}delivery-van.webp`}
-            alt="Illustration of a Papa’s Choice delivery van outside a warehouse"
+            src={`${imageBase}shop-delivery.webp`}
+            alt="Illustration of a Papa’s Choice van delivering wholesale goods to a shop"
           />
         </Reveal>
       </div>
@@ -57,14 +57,7 @@ export default function Delivery() {
         </ol>
       </div>
 
-      <div className="delivery-details">
-        <Reveal className="delivery-photo">
-          <img
-            src={`${imageBase}shop-delivery.webp`}
-            alt="Illustration of a Papa’s Choice van delivering wholesale goods to a shop"
-            loading="lazy"
-          />
-        </Reveal>
+      <div className="delivery-details delivery-enquiry">
         <Reveal className="delivery-copy">
           <p className="eyebrow">Here to help</p>
           <h2>Let’s get your shelves stocked.</h2>

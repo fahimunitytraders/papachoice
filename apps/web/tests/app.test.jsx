@@ -27,7 +27,8 @@ describe('Papa’s Choice catalogue', () => {
     expect(screen.getByRole('heading', { name: 'Good food. Across the UK.' })).toBeTruthy();
     expect(screen.getByText('£1,000')).toBeTruthy();
     const page = screen.getByRole('heading', { name: 'Good food. Across the UK.' }).closest('section');
-    expect(within(page).getAllByRole('img')).toHaveLength(2);
+    expect(within(page).getAllByRole('img')).toHaveLength(1);
+    expect(within(page).getByRole('img').getAttribute('src')).toContain('shop-delivery.webp');
     await user.click(screen.getByRole('link', { name: 'Register for delivery' }));
     expect(screen.getByRole('heading', { name: 'Let’s talk trade.' })).toBeTruthy();
   });
