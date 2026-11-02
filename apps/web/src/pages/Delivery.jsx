@@ -27,8 +27,8 @@ export default function Delivery() {
         </Reveal>
         <Reveal className="delivery-photo" delay={120}>
           <img
-            src={`${imageBase}shop-delivery.webp`}
-            alt="Illustration of a Papa’s Choice van delivering wholesale goods to a shop"
+            src={`${imageBase}papas-choice-truck.jpg`}
+            alt="Papa’s Choice delivery truck with branded blue livery"
           />
         </Reveal>
       </div>
