@@ -26,7 +26,9 @@ describe('Papa’s Choice catalogue', () => {
     await user.click(screen.getByRole('link', { name: 'Learn more' }));
     expect(screen.getByRole('heading', { name: 'Good food. Across the UK.' })).toBeTruthy();
     expect(screen.getByText('£1,000')).toBeTruthy();
-    const page = screen.getByRole('heading', { name: 'Good food. Across the UK.' }).closest('section');
+    const page = screen
+      .getByRole('heading', { name: 'Good food. Across the UK.' })
+      .closest('section');
     expect(within(page).getAllByRole('img')).toHaveLength(2);
     await user.click(screen.getByRole('link', { name: 'Register for delivery' }));
     expect(screen.getByRole('heading', { name: 'Let’s talk trade.' })).toBeTruthy();
@@ -222,42 +224,19 @@ describe('career applications', () => {
   });
 });
 
-it('shows both branches together with photos, details and directions', () => {
+it('shows contact options directly without branch sections', () => {
   mount('/contact');
-  for (const [name, image] of [
-    ['London branch', 'london.jpg'],
-    ['Thrapston branch', 'thrapston.jpg'],
-  ]) {
-    const card = screen.getByRole('heading', { name }).closest('.warehouse-card');
-    expect(within(card).getByRole('img').getAttribute('src')).toContain(image);
-    expect(within(card).getByRole('link', { name: `Get directions to ${name}` })).toBeTruthy();
-  }
-  expect(screen.queryByText('COME SAY HELLO')).toBeNull();
-});
-it('switches contact sections only through the buttons and focuses the active section', async () => {
-  const user = userEvent.setup();
-  mount('/contact');
-  const branches = screen.getByRole('region', { name: 'Where to find us' });
-  expect(screen.queryByRole('region', { name: 'Let’s talk.' })).toBeNull();
-  branches.scrollTop = 500;
-  fireEvent.scroll(branches);
-  fireEvent.wheel(branches, { deltaY: 1000 });
-  expect(screen.queryByRole('region', { name: 'Let’s talk.' })).toBeNull();
-  await user.click(screen.getByRole('button', { name: 'TALK TO US' }));
-  const team = screen.getByRole('region', { name: 'Let’s talk.' });
-  expect(within(team).getByRole('link', { name: '+44 7398477274' }).getAttribute('href')).toBe(
+  const contact = within(screen.getByRole('region', { name: 'Let’s talk.' }));
+  expect(screen.getByRole('heading', { level: 1, name: 'Let’s talk.' })).toBeTruthy();
+  expect(contact.getByRole('link', { name: '+44 7398477274' }).getAttribute('href')).toBe(
     'tel:+447398477274',
   );
+  expect(contact.getByRole('link', { name: 'Message on WhatsApp' }).getAttribute('href')).toContain(
+    'wa.me/',
+  );
   expect(screen.queryByRole('region', { name: 'Where to find us' })).toBeNull();
-  expect(branches.hasAttribute('inert')).toBe(true);
-  expect(within(team).getByRole('heading', { name: 'Let’s talk.' })).toBe(document.activeElement);
-  await user.click(screen.getByRole('button', { name: 'Find us' }));
-  expect(screen.getByRole('region', { name: 'Where to find us' })).toBeTruthy();
-  expect(screen.queryByRole('region', { name: 'Let’s talk.' })).toBeNull();
-  expect(team.hasAttribute('inert')).toBe(true);
-  expect(branches.hasAttribute('inert')).toBe(false);
-  expect(branches.scrollTop).toBe(0);
-  expect(screen.getByRole('heading', { name: 'Where to find us' })).toBe(document.activeElement);
+  expect(screen.queryByRole('heading', { name: /London branch|Thrapston branch/ })).toBeNull();
+  expect(screen.queryByRole('button', { name: 'Find us' })).toBeNull();
 });
 it('shows the family feast artwork with More than wholesale on the homepage', () => {
   mount();
