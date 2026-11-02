@@ -56,23 +56,6 @@ export default function Delivery() {
           </li>
         </ol>
       </div>
-
-      <div className="delivery-details delivery-enquiry">
-        <Reveal className="delivery-copy">
-          <p className="eyebrow">Here to help</p>
-          <h2>Let’s get your shelves stocked.</h2>
-          <p>
-            Have a question before registering? Speak to us about your location, order requirements
-            and delivery access. We’ll help you plan the next step.
-          </p>
-          <Link className="button button-dark" to="/register">
-            Register your business <Icon name="arrow" />
-          </Link>
-          <Link className="text-link" to="/contact">
-            Talk to our team <Icon name="arrow" />
-          </Link>
-        </Reveal>
-      </div>
     </section>
   );
 }
