@@ -359,14 +359,22 @@ h2 {
   margin-top: 22px;
 }
 .visit-banner {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 50px;
   padding: 50px;
   background: var(--surface);
   margin-block: 55px 70px;
   border-radius: 5px;
+}
+.visit-option {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.visit-option + .visit-option {
+  border-left: 1px solid var(--line);
+  padding-left: 50px;
 }
 .visit-banner h2 {
   font-size: 37px;
@@ -380,6 +388,10 @@ h2 {
 }
 .visit-banner .button {
   flex-shrink: 0;
+  margin-top: auto;
+}
+.visit-option p:not(.eyebrow) {
+  margin-bottom: 25px;
 }
 .site-footer {
   margin-top: 70px;
@@ -844,6 +856,9 @@ summary:focus-visible {
     padding: 35px;
     gap: 30px;
   }
+  .visit-option + .visit-option {
+    padding-left: 30px;
+  }
   .visit-banner h2 {
     font-size: 31px;
   }
@@ -1184,11 +1199,16 @@ summary:focus-visible {
     font-size: 14px;
   }
   .visit-banner {
-    flex-direction: column;
-    align-items: start;
+    grid-template-columns: 1fr;
     padding: 30px 25px;
     gap: 25px;
     margin-block: 40px;
+  }
+  .visit-option + .visit-option {
+    border-left: 0;
+    border-top: 1px solid var(--line);
+    padding-left: 0;
+    padding-top: 25px;
   }
   .visit-banner h2 {
     font-size: 30px;
