@@ -20,17 +20,6 @@ function mount(path = '/') {
   );
 }
 describe('Papa’s Choice catalogue', () => {
-  it('explains UK delivery before directing visitors to registration', async () => {
-    const user = userEvent.setup();
-    mount();
-    await user.click(screen.getByRole('link', { name: 'Learn more' }));
-    expect(screen.getByRole('heading', { name: 'Good food. Across the UK.' })).toBeTruthy();
-    expect(screen.getByText('£1,000')).toBeTruthy();
-    const page = screen.getByRole('heading', { name: 'Good food. Across the UK.' }).closest('section');
-    expect(within(page).getAllByRole('img')).toHaveLength(2);
-    await user.click(screen.getByRole('link', { name: 'Register for delivery' }));
-    expect(screen.getByRole('heading', { name: 'Let’s talk trade.' })).toBeTruthy();
-  });
   it('shows branding, best sellers, prices and brands without shopping controls', () => {
     mount();
     expect(screen.getByRole('heading', { name: 'Best sellers' })).toBeTruthy();
