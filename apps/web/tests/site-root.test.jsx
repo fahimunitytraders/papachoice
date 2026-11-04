@@ -26,3 +26,21 @@ it('shows a loading error instead of fallback content, and retries remote loadin
   expect(screen.queryByRole('alert')).toBeNull();
   log.mockRestore();
 });
+
+it('keeps the crawlable HTML favicon when remote content loads', async () => {
+  const icon = document.createElement('link');
+  icon.rel = 'icon';
+  icon.type = 'image/png';
+  icon.setAttribute('href', '/favicon/favicon-96x96.png');
+  document.head.append(icon);
+  try {
+    const content = structuredClone(defaultContent);
+    content.metadata.favicon = 'https://example.com/legacy-favicon.svg';
+    render(<SiteRoot loadContent={async () => content} />);
+    await screen.findByRole('heading', { name: content.home.title });
+    expect(icon.getAttribute('href')).toBe('/favicon/favicon-96x96.png');
+    expect(icon.type).toBe('image/png');
+  } finally {
+    icon.remove();
+  }
+});

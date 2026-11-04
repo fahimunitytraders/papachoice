@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import { localAsset } from '@papas-choice/content';
 import { loadSiteContent } from './content-loader.js';
 import { ContentProvider } from './context/ContentContext.jsx';
 import App from './App.jsx';
@@ -18,9 +17,6 @@ export default function SiteRoot({ loadContent = loadSiteContent }) {
         document
           .querySelector('meta[name=description]')
           ?.setAttribute('content', loaded.metadata.description);
-        document
-          .querySelector('link[rel=icon]')
-          ?.setAttribute('href', localAsset(loaded.metadata.favicon));
         setContent(loaded);
       })
       .catch((error) => {

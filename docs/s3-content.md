@@ -27,7 +27,7 @@ The admin app can publish new career IDs. Deploy the updated email handler and s
 
 ## Repository and development
 
-Non-product images and the downloadable ZIP have been removed from the current branch. The earlier ZIP remains recoverable from Git history. `packages/content/site.json` and `interface.json` are schema/reference content used by validation and tests; the running website never substitutes them for a failed remote request. Product data remains in `packages/content/products.json`.
+Page photography is served from S3 and the old downloadable ZIP has been removed from the current branch. Site favicons are an intentional exception: they are deployed with the frontend. The earlier ZIP remains recoverable from Git history. `packages/content/site.json` and `interface.json` are schema/reference content used by validation and tests; the running website never substitutes them for a failed remote request. Product data remains in `packages/content/products.json`.
 
 Tests explicitly supply fixtures. Run `npm test`, `node --test --test-isolation=none apps/api/careers.test.mjs`, and `npm run build`. Local development also loads CloudFront; configure an alternate HTTP localhost content server with `VITE_CONTENT_BASE_URL` when necessary.
 
@@ -44,3 +44,9 @@ Google Fonts remains external. Backend validation responses and email formatting
 ## Website manager
 
 The separate `fahimunitytraders/papachoice-admin` app manages these documents through an authenticated API. Homepage `heroSlides` (image, alt, crop), `storyImage` and `storyAlt` are editable. Legacy documents without those fields remain compatible using the original remote image paths; publishing from the admin writes the new fields. No local image or text fallback has been restored.
+
+## Browser and search favicon
+
+The supplied Papa’s Choice logo is preserved at `apps/web/public/favicon/papachoice-logo.jpg`. Square PNG icons (48, 96, 192 and 512 pixels), an Apple touch icon and the root `/favicon.ico` are deployed by Amplify. The HTML head links the ICO and 96px PNG directly, so crawlers do not need to run React or fetch S3 content to discover them. `SiteRoot` does not overwrite those links using the legacy metadata.favicon field.
+
+After deploying main, check `/favicon/favicon-96x96.png` and `/favicon.ico` on the public main-branch website. Keep these paths crawlable and stable. You may request indexing of the homepage in Google Search Console; Google controls favicon recrawling and whether it appears in search results.
